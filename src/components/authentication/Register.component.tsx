@@ -1,6 +1,7 @@
-import { Box, Container, Typography } from "@material-ui/core";
+import { Box, Typography, useTheme } from "@material-ui/core";
 import TextInput from "../global/TextInput.component";
 const Register: React.FC = () => {
+  const theme = useTheme();
   return (
     <Box
       height="100%"
@@ -9,7 +10,13 @@ const Register: React.FC = () => {
       justifyContent="center"
       alignItems="center"
     >
-      <Box width="690px" height="525px" border="1px solid white" p={2}>
+      <Box
+        width="690px"
+        height="525px"
+        p={2}
+        bgcolor={theme.palette.background.paper}
+        borderRadius={theme.shape.borderRadius}
+      >
         <Box
           display="flex"
           flexDirection="row"
