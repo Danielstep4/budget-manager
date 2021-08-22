@@ -23,7 +23,14 @@ const Register: React.FC = () => {
           </Typography>
         </Box>
         <Box component="form">
-          <TextInput type="text" label="Full Name" id="email" />
+          <TextInput type="text" label="Full Name" id="fullname" autoFocus />
+          <TextInput type="email" label="Email" id="email" />
+          <TextInput type="password" label="Password" id="password" />
+          <TextInput
+            type="password"
+            label="Confirm Password"
+            id="confirm-password"
+          />
         </Box>
       </Box>
     </Box>

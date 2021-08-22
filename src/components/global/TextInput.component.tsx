@@ -1,11 +1,16 @@
 import { makeStyles, TextField, Theme } from "@material-ui/core";
 
 interface TextInputProps {
-  id?: string;
-  label: string;
   type: string;
+  label: string;
+  id?: string;
+  className?: string;
+  autoFocus?: boolean;
 }
 const useStyles = makeStyles((theme: Theme) => ({
+  root: {
+    margin: "0.5rem 0",
+  },
   Input: {
     color: theme.palette.common.white,
   },
@@ -18,40 +23,38 @@ const useStyles = makeStyles((theme: Theme) => ({
       borderColor: theme.palette.common.white,
     },
   },
-  Focused: {
-    borderColor: theme.palette.common.white,
-  },
-  Border: {
-    "&:hover": {
-      borderColor: theme.palette.common.white,
-    },
-  },
 }));
-const TextInput: React.FC<TextInputProps> = ({ id, label, type, ...rest }) => {
+const TextInput: React.FC<TextInputProps> = ({
+  id,
+  label,
+  type,
+  className,
+  autoFocus,
+  ...rest
+}) => {
   const classes = useStyles();
   return (
     <TextField
       id={id}
       label={label}
-      variant="outlined"
       type={type}
-      autoFocus
+      variant="outlined"
+      autoFocus={autoFocus}
       required
       fullWidth
       {...rest}
       InputProps={{
         classes: {
           root: classes.Input,
-          focused: classes.Focused,
           notchedOutline: classes.notchedOutline,
         },
       }}
       InputLabelProps={{
         classes: {
           root: classes.InputLabel,
-          outlined: classes.Border,
         },
       }}
+      className={className || classes.root}
     />
   );
 };
