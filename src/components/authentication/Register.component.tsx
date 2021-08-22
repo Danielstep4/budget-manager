@@ -1,4 +1,5 @@
 import { Box, Container, Typography } from "@material-ui/core";
+import TextInput from "../global/TextInput.component";
 const Register: React.FC = () => {
   return (
     <Box
@@ -8,7 +9,7 @@ const Register: React.FC = () => {
       justifyContent="center"
       alignItems="center"
     >
-      <Box width="690px" height="525px" border="1px solid white">
+      <Box width="690px" height="525px" border="1px solid white" p={2}>
         <Box
           display="flex"
           flexDirection="row"
@@ -20,6 +21,9 @@ const Register: React.FC = () => {
           <Typography color="primary" variant="h4">
             Budget Manager
           </Typography>
+        </Box>
+        <Box component="form">
+          <TextInput type="text" label="Full Name" id="email" />
         </Box>
       </Box>
     </Box>
