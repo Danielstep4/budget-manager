@@ -1,5 +1,7 @@
 import { Box, Typography, useTheme } from "@material-ui/core";
 import TextInput from "../global/TextInput.component";
+import Button from "../global/Button.component";
+import TextButton from "../global/TextButton.component";
 const Register: React.FC = () => {
   const theme = useTheme();
   return (
@@ -38,6 +40,18 @@ const Register: React.FC = () => {
             label="Confirm Password"
             id="confirm-password"
           />
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            color="white"
+            alignItems="baseline"
+          >
+            <Button>Register</Button>
+            <Box display="flex" alignItems="baseline">
+              <Typography>Already have a user? </Typography>
+              <TextButton>click here</TextButton>
+            </Box>
+          </Box>
         </Box>
       </Box>
     </Box>
