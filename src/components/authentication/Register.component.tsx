@@ -13,11 +13,12 @@ const Register: React.FC = () => {
       alignItems="center"
     >
       <Box
-        width="690px"
-        height="525px"
+        width="50%"
+        maxWidth="690px"
         p={2}
         bgcolor={theme.palette.background.paper}
         borderRadius={theme.shape.borderRadius}
+        boxShadow={theme.shadows[3]}
       >
         <Box
           display="flex"
@@ -31,7 +32,7 @@ const Register: React.FC = () => {
             Budget Manager
           </Typography>
         </Box>
-        <Box component="form">
+        <Box component="form" py={2}>
           <TextInput type="text" label="Full Name" id="fullname" autoFocus />
           <TextInput type="email" label="Email" id="email" />
           <TextInput type="password" label="Password" id="password" />
@@ -45,6 +46,7 @@ const Register: React.FC = () => {
             justifyContent="space-between"
             color="white"
             alignItems="baseline"
+            py={2}
           >
             <Button>Register</Button>
             <Box display="flex" alignItems="baseline">

@@ -1,7 +1,9 @@
 import { Button, makeStyles, Theme } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) => ({
-  text: {},
+  text: {
+    color: theme.palette.primary.light,
+  },
 }));
 interface TextButtonProps {
   href?: string;
