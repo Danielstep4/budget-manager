@@ -1,9 +1,9 @@
 import Layout from "./style/Layout";
-import Register from "./components/authentication/Register.component";
+import Auth from "./components/authentication/Auth.component";
 const App: React.FC = () => {
   return (
     <Layout>
-      <Register />
+      <Auth isRegister={false} />
     </Layout>
   );
 };

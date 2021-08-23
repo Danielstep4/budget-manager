@@ -7,8 +7,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 interface TextButtonProps {
   href?: string;
+  onClick?: () => void;
 }
-const TextButton: React.FC<TextButtonProps> = ({ children, href }) => {
+const TextButton: React.FC<TextButtonProps> = ({ children, href, onClick }) => {
   const classes = useStyles();
   return (
     <Button
@@ -19,6 +20,7 @@ const TextButton: React.FC<TextButtonProps> = ({ children, href }) => {
         textPrimary: classes.text,
       }}
       href={href}
+      onClick={onClick}
     >
       {children}
     </Button>
