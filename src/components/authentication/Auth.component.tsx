@@ -3,10 +3,10 @@ import TextInput from "../global/TextInput.component";
 import Button from "../global/Button.component";
 import TextButton from "../global/TextButton.component";
 import { useState } from "react";
-interface RegisterProps {
+interface AuthProps {
   isRegister: boolean;
 }
-const Register: React.FC<RegisterProps> = ({ isRegister }) => {
+const Auth: React.FC<AuthProps> = ({ isRegister }) => {
   const theme = useTheme();
   const [isLogin, setIsLogin] = useState<boolean>(!isRegister);
   return (
@@ -84,4 +84,4 @@ const Register: React.FC<RegisterProps> = ({ isRegister }) => {
   );
 };
 
-export default Register;
+export default Auth;
