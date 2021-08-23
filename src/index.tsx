@@ -4,19 +4,16 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import ThemeProvider from "@material-ui/styles/ThemeProvider";
+import AuthProvider from "./context/AuthContext";
 import theme from "./style/theme";
-import firebase from "firebase/app";
-import { firebaseConfig } from "../firebase.config.js";
-import "firebase/auth";
-import { FirebaseAuthProvider } from "@react-firebase/auth";
 
 ReactDOM.render(
   <React.StrictMode>
-    <FirebaseAuthProvider firebase={firebase} {...firebaseConfig}>
-      <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
+      <AuthProvider>
         <App />
-      </ThemeProvider>
-    </FirebaseAuthProvider>
+      </AuthProvider>
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

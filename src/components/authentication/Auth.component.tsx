@@ -28,7 +28,6 @@ const Auth: React.FC<AuthProps> = ({ isRegister }) => {
   const handleLogin = () => {
     console.log("Logging in...");
     console.log(email, password);
-    const emailPasswordAuthProvider = new firebase.auth.EmailAuthProvider();
   };
   return (
     <Box
