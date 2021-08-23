@@ -1,8 +1,8 @@
 import { makeStyles, TextField, Theme } from "@material-ui/core";
-import { FormEvent } from "react";
-
 interface TextInputProps {
   type: string;
+  value: string;
+  setValue: React.Dispatch<React.SetStateAction<string>>;
   label: string;
   id?: string;
   className?: string;
@@ -31,6 +31,8 @@ const TextInput: React.FC<TextInputProps> = ({
   type,
   className,
   autoFocus,
+  value,
+  setValue,
 }) => {
   const classes = useStyles();
   return (
@@ -42,6 +44,8 @@ const TextInput: React.FC<TextInputProps> = ({
       autoFocus={autoFocus}
       required
       fullWidth
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
       InputProps={{
         classes: {
           root: classes.Input,
@@ -57,5 +61,4 @@ const TextInput: React.FC<TextInputProps> = ({
     />
   );
 };
-
 export default TextInput;

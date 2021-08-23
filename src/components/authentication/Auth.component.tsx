@@ -2,8 +2,7 @@ import { Box, Typography, useTheme } from "@material-ui/core";
 import TextInput from "../global/TextInput.component";
 import Button from "../global/Button.component";
 import TextButton from "../global/TextButton.component";
-import { useState } from "react";
-import { useRef } from "react";
+import { FormEvent, useState } from "react";
 interface AuthProps {
   isRegister: boolean;
 }
@@ -12,9 +11,14 @@ const Auth: React.FC<AuthProps> = ({ isRegister }) => {
   const [isLogin, setIsLogin] = useState(!isRegister);
   // Form Refrences
   const [fullName, setFullName] = useState("");
-  const email = useRef("");
-  const password = useRef("");
-  const password2 = useRef("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [password2, setPassword2] = useState("");
+  // Form Handler
+  const hanldeSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    console.log(fullName, email, password, password2);
+  };
   return (
     <Box
       height="100%"
@@ -47,22 +51,39 @@ const Auth: React.FC<AuthProps> = ({ isRegister }) => {
             Budget Manager
           </Typography>
         </Box>
-        <Box component="form" py={2}>
+        <Box component="form" py={2} onSubmit={hanldeSubmit}>
           {!isLogin && (
-            <TextInput type="text" label="Full Name" id="fullname" autoFocus />
+            <TextInput
+              type="text"
+              label="Full Name"
+              id="fullname"
+              autoFocus
+              value={fullName}
+              setValue={setFullName}
+            />
           )}
           <TextInput
             type="email"
             label="Email"
             id="email"
             autoFocus={isLogin}
+            value={email}
+            setValue={setEmail}
           />
-          <TextInput type="password" label="Password" id="password" />
+          <TextInput
+            type="password"
+            label="Password"
+            id="password"
+            value={password}
+            setValue={setPassword}
+          />
           {!isLogin && (
             <TextInput
               type="password"
               label="Confirm Password"
               id="confirm-password"
+              value={password2}
+              setValue={setPassword2}
             />
           )}
           <Box
@@ -72,7 +93,7 @@ const Auth: React.FC<AuthProps> = ({ isRegister }) => {
             alignItems="baseline"
             py={2}
           >
-            {!isLogin ? <Button>Register</Button> : <Button>Login</Button>}
+            <Button submit>{!isLogin ? "Register" : "Login"}</Button>
             <Box display="flex" alignItems="baseline">
               {!isLogin ? (
                 <Typography>Already have a user? </Typography>

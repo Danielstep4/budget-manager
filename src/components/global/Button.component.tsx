@@ -3,6 +3,7 @@ import { Button as MaterialButton, makeStyles, Theme } from "@material-ui/core";
 interface ButtonProps {
   href?: string;
   onClick?: () => void;
+  submit?: boolean;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -14,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
 }));
-const Button: React.FC<ButtonProps> = ({ children, href, onClick }) => {
+const Button: React.FC<ButtonProps> = ({ children, href, onClick, submit }) => {
   const classes = useStyles();
   return (
     <MaterialButton
@@ -26,6 +27,7 @@ const Button: React.FC<ButtonProps> = ({ children, href, onClick }) => {
         containedPrimary: classes.contained,
       }}
       onClick={onClick}
+      type={submit ? "submit" : "button"}
     >
       {children}
     </MaterialButton>
