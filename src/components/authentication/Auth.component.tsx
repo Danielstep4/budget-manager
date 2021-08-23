@@ -9,17 +9,19 @@ interface AuthProps {
   isRegister: boolean;
 }
 const Auth: React.FC<AuthProps> = ({ isRegister }) => {
+  // Hooks
   const theme = useTheme();
   const [isLogin, setIsLogin] = useState(!isRegister);
   const [error, setError] = useState("");
   const { signup, login, currentUser } = useAuth();
+  // Error Message useEffect
   useEffect(() => {
     const time = setTimeout(() => setError(""), 2000);
     return () => {
       clearTimeout(time);
     };
   }, [error]);
-  // Form Refrences
+  // Form States
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -33,6 +35,7 @@ const Auth: React.FC<AuthProps> = ({ isRegister }) => {
     if (password !== password2) return;
     try {
       await signup(email, password);
+      localStorage.setItem("hasAccount", JSON.stringify({ hasAccount: true }));
     } catch (e) {
       setError(e.message);
     }
@@ -40,7 +43,6 @@ const Auth: React.FC<AuthProps> = ({ isRegister }) => {
   const handleLogin = async () => {
     try {
       await login(email, password);
-      console.log(currentUser);
     } catch (e) {
       setError(e.message);
     }
