@@ -4,6 +4,7 @@ import Button from "../global/Button.component";
 import TextButton from "../global/TextButton.component";
 import { FormEvent, useState } from "react";
 import firebase from "firebase/app";
+import { AuthContextValue, useAuth } from "../../context/AuthContext";
 
 interface AuthProps {
   isRegister: boolean;
@@ -11,6 +12,7 @@ interface AuthProps {
 const Auth: React.FC<AuthProps> = ({ isRegister }) => {
   const theme = useTheme();
   const [isLogin, setIsLogin] = useState(!isRegister);
+  const Auth = useAuth() as AuthContextValue;
   // Form Refrences
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -38,9 +40,10 @@ const Auth: React.FC<AuthProps> = ({ isRegister }) => {
       alignItems="center"
     >
       <Box
-        width="50%"
+        width="100%"
         maxWidth="690px"
         p={2}
+        m={2}
         bgcolor={theme.palette.background.paper}
         borderRadius={theme.shape.borderRadius}
         boxShadow={theme.shadows[3]}
