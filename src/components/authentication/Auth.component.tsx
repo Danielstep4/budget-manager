@@ -3,6 +3,8 @@ import TextInput from "../global/TextInput.component";
 import Button from "../global/Button.component";
 import TextButton from "../global/TextButton.component";
 import { FormEvent, useState } from "react";
+import firebase from "firebase/app";
+
 interface AuthProps {
   isRegister: boolean;
 }
@@ -26,6 +28,7 @@ const Auth: React.FC<AuthProps> = ({ isRegister }) => {
   const handleLogin = () => {
     console.log("Logging in...");
     console.log(email, password);
+    const emailPasswordAuthProvider = new firebase.auth.EmailAuthProvider();
   };
   return (
     <Box
@@ -65,7 +68,7 @@ const Auth: React.FC<AuthProps> = ({ isRegister }) => {
               type="text"
               label="Full Name"
               id="fullname"
-              autoFocus
+              autoFocus={!isLogin}
               value={fullName}
               setValue={setFullName}
             />

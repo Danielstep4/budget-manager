@@ -5,12 +5,18 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import ThemeProvider from "@material-ui/styles/ThemeProvider";
 import theme from "./style/theme";
+import firebase from "firebase/app";
+import { firebaseConfig } from "../firebase.config.js";
+import "firebase/auth";
+import { FirebaseAuthProvider } from "@react-firebase/auth";
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
+    <FirebaseAuthProvider firebase={firebase} {...firebaseConfig}>
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
+    </FirebaseAuthProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
