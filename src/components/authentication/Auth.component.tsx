@@ -3,12 +3,18 @@ import TextInput from "../global/TextInput.component";
 import Button from "../global/Button.component";
 import TextButton from "../global/TextButton.component";
 import { useState } from "react";
+import { useRef } from "react";
 interface AuthProps {
   isRegister: boolean;
 }
 const Auth: React.FC<AuthProps> = ({ isRegister }) => {
   const theme = useTheme();
-  const [isLogin, setIsLogin] = useState<boolean>(!isRegister);
+  const [isLogin, setIsLogin] = useState(!isRegister);
+  // Form Refrences
+  const [fullName, setFullName] = useState("");
+  const email = useRef("");
+  const password = useRef("");
+  const password2 = useRef("");
   return (
     <Box
       height="100%"
