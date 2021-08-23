@@ -17,7 +17,15 @@ const Auth: React.FC<AuthProps> = ({ isRegister }) => {
   // Form Handler
   const hanldeSubmit = (e: FormEvent) => {
     e.preventDefault();
+    return isLogin ? handleLogin() : handleRegister();
+  };
+  const handleRegister = () => {
+    console.log("Registering...");
     console.log(fullName, email, password, password2);
+  };
+  const handleLogin = () => {
+    console.log("Logging in...");
+    console.log(email, password);
   };
   return (
     <Box
