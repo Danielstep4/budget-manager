@@ -13,7 +13,7 @@ const Auth: React.FC<AuthProps> = ({ isRegister }) => {
   const theme = useTheme();
   const [isLogin, setIsLogin] = useState(!isRegister);
   const [error, setError] = useState("");
-  const { signup, login, currentUser } = useAuth();
+  const { signup, login } = useAuth();
   // Error Message useEffect
   useEffect(() => {
     const time = setTimeout(() => setError(""), 2000);
@@ -35,7 +35,7 @@ const Auth: React.FC<AuthProps> = ({ isRegister }) => {
     if (password !== password2) return;
     try {
       await signup(email, password);
-      localStorage.setItem("hasAccount", JSON.stringify({ hasAccount: true }));
+      localStorage.setItem("hasAccount", "true");
     } catch (e) {
       setError(e.message);
     }
