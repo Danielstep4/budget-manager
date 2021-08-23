@@ -2,9 +2,8 @@ import { Box, Typography, useTheme } from "@material-ui/core";
 import TextInput from "../global/TextInput.component";
 import Button from "../global/Button.component";
 import TextButton from "../global/TextButton.component";
-import { FormEvent, useState } from "react";
-import firebase from "firebase/app";
-import { AuthContextValue, useAuth } from "../../context/AuthContext";
+import { FormEvent, useState, useEffect } from "react";
+import { useAuth } from "../../context/AuthContext";
 
 interface AuthProps {
   isRegister: boolean;
@@ -12,7 +11,14 @@ interface AuthProps {
 const Auth: React.FC<AuthProps> = ({ isRegister }) => {
   const theme = useTheme();
   const [isLogin, setIsLogin] = useState(!isRegister);
-  const Auth = useAuth() as AuthContextValue;
+  const [error, setError] = useState("");
+  const { signup, login, currentUser } = useAuth();
+  useEffect(() => {
+    const time = setTimeout(() => setError(""), 2000);
+    return () => {
+      clearTimeout(time);
+    };
+  }, [error]);
   // Form Refrences
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -23,13 +29,21 @@ const Auth: React.FC<AuthProps> = ({ isRegister }) => {
     e.preventDefault();
     return isLogin ? handleLogin() : handleRegister();
   };
-  const handleRegister = () => {
-    console.log("Registering...");
-    console.log(fullName, email, password, password2);
+  const handleRegister = async () => {
+    if (password !== password2) return;
+    try {
+      await signup(email, password);
+    } catch (e) {
+      setError(e.message);
+    }
   };
-  const handleLogin = () => {
-    console.log("Logging in...");
-    console.log(email, password);
+  const handleLogin = async () => {
+    try {
+      await login(email, password);
+      console.log(currentUser);
+    } catch (e) {
+      setError(e.message);
+    }
   };
   return (
     <Box
@@ -63,6 +77,7 @@ const Auth: React.FC<AuthProps> = ({ isRegister }) => {
           <Typography color="primary" variant="h4">
             Budget Manager
           </Typography>
+          {error && <Typography variant="h4">{error}</Typography>}
         </Box>
         <Box component="form" py={2} onSubmit={hanldeSubmit}>
           {!isLogin && (

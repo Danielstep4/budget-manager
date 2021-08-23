@@ -6,10 +6,8 @@ import { useEffect } from "react";
 export interface AuthContextValue {
   currentUser: firebase.User | null;
   signup: (
-    name: string,
     email: string,
-    password: string,
-    confirmPassword: string
+    password: string
   ) => Promise<firebase.auth.UserCredential>;
   login: (
     email: string,
@@ -18,7 +16,8 @@ export interface AuthContextValue {
 }
 const AuthContext = createContext<AuthContextValue | {}>({});
 
-export const useAuth = () => {
+export const useAuth = (): AuthContextValue => {
+  ///@ts-expect-error
   return useContext(AuthContext);
 };
 const AuthProvider: React.FC = ({ children }) => {
@@ -26,12 +25,7 @@ const AuthProvider: React.FC = ({ children }) => {
   const login = async (email: string, password: string) => {
     return auth.signInWithEmailAndPassword(email, password);
   };
-  const signup = (
-    name: string,
-    email: string,
-    password: string,
-    confirmPassword: string
-  ) => {
+  const signup = (email: string, password: string) => {
     return auth.createUserWithEmailAndPassword(email, password);
   };
   useEffect(() => {
