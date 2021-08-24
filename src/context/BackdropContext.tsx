@@ -9,8 +9,9 @@ export const useBackdrop = (): BackDropContextValue => {
   return useContext(BackdropContext);
 };
 const BackdropProvider: React.FC = ({ children }) => {
+  // State
   const [backdropOpen, setBackdropOpen] = useState(false);
-
+  // Value
   const value: BackDropContextValue = {
     backdropOpen,
     setBackdropOpen,

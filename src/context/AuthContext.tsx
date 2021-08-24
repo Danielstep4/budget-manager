@@ -11,9 +11,11 @@ export const useAuth = (): AuthContextValue => {
   return useContext(AuthContext);
 };
 const AuthProvider: React.FC = ({ children }) => {
+  // State
   const [currentUser, setCurrentUser] = useState<firebase.User | null>(null);
   const [hasAccount, setHasAccount] = useState(false);
   const [loading, setLoading] = useState(true);
+  // useEffects
   useEffect(() => {
     const hasAccountLocalStorage = localStorage.getItem("hasAccount");
     if (!hasAccountLocalStorage) return;
@@ -26,7 +28,7 @@ const AuthProvider: React.FC = ({ children }) => {
     });
     return unsubscribe;
   }, []);
-
+  // Helper Functions
   const login = async (email: string, password: string) => {
     return auth.signInWithEmailAndPassword(email, password);
   };
@@ -35,6 +37,7 @@ const AuthProvider: React.FC = ({ children }) => {
     return auth.createUserWithEmailAndPassword(email, password);
   };
   const signOut = () => auth.signOut();
+  // Value
   const value: AuthContextValue = {
     currentUser,
     signup,
