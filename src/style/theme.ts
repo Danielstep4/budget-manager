@@ -21,6 +21,9 @@ const theme = createTheme({
       paper: "#1F213A",
       default: "#141625",
     },
+    text: {
+      primary: "#4caf50",
+    },
   },
   shape: {
     borderRadius: 8,

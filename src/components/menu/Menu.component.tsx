@@ -9,9 +9,7 @@ const Menu: React.FC = () => {
       width="120px"
       bgcolor={theme.palette.background.paper}
       height="100vh"
-      position="absolute"
-      left="0"
-      top="0"
+      position="relative"
     >
       <Box
         bgcolor={theme.palette.primary.main}
