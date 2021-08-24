@@ -1,6 +1,6 @@
 import { Avatar, Box, IconButton, SvgIcon, useTheme } from "@material-ui/core";
 import { AccountBalance, Settings as SettingsIcon } from "@material-ui/icons";
-import Settings from "./Settings.component";
+import Settings from "./Settings/Settings.component";
 import { useState, useEffect } from "react";
 import { useBackdrop } from "../../context/BackdropContext";
 import MenuExtended from "./MenuExtended.component";
@@ -10,11 +10,18 @@ const Menu: React.FC = () => {
   const { setBackdropOpen, backdropOpen } = useBackdrop();
   const [settingsOpen, setSettingsOpen] = useState(false);
   useEffect(() => {
+    window.addEventListener("keydown", handleKeyPress);
+    return () => window.removeEventListener("keydown", handleKeyPress);
+  });
+  useEffect(() => {
     setBackdropOpen(settingsOpen);
-  }, [settingsOpen]);
+  }, [settingsOpen, setBackdropOpen]);
   useEffect(() => {
     if (!backdropOpen) setSettingsOpen(false);
   }, [backdropOpen]);
+  const handleKeyPress = (e: KeyboardEvent) => {
+    if (e.key === "Escape") setSettingsOpen(false);
+  };
   return (
     <>
       <Box display="flex" maxWidth="50%">

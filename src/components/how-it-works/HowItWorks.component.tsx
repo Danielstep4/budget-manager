@@ -8,7 +8,7 @@ const HowItWorks: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   useEffect(() => {
     setBackdropOpen(isOpen);
-  }, [isOpen]);
+  }, [isOpen, setBackdropOpen]);
   useEffect(() => {
     if (!backdropOpen) setIsOpen(false);
   }, [backdropOpen]);
