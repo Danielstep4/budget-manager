@@ -22,16 +22,19 @@ const InfoBar: React.FC<InfoBarProps> = ({
   return (
     <Box
       bgcolor={theme.palette.background.paper}
-      display="flex"
+      display="grid"
       p={3}
-      justifyContent="space-between"
+      mt={2}
+      gridTemplateColumns="repeat(4, 1fr)"
+      gridTemplateRows="1fr"
       alignItems="baseline"
       borderRadius={theme.shape.borderRadius}
+      style={{ cursor: "pointer", userSelect: "none" }}
     >
-      <Typography>{id}</Typography>
-      <Typography>{date}</Typography>
-      <Typography>{catagory}</Typography>
-      <Typography color={!isExpense ? "error" : "textPrimary"}>
+      <Typography>{"#" + id}</Typography>
+      <Typography align="center">{date}</Typography>
+      <Typography align="center">{catagory}</Typography>
+      <Typography color={isExpense ? "error" : "textPrimary"} align="center">
         {amount + getSymbol(currency)}
       </Typography>
     </Box>

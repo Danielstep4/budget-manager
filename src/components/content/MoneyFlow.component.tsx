@@ -1,4 +1,5 @@
 import { Box, Typography } from "@material-ui/core";
+import { dataExpense, dataIncome } from "../../demo-data";
 import { getCurrentMonth, getCurrentYear } from "../../utils/getDates";
 import Button from "../global/Button.component";
 import InfoBar from "./InfoBar";
@@ -15,14 +16,20 @@ const MoneyFlow: React.FC = () => {
           <Button>Add Expense</Button>
         </Box>
         <Box mt={2}>
-          <InfoBar
-            id="3"
-            isExpense
-            catagory="Rent"
-            date="05 Aug 2021"
-            amount={3100}
-            currency="ILS"
-          />
+          {dataExpense.map((obj) => (
+            <InfoBar {...obj} key={obj.id} />
+          ))}
+        </Box>
+      </Box>
+      <Box width="50%" mt={3} display="flex" flexDirection="column">
+        <Box display="flex" justifyContent="space-between" alignItems="center">
+          <Typography variant="h6">There are {2} total incomes</Typography>
+          <Button>Add Income</Button>
+        </Box>
+        <Box mt={2}>
+          {dataIncome.map((obj) => (
+            <InfoBar {...obj} key={obj.id} />
+          ))}
         </Box>
       </Box>
     </Box>
