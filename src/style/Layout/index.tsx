@@ -5,8 +5,8 @@ const Layout: React.FC = ({ children }) => {
   return (
     <Box
       bgcolor={theme.palette.secondary.main}
-      minHeight="100vh"
-      height="100%"
+      minHeight="650px"
+      height="100vh"
       color={theme.palette.common.white}
     >
       {children}
