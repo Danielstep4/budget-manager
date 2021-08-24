@@ -21,7 +21,8 @@ const theme = createTheme({
       default: "#141625",
     },
     text: {
-      primary: "#4caf50",
+      primary: "#fff",
+      secondary: "#4caf50",
     },
     action: {
       active: "#fff",

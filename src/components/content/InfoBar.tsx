@@ -34,7 +34,7 @@ const InfoBar: React.FC<InfoBarProps> = ({
       <Typography>{"#" + id}</Typography>
       <Typography align="center">{date}</Typography>
       <Typography align="center">{catagory}</Typography>
-      <Typography color={isExpense ? "error" : "textPrimary"} align="center">
+      <Typography color={isExpense ? "error" : "textSecondary"} align="center">
         {amount + getSymbol(currency)}
       </Typography>
     </Box>
