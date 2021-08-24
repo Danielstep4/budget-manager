@@ -22,6 +22,20 @@ const Settings: React.FC = () => {
       </Box>
       <Box p={1}>
         <Typography variant="h6" color="primary">
+          General
+        </Typography>
+        <Box
+          display="grid"
+          gridTemplateColumns="repeat(2, 1fr)"
+          alignItems="center"
+          p={1}
+        >
+          <SettingsInfo title="Currency" content="ILS" />
+          <SettingsInfo title="Savings Goal (%)" content={"25"} />
+        </Box>
+      </Box>
+      <Box p={1}>
+        <Typography variant="h6" color="primary">
           Personal Info
         </Typography>
         <Box
@@ -33,6 +47,11 @@ const Settings: React.FC = () => {
           <SettingsInfo title="Full Name" content="Test" />
           <SettingsInfo title="Email" content={currentUser.email!} />
         </Box>
+      </Box>
+      <Box p={1}>
+        <Typography variant="h6" color="primary">
+          Change Password
+        </Typography>
       </Box>
     </>
   );
