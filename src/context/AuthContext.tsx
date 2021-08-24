@@ -34,11 +34,13 @@ const AuthProvider: React.FC = ({ children }) => {
   const signup = (email: string, password: string) => {
     return auth.createUserWithEmailAndPassword(email, password);
   };
+  const signOut = () => auth.signOut();
   const value: AuthContextValue = {
     currentUser,
     signup,
     login,
     hasAccount,
+    signOut,
   };
 
   return (
@@ -61,4 +63,5 @@ export interface AuthContextValue {
     email: string,
     password: string
   ) => Promise<firebase.auth.UserCredential>;
+  signOut: () => Promise<void>;
 }
