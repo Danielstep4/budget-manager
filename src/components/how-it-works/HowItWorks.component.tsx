@@ -7,11 +7,18 @@ const HowItWorks: React.FC = () => {
   const { setBackdropOpen, backdropOpen } = useBackdrop();
   const [isOpen, setIsOpen] = useState(false);
   useEffect(() => {
+    window.addEventListener("keydown", handleKeyPress);
+    return () => window.removeEventListener("keydown", handleKeyPress);
+  });
+  useEffect(() => {
     setBackdropOpen(isOpen);
   }, [isOpen, setBackdropOpen]);
   useEffect(() => {
     if (!backdropOpen) setIsOpen(false);
   }, [backdropOpen]);
+  const handleKeyPress = (e: KeyboardEvent) => {
+    if (e.key === "Escape") setIsOpen(false);
+  };
   return (
     <>
       <Box
