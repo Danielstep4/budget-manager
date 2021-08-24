@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, IconButton } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
 import { HelpSharp } from "@material-ui/icons";
 const HowItWorks: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);

@@ -1,8 +1,10 @@
-import { Avatar, Box, SvgIcon, useTheme } from "@material-ui/core";
+import { Avatar, Box, IconButton, SvgIcon, useTheme } from "@material-ui/core";
 import { AccountBalance, Settings } from "@material-ui/icons";
+import { useState } from "react";
 
 const Menu: React.FC = () => {
   const theme = useTheme();
+  const [settingsOpen, setSettingsOpen] = useState(false);
   return (
     <Box
       minHeight="650px"
@@ -32,9 +34,9 @@ const Menu: React.FC = () => {
         position="absolute"
         bottom="130px"
       >
-        <SvgIcon>
-          <Settings />
-        </SvgIcon>
+        <IconButton onClick={() => setSettingsOpen(!settingsOpen)}>
+          <Settings color="action" />
+        </IconButton>
       </Box>
       <Box
         width="120px"

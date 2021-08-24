@@ -1,6 +1,5 @@
 import { createTheme } from "@material-ui/core/styles";
 
-// #TODO: Create custom theme
 const theme = createTheme({
   palette: {
     common: {
@@ -23,6 +22,9 @@ const theme = createTheme({
     },
     text: {
       primary: "#4caf50",
+    },
+    action: {
+      active: "#fff",
     },
   },
   shape: {
