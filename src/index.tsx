@@ -6,12 +6,15 @@ import reportWebVitals from "./reportWebVitals";
 import ThemeProvider from "@material-ui/styles/ThemeProvider";
 import AuthProvider from "./context/AuthContext";
 import theme from "./style/theme";
+import BackdropProvider from "./context/BackdropContext";
 
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <AuthProvider>
-        <App />
+        <BackdropProvider>
+          <App />
+        </BackdropProvider>
       </AuthProvider>
     </ThemeProvider>
   </React.StrictMode>,

@@ -12,7 +12,9 @@ const MoneyFlow: React.FC = () => {
       </Typography>
       <Box width="50%" mt={3} display="flex" flexDirection="column">
         <Box display="flex" justifyContent="space-between" alignItems="center">
-          <Typography variant="h6">There are {3} total expenses</Typography>
+          <Typography variant="h6">
+            There are {dataExpense.length} total expenses
+          </Typography>
           <Button>Add Expense</Button>
         </Box>
         <Box mt={2}>
@@ -23,7 +25,9 @@ const MoneyFlow: React.FC = () => {
       </Box>
       <Box width="50%" mt={3} display="flex" flexDirection="column">
         <Box display="flex" justifyContent="space-between" alignItems="center">
-          <Typography variant="h6">There are {2} total incomes</Typography>
+          <Typography variant="h6">
+            There are {dataIncome.length} total incomes
+          </Typography>
           <Button>Add Income</Button>
         </Box>
         <Box mt={2}>

@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     textTransform: "none",
     fontWeight: "bold",
     "&:hover": {
-      backgroundColor: theme.palette.secondary.dark,
+      backgroundColor: theme.palette.background.paper,
     },
   },
 }));
