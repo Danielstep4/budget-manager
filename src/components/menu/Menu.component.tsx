@@ -6,9 +6,11 @@ import { useBackdrop } from "../../context/BackdropContext";
 import MenuExtended from "./MenuExtended.component";
 
 const Menu: React.FC = () => {
+  // Hooks
   const theme = useTheme();
   const { setBackdropOpen, backdropOpen } = useBackdrop();
   const [settingsOpen, setSettingsOpen] = useState(false);
+  // useEffects
   useEffect(() => {
     window.addEventListener("keydown", handleKeyPress);
     return () => window.removeEventListener("keydown", handleKeyPress);
@@ -19,6 +21,7 @@ const Menu: React.FC = () => {
   useEffect(() => {
     if (!backdropOpen) setSettingsOpen(false);
   }, [backdropOpen]);
+  // Helper Functions
   const handleKeyPress = (e: KeyboardEvent) => {
     if (e.key === "Escape") setSettingsOpen(false);
   };

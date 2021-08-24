@@ -5,10 +5,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     color: theme.palette.primary.light,
   },
 }));
-interface TextButtonProps {
-  href?: string;
-  onClick?: () => void;
-}
+
 const TextButton: React.FC<TextButtonProps> = ({ children, href, onClick }) => {
   const classes = useStyles();
   return (
@@ -28,3 +25,8 @@ const TextButton: React.FC<TextButtonProps> = ({ children, href, onClick }) => {
 };
 
 export default TextButton;
+
+interface TextButtonProps {
+  href?: string;
+  onClick?: () => void;
+}

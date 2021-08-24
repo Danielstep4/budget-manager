@@ -2,14 +2,6 @@ import { Box, Typography, useTheme } from "@material-ui/core";
 import React from "react";
 import { getSymbol } from "../../utils/getSymbol";
 
-interface InfoBarProps {
-  id: string;
-  isExpense?: boolean;
-  date: string;
-  catagory: string;
-  amount: number;
-  currency: string;
-}
 const InfoBar: React.FC<InfoBarProps> = ({
   isExpense,
   id,
@@ -42,3 +34,12 @@ const InfoBar: React.FC<InfoBarProps> = ({
 };
 
 export default InfoBar;
+
+interface InfoBarProps {
+  id: string;
+  isExpense?: boolean;
+  date: string;
+  catagory: string;
+  amount: number;
+  currency: string;
+}

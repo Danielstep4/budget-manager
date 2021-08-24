@@ -5,9 +5,10 @@ import Button from "../../global/Button.component";
 import SettingsInfo from "./SettingsInfo.component";
 
 const Settings: React.FC = () => {
+  // Hooks
   const { signOut, currentUser } = useAuth();
-
   const { setBackdropOpen } = useBackdrop();
+  // Helper Functions
   const handleLogoutClick = () => {
     setBackdropOpen(false);
     signOut();

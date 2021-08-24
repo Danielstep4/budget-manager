@@ -3,9 +3,11 @@ import { IconButton, Box, useTheme, Typography } from "@material-ui/core";
 import { HelpSharp, Close } from "@material-ui/icons";
 import { useBackdrop } from "../../context/BackdropContext";
 const HowItWorks: React.FC = () => {
+  // Hooks
   const theme = useTheme();
   const { setBackdropOpen, backdropOpen } = useBackdrop();
   const [isOpen, setIsOpen] = useState(false);
+  // useEffects
   useEffect(() => {
     window.addEventListener("keydown", handleKeyPress);
     return () => window.removeEventListener("keydown", handleKeyPress);
@@ -16,6 +18,7 @@ const HowItWorks: React.FC = () => {
   useEffect(() => {
     if (!backdropOpen) setIsOpen(false);
   }, [backdropOpen]);
+  // Helper Functions
   const handleKeyPress = (e: KeyboardEvent) => {
     if (e.key === "Escape") setIsOpen(false);
   };

@@ -1,13 +1,5 @@
 import { makeStyles, TextField, Theme } from "@material-ui/core";
-interface TextInputProps {
-  type: string;
-  value: string;
-  setValue: React.Dispatch<React.SetStateAction<string>>;
-  label: string;
-  id?: string;
-  className?: string;
-  autoFocus?: boolean;
-}
+
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     margin: "0.5rem 0",
@@ -62,3 +54,13 @@ const TextInput: React.FC<TextInputProps> = ({
   );
 };
 export default TextInput;
+
+interface TextInputProps {
+  type: string;
+  value: string;
+  setValue: React.Dispatch<React.SetStateAction<string>>;
+  label: string;
+  id?: string;
+  className?: string;
+  autoFocus?: boolean;
+}

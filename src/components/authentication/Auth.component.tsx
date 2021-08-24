@@ -5,9 +5,6 @@ import TextButton from "../global/TextButton.component";
 import { FormEvent, useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 
-interface AuthProps {
-  isRegister: boolean;
-}
 const Auth: React.FC<AuthProps> = ({ isRegister }) => {
   // Hooks
   const theme = useTheme();
@@ -142,3 +139,7 @@ const Auth: React.FC<AuthProps> = ({ isRegister }) => {
 };
 
 export default Auth;
+
+interface AuthProps {
+  isRegister: boolean;
+}

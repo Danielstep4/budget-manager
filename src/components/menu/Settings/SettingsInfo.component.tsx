@@ -3,8 +3,10 @@ import { Edit, Done, Clear } from "@material-ui/icons";
 import React, { useState } from "react";
 
 const SettingsInfo: React.FC<SettingsInfoProps> = ({ title, content }) => {
+  // Hooks
   const [toEdit, setToEdit] = useState(false);
   const [value, setValue] = useState(content);
+  // Helper Functions
   const handleClick = () => {
     if (!toEdit) setToEdit(true);
     else {
