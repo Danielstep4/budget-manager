@@ -49,11 +49,7 @@ const Menu: React.FC = () => {
         alignItems="center"
         borderTop={"0.5px solid" + theme.palette.grey[50]}
       >
-        <Avatar
-          alt="default"
-          src="https://i.pinimg.com/originals/f5/05/24/f50524ee5f161f437400aaf215c9e12f.jpg"
-          style={{ width: "75px", height: "75px" }}
-        />
+        <Avatar alt="default" style={{ width: "75px", height: "75px" }} />
       </Box>
     </Box>
   );
