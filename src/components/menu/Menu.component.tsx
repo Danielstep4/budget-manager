@@ -12,19 +12,12 @@ const Menu: React.FC = () => {
   const [settingsOpen, setSettingsOpen] = useState(false);
   // useEffects
   useEffect(() => {
-    window.addEventListener("keydown", handleKeyPress);
-    return () => window.removeEventListener("keydown", handleKeyPress);
-  });
-  useEffect(() => {
     setBackdropOpen(settingsOpen);
   }, [settingsOpen, setBackdropOpen]);
   useEffect(() => {
     if (!backdropOpen) setSettingsOpen(false);
   }, [backdropOpen]);
-  // Helper Functions
-  const handleKeyPress = (e: KeyboardEvent) => {
-    if (e.key === "Escape") setSettingsOpen(false);
-  };
+
   // SidebarWidth
   return (
     <>
@@ -35,7 +28,7 @@ const Menu: React.FC = () => {
           bgcolor={theme.palette.background.paper}
           height="100vh"
           position="relative"
-          zIndex={settingsOpen ? "2" : "0"}
+          zIndex="2"
         >
           <Box
             bgcolor={theme.palette.primary.main}

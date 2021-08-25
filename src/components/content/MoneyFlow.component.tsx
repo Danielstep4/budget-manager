@@ -1,9 +1,7 @@
 import { Box, Typography } from "@material-ui/core";
 import { dataExpense, dataIncome } from "../../demo-data";
 import { getCurrentMonth, getCurrentYear } from "../../utils/getDates";
-import Button from "../global/Button.component";
 import FlowContainer from "./FlowContainer.component";
-import InfoBar from "./InfoBar";
 
 const MoneyFlow: React.FC = () => {
   return (
