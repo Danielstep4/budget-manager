@@ -5,6 +5,8 @@ import Button from "../global/Button.component";
 import { Box, Typography } from "@material-ui/core";
 import MenuExtended from "../menu/MenuExtended.component";
 import { useBackdrop } from "../../context/BackdropContext";
+import NewExpense from "../menu/NewExpense.component";
+import NewIncome from "../menu/NewIncome.component";
 const FlowContainer: React.FC<FlowContainerProps> = ({ isExpense, data }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { setBackdropOpen, backdropOpen } = useBackdrop();
@@ -26,13 +28,17 @@ const FlowContainer: React.FC<FlowContainerProps> = ({ isExpense, data }) => {
             Add {isExpense ? "Expense" : "Income"}
           </Button>
         </Box>
-        <Box mt={2}>
+        <Box mt={1}>
           {data.map((obj) => (
             <InfoBar {...obj} key={obj.id} />
           ))}
         </Box>
       </Box>
-      {isOpen && <MenuExtended>hello World</MenuExtended>}
+      {isOpen && (
+        <MenuExtended>
+          {isExpense ? <NewExpense /> : <NewIncome />}
+        </MenuExtended>
+      )}
     </>
   );
 };

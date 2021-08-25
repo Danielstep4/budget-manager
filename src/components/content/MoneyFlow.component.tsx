@@ -5,7 +5,7 @@ import FlowContainer from "./FlowContainer.component";
 
 const MoneyFlow: React.FC = () => {
   return (
-    <Box px={10} py={5} width="100%" height="100%">
+    <Box px={10} py={5} width="100%" minHeight="100vh">
       <Typography variant="h4">
         Money Flow - {getCurrentMonth()} {getCurrentYear()}
       </Typography>
