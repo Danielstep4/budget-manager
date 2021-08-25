@@ -5,8 +5,7 @@ import Button from "../global/Button.component";
 import { Box, Typography } from "@material-ui/core";
 import MenuExtended from "../menu/MenuExtended.component";
 import { useBackdrop } from "../../context/BackdropContext";
-import NewExpense from "../menu/NewExpense.component";
-import NewIncome from "../menu/NewIncome.component";
+import NewFlow from "../menu/NewFlow.component";
 const FlowContainer: React.FC<FlowContainerProps> = ({ isExpense, data }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { setBackdropOpen, backdropOpen } = useBackdrop();
@@ -36,7 +35,7 @@ const FlowContainer: React.FC<FlowContainerProps> = ({ isExpense, data }) => {
       </Box>
       {isOpen && (
         <MenuExtended>
-          {isExpense ? <NewExpense /> : <NewIncome />}
+          <NewFlow isExpense={isExpense} />
         </MenuExtended>
       )}
     </>
