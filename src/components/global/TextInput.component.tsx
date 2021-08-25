@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
 }));
+/** Props: id?, label?, type?, className?, autoFocus?, value, setValue*/
 const TextInput: React.FC<TextInputProps> = ({
   id,
   label,
@@ -56,10 +57,10 @@ const TextInput: React.FC<TextInputProps> = ({
 export default TextInput;
 
 interface TextInputProps {
-  type: string;
+  type?: string;
   value: string;
   setValue: React.Dispatch<React.SetStateAction<string>>;
-  label: string;
+  label?: string;
   id?: string;
   className?: string;
   autoFocus?: boolean;

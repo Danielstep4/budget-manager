@@ -17,8 +17,10 @@ const Menu: React.FC = () => {
   useEffect(() => {
     if (!backdropOpen) setSettingsOpen(false);
   }, [backdropOpen]);
-
-  // SidebarWidth
+  const handleSettingsButton = () => {
+    setBackdropOpen(false);
+    setTimeout(() => setSettingsOpen(!settingsOpen), 0);
+  };
   return (
     <>
       <Box display="flex" maxWidth="50%">
@@ -51,7 +53,7 @@ const Menu: React.FC = () => {
             position="absolute"
             bottom={theme.sizes.menuWidth + 10 + "px"}
           >
-            <IconButton onClick={() => setSettingsOpen(!settingsOpen)}>
+            <IconButton onClick={handleSettingsButton}>
               <SettingsIcon color="action" />
             </IconButton>
           </Box>

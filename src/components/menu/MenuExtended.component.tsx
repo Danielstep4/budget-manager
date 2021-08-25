@@ -16,7 +16,7 @@ const MenuExtended: React.FC = ({ children }) => {
       maxWidth="660px"
       top="0"
       left={theme.sizes.menuWidth + "px"}
-      height="100vh"
+      height="100%"
       style={{ userSelect: "none" }}
     >
       {children}
