@@ -31,6 +31,9 @@ const theme = createTheme({
   shape: {
     borderRadius: 8,
   },
+  sizes: {
+    menuWidth: 120,
+  },
 });
 
 export default theme;

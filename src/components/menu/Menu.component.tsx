@@ -25,12 +25,13 @@ const Menu: React.FC = () => {
   const handleKeyPress = (e: KeyboardEvent) => {
     if (e.key === "Escape") setSettingsOpen(false);
   };
+  // SidebarWidth
   return (
     <>
       <Box display="flex" maxWidth="50%">
         <Box
           minHeight="650px"
-          width="120px"
+          width={theme.sizes.menuWidth + "px"}
           bgcolor={theme.palette.background.paper}
           height="100vh"
           position="relative"
@@ -38,12 +39,12 @@ const Menu: React.FC = () => {
         >
           <Box
             bgcolor={theme.palette.primary.main}
-            width="120px"
-            height="120px"
+            width={theme.sizes.menuWidth + "px"}
+            height={theme.sizes.menuWidth + "px"}
             display="flex"
             justifyContent="center"
             alignItems="center"
-            fontSize="60px"
+            fontSize={theme.sizes.menuWidth / 2 + "px"}
           >
             <SvgIcon fontSize="inherit">
               <AccountBalance />
@@ -55,15 +56,15 @@ const Menu: React.FC = () => {
             width="100%"
             alignItems="center"
             position="absolute"
-            bottom="130px"
+            bottom={theme.sizes.menuWidth + 10 + "px"}
           >
             <IconButton onClick={() => setSettingsOpen(!settingsOpen)}>
               <SettingsIcon color="action" />
             </IconButton>
           </Box>
           <Box
-            width="120px"
-            height="120px"
+            width={theme.sizes.menuWidth + "px"}
+            height={theme.sizes.menuWidth + "px"}
             position="absolute"
             bottom="0"
             left="0"
@@ -72,7 +73,13 @@ const Menu: React.FC = () => {
             alignItems="center"
             borderTop={"0.5px solid" + theme.palette.grey[500]}
           >
-            <Avatar alt="default" style={{ width: "75px", height: "75px" }} />
+            <Avatar
+              alt="default"
+              style={{
+                width: `${theme.sizes.menuWidth * 0.625 + "px"}`,
+                height: `${theme.sizes.menuWidth * 0.625 + "px"}`,
+              }}
+            />
           </Box>
         </Box>
         {settingsOpen && (

@@ -1,5 +1,6 @@
 import { Box, useTheme } from "@material-ui/core";
 import React from "react";
+import ReactDOM from "react-dom";
 
 const MenuExtended: React.FC = ({ children }) => {
   const theme = useTheme();
@@ -13,7 +14,8 @@ const MenuExtended: React.FC = ({ children }) => {
       position="fixed"
       width="40%"
       maxWidth="660px"
-      left="120px"
+      top="0"
+      left={theme.sizes.menuWidth + "px"}
       height="100vh"
       style={{ userSelect: "none" }}
     >
@@ -22,4 +24,5 @@ const MenuExtended: React.FC = ({ children }) => {
   );
 };
 
+ReactDOM.createPortal(<MenuExtended />, document.getElementById("portal")!);
 export default MenuExtended;
