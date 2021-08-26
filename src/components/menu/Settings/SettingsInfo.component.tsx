@@ -55,7 +55,7 @@ const SettingsInfo: React.FC<SettingsInfoProps> = ({
       <Typography style={{ textTransform: "capitalize" }}>{title}</Typography>
       <Box
         display="grid"
-        gridTemplateColumns="1fr 1fr"
+        gridTemplateColumns="2fr 1fr"
         alignItems="center"
         component={toEdit ? "form" : "div"}
       >
@@ -63,10 +63,11 @@ const SettingsInfo: React.FC<SettingsInfoProps> = ({
           <TextField
             value={value}
             color="primary"
+            fullWidth
             onChange={(e) => setValue(e.target.value)}
           />
         ) : (
-          <Typography>{content || "No Info"}</Typography>
+          <Typography color="primary">{content || "No Info"}</Typography>
         )}
         <Box>
           <IconButton onClick={handleClick}>

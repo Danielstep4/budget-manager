@@ -9,7 +9,6 @@ import SettingsInfo from "./SettingsInfo.component";
 const Settings: React.FC = () => {
   // Hooks
   const { signOut, currentUser, getUserPersonalInfo } = useAuth();
-
   const { setBackdropOpen } = useBackdrop();
   const [userPersonalInfo, setUserPersonalInfo] = useState<
     UserPersonalInfo | undefined
@@ -22,6 +21,7 @@ const Settings: React.FC = () => {
     setUserPersonalInfo(getUserPersonalInfo());
     getUserInfo(currentUser.uid)
       .then((response) => {
+        if (!response) return;
         setUser(response);
       })
       .catch((e) => console.log(e))
@@ -47,12 +47,12 @@ const Settings: React.FC = () => {
         </Typography>
         <Box
           display="grid"
-          gridTemplateColumns="repeat(2, 1fr)"
+          gridTemplateColumns="1fr 2fr"
           alignItems="center"
           p={1}
         >
           {Object.keys(user).map((key) => {
-            if (key == "createdOn") return;
+            if (key === "createdOn") return null;
             else
               return (
                 <SettingsInfo
@@ -73,7 +73,7 @@ const Settings: React.FC = () => {
         </Typography>
         <Box
           display="grid"
-          gridTemplateColumns="repeat(2, 1fr)"
+          gridTemplateColumns="1fr 2fr"
           alignItems="center"
           p={1}
         >

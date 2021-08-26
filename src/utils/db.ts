@@ -4,8 +4,13 @@ import firebase from "firebase";
 const { serverTimestamp } = firebase.firestore.FieldValue;
 export const getUserInfo = async (uid: string) => {
   const response = await firestore.collection("users").doc(uid).get();
-  const user = response.data() as UserDocument | undefined;
-  return user;
+  const data = response.data() as UserDocument | undefined;
+  if (!data) return;
+  return {
+    Currency: data.Currency,
+    "Saving Goal": data["Saving Goal"],
+    createdOn: data.createdOn,
+  };
 };
 
 export const setUserInfo = async (currentUser: firebase.User) => {
