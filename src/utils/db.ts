@@ -10,8 +10,8 @@ export const getUserInfo = async (uid: string) => {
 
 export const setUserInfo = async (currentUser: firebase.User) => {
   const userDoc: UserSchema = {
-    currency: "ILS",
-    savingGoal: "25",
+    Currency: "ILS",
+    "Saving Goal": "25",
     createdOn: serverTimestamp(),
   };
   try {
@@ -35,8 +35,8 @@ export const updateUserSettings = async (
 };
 
 interface UserSchema {
-  currency: "ILS";
-  savingGoal: string;
+  Currency: "ILS";
+  "Saving Goal": string;
   createdOn: any;
 }
 export interface UserDocument extends UserSchema {}

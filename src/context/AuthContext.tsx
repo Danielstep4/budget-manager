@@ -36,11 +36,12 @@ const AuthProvider: React.FC = ({ children }) => {
     return auth.signInWithEmailAndPassword(email, password);
   };
 
-  const signup = async (email: string, password: string) => {
+  const signup = async (email: string, password: string, fullname: string) => {
     const response = await auth.createUserWithEmailAndPassword(email, password);
     const { user } = response;
     if (user) {
       await setUserInfo(user);
+      await user.updateProfile({ displayName: fullname });
     }
     return response;
   };
@@ -57,7 +58,7 @@ const AuthProvider: React.FC = ({ children }) => {
       } else {
         const fieldToUpdate: any = {};
         fieldToUpdate[query] = newVal;
-        await currentUser.updateProfile({ ...fieldToUpdate });
+        await currentUser.updateProfile(fieldToUpdate);
         await auth.updateCurrentUser(currentUser);
       }
     } catch (e) {
@@ -97,7 +98,8 @@ export interface AuthContextValue {
   hasAccount: boolean;
   signup: (
     email: string,
-    password: string
+    password: string,
+    fullname: string
   ) => Promise<firebase.auth.UserCredential>;
   login: (
     email: string,

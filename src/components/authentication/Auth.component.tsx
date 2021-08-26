@@ -31,7 +31,7 @@ const Auth: React.FC<AuthProps> = ({ isRegister }) => {
   const handleRegister = async () => {
     if (password !== password2) return;
     try {
-      await signup(email, password);
+      await signup(email, password, fullName);
       localStorage.setItem("hasAccount", "true");
     } catch (e) {
       setError(e.message);

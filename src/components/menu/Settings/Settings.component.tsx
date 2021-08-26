@@ -51,20 +51,20 @@ const Settings: React.FC = () => {
           alignItems="center"
           p={1}
         >
-          <SettingsInfo
-            title="Currency"
-            content={user.currency || "None"}
-            query="currency"
-            setIsUpdated={setIsUpdated}
-            isUpdated={isUpdated}
-          />
-          <SettingsInfo
-            title="Savings Goal (%)"
-            content={user.savingGoal || "None"}
-            query="savingGoal"
-            setIsUpdated={setIsUpdated}
-            isUpdated={isUpdated}
-          />
+          {Object.keys(user).map((key) => {
+            if (key == "createdOn") return;
+            else
+              return (
+                <SettingsInfo
+                  title={key}
+                  /// @ts-ignore
+                  content={user[key] || ""}
+                  query={key}
+                  setIsUpdated={setIsUpdated}
+                  isUpdated={isUpdated}
+                />
+              );
+          })}
         </Box>
       </Box>
       <Box p={1}>
@@ -77,20 +77,16 @@ const Settings: React.FC = () => {
           alignItems="center"
           p={1}
         >
-          <SettingsInfo
-            title="Full Name"
-            content={userPersonalInfo.displayName || ""}
-            query="displayName"
-            setIsUpdated={setIsUpdated}
-            isUpdated={isUpdated}
-          />
-          <SettingsInfo
-            title="Email"
-            content={userPersonalInfo.email || "None"}
-            query="email"
-            setIsUpdated={setIsUpdated}
-            isUpdated={isUpdated}
-          />
+          {Object.keys(userPersonalInfo).map((key) => (
+            <SettingsInfo
+              title={key.toLowerCase()}
+              /// @ts-ignore
+              content={userPersonalInfo[key] || ""}
+              query={key}
+              setIsUpdated={setIsUpdated}
+              isUpdated={isUpdated}
+            />
+          ))}
         </Box>
       </Box>
       <Box p={1}>

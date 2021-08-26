@@ -52,7 +52,7 @@ const SettingsInfo: React.FC<SettingsInfoProps> = ({
 
   return (
     <>
-      <Typography>{title}</Typography>
+      <Typography style={{ textTransform: "capitalize" }}>{title}</Typography>
       <Box
         display="grid"
         gridTemplateColumns="1fr 1fr"
