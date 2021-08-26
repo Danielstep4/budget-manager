@@ -14,7 +14,7 @@ const SettingsInfo: React.FC<SettingsInfoProps> = ({
   // Hooks
   const [toEdit, setToEdit] = useState(false);
   const [value, setValue] = useState(content);
-  const { userId } = useAuth();
+  const { currentUser } = useAuth();
   // useEffects
   useEffect(() => {
     if (!isUpdated) {
@@ -25,7 +25,8 @@ const SettingsInfo: React.FC<SettingsInfoProps> = ({
   const handleClick = () => {
     if (!toEdit) setToEdit(true);
     else {
-      editUserInfo(userId, query, value)
+      if (!currentUser) return;
+      editUserInfo(currentUser.uid, query, value)
         .then(() => {
           setIsUpdated(true);
         })

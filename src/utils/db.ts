@@ -11,8 +11,6 @@ export const getUserInfo = async (uid: string) => {
 
 export const setUserInfo = async (currentUser: firebase.User) => {
   const userDoc: UserSchema = {
-    name: currentUser.email?.split("@")[0] || "None",
-    email: currentUser.email || "example@google.com",
     currency: "ILS",
     savingGoal: "25",
     createdOn: serverTimestamp(),
@@ -38,8 +36,6 @@ export const editUserInfo = async (
   }
 };
 interface UserSchema {
-  name: string;
-  email: string;
   currency: "ILS";
   savingGoal: string;
   createdOn: any;

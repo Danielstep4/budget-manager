@@ -13,7 +13,7 @@ export const useAuth = (): AuthContextValue => {
 };
 const AuthProvider: React.FC = ({ children }) => {
   // State
-  const [userId, setUserId] = useState<string | null>(null);
+  const [currentUser, setCurrentUser] = useState<firebase.User | null>(null);
   const [hasAccount, setHasAccount] = useState(false);
   const [loading, setLoading] = useState(true);
   // useEffects
@@ -25,7 +25,7 @@ const AuthProvider: React.FC = ({ children }) => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        setUserId(user.uid);
+        setCurrentUser(user);
       }
       setLoading(false);
     });
@@ -45,13 +45,21 @@ const AuthProvider: React.FC = ({ children }) => {
     return response;
   };
   const signOut = () => auth.signOut();
+  const getUserPersonalInfo = () => {
+    if (!currentUser) return;
+    return {
+      name: currentUser.displayName,
+      email: currentUser.email,
+    };
+  };
   // Value
   const value: AuthContextValue = {
-    userId,
+    currentUser,
     signup,
     login,
     hasAccount,
     signOut,
+    getUserPersonalInfo,
   };
 
   return (
@@ -64,7 +72,7 @@ const AuthProvider: React.FC = ({ children }) => {
 export default AuthProvider;
 
 export interface AuthContextValue {
-  userId: string | null;
+  currentUser: firebase.User | null;
   hasAccount: boolean;
   signup: (
     email: string,
@@ -75,4 +83,10 @@ export interface AuthContextValue {
     password: string
   ) => Promise<firebase.auth.UserCredential>;
   signOut: () => Promise<void>;
+  getUserPersonalInfo: () => UserPersonalInfo | undefined;
+}
+
+export interface UserPersonalInfo {
+  name: string | null;
+  email: string | null;
 }

@@ -1,6 +1,6 @@
 import { Box, Typography } from "@material-ui/core";
 import { useEffect, useState } from "react";
-import { useAuth } from "../../../context/AuthContext";
+import { useAuth, UserPersonalInfo } from "../../../context/AuthContext";
 import { useBackdrop } from "../../../context/BackdropContext";
 import { getUserInfo, UserDocument } from "../../../utils/db";
 import Button from "../../global/Button.component";
@@ -8,26 +8,33 @@ import SettingsInfo from "./SettingsInfo.component";
 
 const Settings: React.FC = () => {
   // Hooks
-  const { signOut, userId } = useAuth();
+  const { signOut, currentUser, getUserPersonalInfo } = useAuth();
+
   const { setBackdropOpen } = useBackdrop();
+  const [userPersonalInfo, setUserPersonalInfo] = useState<
+    UserPersonalInfo | undefined
+  >(undefined);
   const [user, setUser] = useState<UserDocument | undefined>(undefined);
   const [isUpdated, setIsUpdated] = useState(false);
   // useEffects
   useEffect(() => {
-    if (!userId) return;
-    getUserInfo(userId)
-      .then((user) => {
-        setUser(user);
+    if (!currentUser) return;
+    setUserPersonalInfo(getUserPersonalInfo());
+    getUserInfo(currentUser.uid)
+      .then((response) => {
+        setUser(response);
       })
       .catch((e) => console.log(e))
-      .finally(() => setIsUpdated(false));
-  }, [userId, isUpdated]);
+      .finally(() => {
+        setIsUpdated(false);
+      });
+  }, [isUpdated, getUserPersonalInfo, currentUser]);
   // Helper Functions
   const handleLogoutClick = () => {
     setBackdropOpen(false);
     signOut();
   };
-  if (!user || !userId) return null;
+  if (!user || !currentUser || !userPersonalInfo) return null;
   return (
     <>
       <Box display="flex" justifyContent="space-between">
@@ -46,14 +53,14 @@ const Settings: React.FC = () => {
         >
           <SettingsInfo
             title="Currency"
-            content={user.currency}
+            content={user.currency || "None"}
             query="currency"
             setIsUpdated={setIsUpdated}
             isUpdated={isUpdated}
           />
           <SettingsInfo
             title="Savings Goal (%)"
-            content={user.savingGoal}
+            content={user.savingGoal || "None"}
             query="savingGoal"
             setIsUpdated={setIsUpdated}
             isUpdated={isUpdated}
@@ -72,14 +79,14 @@ const Settings: React.FC = () => {
         >
           <SettingsInfo
             title="Full Name"
-            content={user.name}
+            content={userPersonalInfo.name || ""}
             query="name"
             setIsUpdated={setIsUpdated}
             isUpdated={isUpdated}
           />
           <SettingsInfo
             title="Email"
-            content={user.email}
+            content={userPersonalInfo.email || "None"}
             query="email"
             setIsUpdated={setIsUpdated}
             isUpdated={isUpdated}
