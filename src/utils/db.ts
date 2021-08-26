@@ -2,7 +2,6 @@ import { firestore } from "../firebase";
 import firebase from "firebase";
 
 const { serverTimestamp } = firebase.firestore.FieldValue;
-
 export const getUserInfo = async (uid: string) => {
   const response = await firestore.collection("users").doc(uid).get();
   const user = response.data() as UserDocument | undefined;
@@ -21,12 +20,11 @@ export const setUserInfo = async (currentUser: firebase.User) => {
     console.log(e);
   }
 };
-export const editUserInfo = async (
-  uid: string | null,
+export const updateUserSettings = async (
+  uid: string,
   query: string,
   newVal: string
 ) => {
-  if (!uid) return;
   const fieldToUpdate: any = {};
   fieldToUpdate[query] = newVal;
   try {
@@ -35,6 +33,7 @@ export const editUserInfo = async (
     console.log(e);
   }
 };
+
 interface UserSchema {
   currency: "ILS";
   savingGoal: string;

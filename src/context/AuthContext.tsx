@@ -44,12 +44,32 @@ const AuthProvider: React.FC = ({ children }) => {
     }
     return response;
   };
-  const signOut = () => auth.signOut();
-  const getUserPersonalInfo = () => {
+  const signOut = async () => {
+    await auth.signOut();
+    window.location.reload();
+  };
+
+  const updateUserPersonalInfo = async (query: string, newVal: string) => {
+    if (!currentUser) return;
+    try {
+      if (query === "email") {
+        await currentUser.updateEmail(newVal);
+      } else {
+        const fieldToUpdate: any = {};
+        fieldToUpdate[query] = newVal;
+        await currentUser.updateProfile({ ...fieldToUpdate });
+        await auth.updateCurrentUser(currentUser);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const getUserPersonalInfo = (): UserPersonalInfo | undefined => {
     if (!currentUser) return;
     return {
-      name: currentUser.displayName,
+      displayName: currentUser.displayName,
       email: currentUser.email,
+      photoURL: currentUser.photoURL,
     };
   };
   // Value
@@ -60,6 +80,7 @@ const AuthProvider: React.FC = ({ children }) => {
     hasAccount,
     signOut,
     getUserPersonalInfo,
+    updateUserPersonalInfo,
   };
 
   return (
@@ -84,9 +105,11 @@ export interface AuthContextValue {
   ) => Promise<firebase.auth.UserCredential>;
   signOut: () => Promise<void>;
   getUserPersonalInfo: () => UserPersonalInfo | undefined;
+  updateUserPersonalInfo: (query: string, newVal: string) => Promise<void>;
 }
 
 export interface UserPersonalInfo {
-  name: string | null;
+  displayName: string | null;
   email: string | null;
+  photoURL: string | null;
 }

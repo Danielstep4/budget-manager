@@ -4,6 +4,7 @@ import { useAuth } from "./context/AuthContext";
 import Home from "./pages/Home";
 const App: React.FC = () => {
   const { hasAccount, currentUser } = useAuth();
+  console.log(currentUser?.displayName);
   return (
     <Layout>
       {!currentUser ? <Auth isRegister={!hasAccount} /> : <Home />}

@@ -79,8 +79,8 @@ const Settings: React.FC = () => {
         >
           <SettingsInfo
             title="Full Name"
-            content={userPersonalInfo.name || ""}
-            query="name"
+            content={userPersonalInfo.displayName || ""}
+            query="displayName"
             setIsUpdated={setIsUpdated}
             isUpdated={isUpdated}
           />

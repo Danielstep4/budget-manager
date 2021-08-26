@@ -2,7 +2,7 @@ import { IconButton, Typography, Box, TextField } from "@material-ui/core";
 import { Edit, Done, Clear } from "@material-ui/icons";
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../../../context/AuthContext";
-import { editUserInfo } from "../../../utils/db";
+import { updateUserSettings } from "../../../utils/db";
 
 const SettingsInfo: React.FC<SettingsInfoProps> = ({
   title,
@@ -14,7 +14,7 @@ const SettingsInfo: React.FC<SettingsInfoProps> = ({
   // Hooks
   const [toEdit, setToEdit] = useState(false);
   const [value, setValue] = useState(content);
-  const { currentUser } = useAuth();
+  const { currentUser, updateUserPersonalInfo } = useAuth();
   // useEffects
   useEffect(() => {
     if (!isUpdated) {
@@ -22,6 +22,22 @@ const SettingsInfo: React.FC<SettingsInfoProps> = ({
     }
   }, [isUpdated]);
   // Helper Functions
+  const editUserInfo = async (
+    uid: string | null,
+    query: string,
+    newVal: string
+  ) => {
+    if (!uid) return;
+    try {
+      if (query === "displayName" || query === "email") {
+        await updateUserPersonalInfo(query, newVal);
+      } else {
+        await updateUserSettings(uid, query, newVal);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
   const handleClick = () => {
     if (!toEdit) setToEdit(true);
     else {
@@ -33,6 +49,7 @@ const SettingsInfo: React.FC<SettingsInfoProps> = ({
         .catch((e) => console.log(e));
     }
   };
+
   return (
     <>
       <Typography>{title}</Typography>
