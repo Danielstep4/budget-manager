@@ -29,7 +29,11 @@ const SettingsInfo: React.FC<SettingsInfoProps> = ({
   ) => {
     if (!uid) return;
     try {
-      if (query === "displayName" || query === "email") {
+      if (
+        query === "displayName" ||
+        query === "email" ||
+        query === "photoURL"
+      ) {
         await updateUserPersonalInfo(query, newVal);
       } else {
         await updateUserSettings(uid, query, newVal);
@@ -49,10 +53,11 @@ const SettingsInfo: React.FC<SettingsInfoProps> = ({
         .catch((e) => console.log(e));
     }
   };
-
   return (
     <>
-      <Typography style={{ textTransform: "capitalize" }}>{title}</Typography>
+      <Typography style={{ textTransform: "capitalize" }}>
+        {title.includes("url") ? title.replace("url", "") : title}
+      </Typography>
       <Box
         display="grid"
         gridTemplateColumns="2fr 1fr"
@@ -67,7 +72,13 @@ const SettingsInfo: React.FC<SettingsInfoProps> = ({
             onChange={(e) => setValue(e.target.value)}
           />
         ) : (
-          <Typography color="primary">{content || "No Info"}</Typography>
+          <Typography color="primary">
+            {content
+              ? content.length > 25
+                ? content.slice(0, 25) + "..."
+                : content
+              : "No Info"}
+          </Typography>
         )}
         <Box>
           <IconButton onClick={handleClick}>

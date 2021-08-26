@@ -4,10 +4,12 @@ import Settings from "./Settings/Settings.component";
 import { useState, useEffect } from "react";
 import { useBackdrop } from "../../context/BackdropContext";
 import MenuExtended from "./MenuExtended.component";
+import { useAuth } from "../../context/AuthContext";
 
 const Menu: React.FC = () => {
   // Hooks
   const theme = useTheme();
+  const { currentUser } = useAuth();
   const { setBackdropOpen, backdropOpen } = useBackdrop();
   const [settingsOpen, setSettingsOpen] = useState(false);
   // useEffects
@@ -70,9 +72,10 @@ const Menu: React.FC = () => {
           >
             <Avatar
               alt="default"
+              src={currentUser!.photoURL || ""}
               style={{
-                width: `${theme.sizes.menuWidth * 0.625 + "px"}`,
-                height: `${theme.sizes.menuWidth * 0.625 + "px"}`,
+                width: `${theme.sizes.menuWidth * 0.75 + "px"}`,
+                height: `${theme.sizes.menuWidth * 0.75 + "px"}`,
               }}
             />
           </Box>

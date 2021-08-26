@@ -56,6 +56,7 @@ const Settings: React.FC = () => {
             else
               return (
                 <SettingsInfo
+                  key={key}
                   title={key}
                   /// @ts-ignore
                   content={user[key] || ""}
@@ -79,6 +80,7 @@ const Settings: React.FC = () => {
         >
           {Object.keys(userPersonalInfo).map((key) => (
             <SettingsInfo
+              key={key}
               title={key.toLowerCase()}
               /// @ts-ignore
               content={userPersonalInfo[key] || ""}
