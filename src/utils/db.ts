@@ -38,10 +38,42 @@ export const updateUserSettings = async (
     console.log(e);
   }
 };
+export const addFlow = async (
+  flow: FlowSchema,
+  uid: string,
+  isExpense?: boolean
+) => {
+  const flowToString = JSON.stringify(flow);
+  try {
+    if (isExpense) {
+      await firestore
+        .collection("users")
+        .doc(uid)
+        .update({
+          expenses: firebase.firestore.FieldValue.arrayUnion(flowToString),
+        });
+    } else {
+      await firestore
+        .collection("users")
+        .doc(uid)
+        .update({
+          incomes: firebase.firestore.FieldValue.arrayUnion(flowToString),
+        });
+    }
+  } catch (e) {
+    console.log(e);
+  }
+};
 
 interface UserSchema {
   Currency: "ILS";
   "Saving Goal": string;
   createdOn: any;
+}
+interface FlowSchema {
+  title: string;
+  date: any;
+  category: string;
+  price: number;
 }
 export interface UserDocument extends UserSchema {}

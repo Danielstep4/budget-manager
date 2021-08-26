@@ -1,5 +1,4 @@
 import { Box, Typography } from "@material-ui/core";
-import { FormatListBulleted } from "@material-ui/icons";
 import { FormEvent, useState } from "react";
 import { useAuth } from "../../../context/AuthContext";
 import Button from "../../global/Button.component";
