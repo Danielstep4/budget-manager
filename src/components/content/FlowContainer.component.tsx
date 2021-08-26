@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { DemoDataExpense, DemoDataIncome } from "../../demo-data";
-import InfoBar from "./InfoBar";
+import InfoBar from "./InfoBar.component";
 import Button from "../global/Button.component";
 import { Box, Typography } from "@material-ui/core";
 import MenuExtended from "../menu/MenuExtended.component";
