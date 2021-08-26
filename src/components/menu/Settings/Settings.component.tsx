@@ -11,6 +11,7 @@ const Settings: React.FC = () => {
   const { signOut, currentUser } = useAuth();
   const { setBackdropOpen } = useBackdrop();
   const [user, setUser] = useState<UserDocument | undefined>(undefined);
+  const [isUpdated, setIsUpdated] = useState(false);
   // useEffects
   useEffect(() => {
     if (!currentUser) return;
@@ -18,14 +19,15 @@ const Settings: React.FC = () => {
       .then((user) => {
         setUser(user);
       })
-      .catch((e) => console.log(e));
-  }, [currentUser]);
+      .catch((e) => console.log(e))
+      .finally(() => setIsUpdated(false));
+  }, [currentUser, isUpdated]);
   // Helper Functions
   const handleLogoutClick = () => {
     setBackdropOpen(false);
     signOut();
   };
-  if (!user) return null;
+  if (!user || !currentUser) return null;
   return (
     <>
       <Box display="flex" justifyContent="space-between">
@@ -42,8 +44,22 @@ const Settings: React.FC = () => {
           alignItems="center"
           p={1}
         >
-          <SettingsInfo title="Currency" content={user.currency} />
-          <SettingsInfo title="Savings Goal (%)" content={user.savingGoal} />
+          <SettingsInfo
+            title="Currency"
+            content={user.currency}
+            id={currentUser.uid}
+            query="currency"
+            setIsUpdated={setIsUpdated}
+            isUpdated={isUpdated}
+          />
+          <SettingsInfo
+            title="Savings Goal (%)"
+            content={user.savingGoal}
+            id={currentUser.uid}
+            query="savingGoal"
+            setIsUpdated={setIsUpdated}
+            isUpdated={isUpdated}
+          />
         </Box>
       </Box>
       <Box p={1}>
@@ -56,8 +72,22 @@ const Settings: React.FC = () => {
           alignItems="center"
           p={1}
         >
-          <SettingsInfo title="Full Name" content={user.name} />
-          <SettingsInfo title="Email" content={user.email} />
+          <SettingsInfo
+            title="Full Name"
+            content={user.name}
+            id={currentUser.uid}
+            query="name"
+            setIsUpdated={setIsUpdated}
+            isUpdated={isUpdated}
+          />
+          <SettingsInfo
+            title="Email"
+            content={user.email}
+            id={currentUser.uid}
+            query="email"
+            setIsUpdated={setIsUpdated}
+            isUpdated={isUpdated}
+          />
         </Box>
       </Box>
       <Box p={1}>

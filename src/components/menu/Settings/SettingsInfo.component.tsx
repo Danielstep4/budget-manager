@@ -1,17 +1,35 @@
 import { IconButton, Typography, Box, TextField } from "@material-ui/core";
 import { Edit, Done, Clear } from "@material-ui/icons";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { editUserInfo } from "../../../utils/db";
 
-const SettingsInfo: React.FC<SettingsInfoProps> = ({ title, content }) => {
+const SettingsInfo: React.FC<SettingsInfoProps> = ({
+  title,
+  content,
+  id,
+  query,
+  setIsUpdated,
+  isUpdated,
+}) => {
   // Hooks
   const [toEdit, setToEdit] = useState(false);
   const [value, setValue] = useState(content);
+  // useEffects
+  useEffect(() => {
+    if (!isUpdated) {
+      setToEdit(false);
+    }
+  }, [isUpdated]);
   // Helper Functions
   const handleClick = () => {
     if (!toEdit) setToEdit(true);
     else {
       // #TODO: send request to change the value
-      setToEdit(false);
+      editUserInfo(id, query, value)
+        .then(() => {
+          setIsUpdated(true);
+        })
+        .catch((e) => console.log(e));
     }
   };
   return (
@@ -52,4 +70,8 @@ export default SettingsInfo;
 interface SettingsInfoProps {
   title: string;
   content: string;
+  id: string;
+  query: string;
+  setIsUpdated: React.Dispatch<React.SetStateAction<boolean>>;
+  isUpdated: boolean;
 }

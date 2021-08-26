@@ -23,7 +23,19 @@ export const setUserInfo = async (currentUser: firebase.User) => {
     console.log(e);
   }
 };
-
+export const editUserInfo = async (
+  uid: string,
+  query: string,
+  newVal: string
+) => {
+  const fieldToUpdate: any = {};
+  fieldToUpdate[query] = newVal;
+  try {
+    firestore.collection("users").doc(uid).update(fieldToUpdate);
+  } catch (e) {
+    console.log(e);
+  }
+};
 interface UserSchema {
   name: string;
   email: string;
