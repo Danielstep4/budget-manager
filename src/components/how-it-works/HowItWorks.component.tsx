@@ -11,7 +11,7 @@ const HowItWorks: React.FC = () => {
   useEffect(() => {
     setOverMenu(isOpen);
     setBackdropOpen(isOpen);
-  }, [isOpen, setBackdropOpen]);
+  }, [isOpen, setBackdropOpen, setOverMenu]);
   useEffect(() => {
     if (!backdropOpen) setIsOpen(false);
   }, [backdropOpen]);

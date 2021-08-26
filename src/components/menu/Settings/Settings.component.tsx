@@ -1,6 +1,8 @@
 import { Box, Typography } from "@material-ui/core";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../../context/AuthContext";
 import { useBackdrop } from "../../../context/BackdropContext";
+import { getUserInfo, UserDocument } from "../../../utils/db";
 import Button from "../../global/Button.component";
 import SettingsInfo from "./SettingsInfo.component";
 
@@ -8,12 +10,22 @@ const Settings: React.FC = () => {
   // Hooks
   const { signOut, currentUser } = useAuth();
   const { setBackdropOpen } = useBackdrop();
+  const [user, setUser] = useState<UserDocument | undefined>(undefined);
+  // useEffects
+  useEffect(() => {
+    if (!currentUser) return;
+    getUserInfo(currentUser.uid)
+      .then((user) => {
+        setUser(user);
+      })
+      .catch((e) => console.log(e));
+  }, [currentUser]);
   // Helper Functions
   const handleLogoutClick = () => {
     setBackdropOpen(false);
     signOut();
   };
-  if (!currentUser) return null;
+  if (!user) return null;
   return (
     <>
       <Box display="flex" justifyContent="space-between">
@@ -30,8 +42,8 @@ const Settings: React.FC = () => {
           alignItems="center"
           p={1}
         >
-          <SettingsInfo title="Currency" content="ILS" />
-          <SettingsInfo title="Savings Goal (%)" content={"25"} />
+          <SettingsInfo title="Currency" content={user.currency} />
+          <SettingsInfo title="Savings Goal (%)" content={user.savingGoal} />
         </Box>
       </Box>
       <Box p={1}>
@@ -44,8 +56,8 @@ const Settings: React.FC = () => {
           alignItems="center"
           p={1}
         >
-          <SettingsInfo title="Full Name" content="Test" />
-          <SettingsInfo title="Email" content={currentUser.email!} />
+          <SettingsInfo title="Full Name" content={user.name} />
+          <SettingsInfo title="Email" content={user.email} />
         </Box>
       </Box>
       <Box p={1}>

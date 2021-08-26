@@ -3,7 +3,7 @@ import { createContext } from "react";
 import firebase from "firebase";
 import { auth } from "../firebase";
 import { useEffect } from "react";
-import { setUserInfo } from "../utils/userInfo";
+import { setUserInfo } from "../utils/db";
 
 const AuthContext = createContext<AuthContextValue | {}>({});
 
@@ -25,7 +25,6 @@ const AuthProvider: React.FC = ({ children }) => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
-
       setLoading(false);
     });
     return unsubscribe;
