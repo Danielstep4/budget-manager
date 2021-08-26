@@ -24,10 +24,11 @@ export const setUserInfo = async (currentUser: firebase.User) => {
   }
 };
 export const editUserInfo = async (
-  uid: string,
+  uid: string | null,
   query: string,
   newVal: string
 ) => {
+  if (!uid) return;
   const fieldToUpdate: any = {};
   fieldToUpdate[query] = newVal;
   try {

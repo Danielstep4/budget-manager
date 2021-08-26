@@ -13,7 +13,7 @@ export const useAuth = (): AuthContextValue => {
 };
 const AuthProvider: React.FC = ({ children }) => {
   // State
-  const [currentUser, setCurrentUser] = useState<firebase.User | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
   const [hasAccount, setHasAccount] = useState(false);
   const [loading, setLoading] = useState(true);
   // useEffects
@@ -24,7 +24,9 @@ const AuthProvider: React.FC = ({ children }) => {
   }, []);
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      setCurrentUser(user);
+      if (user) {
+        setUserId(user.uid);
+      }
       setLoading(false);
     });
     return unsubscribe;
@@ -45,7 +47,7 @@ const AuthProvider: React.FC = ({ children }) => {
   const signOut = () => auth.signOut();
   // Value
   const value: AuthContextValue = {
-    currentUser,
+    userId,
     signup,
     login,
     hasAccount,
@@ -62,7 +64,7 @@ const AuthProvider: React.FC = ({ children }) => {
 export default AuthProvider;
 
 export interface AuthContextValue {
-  currentUser: firebase.User | null;
+  userId: string | null;
   hasAccount: boolean;
   signup: (
     email: string,

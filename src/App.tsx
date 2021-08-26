@@ -3,12 +3,10 @@ import Auth from "./components/authentication/Auth.component";
 import { useAuth } from "./context/AuthContext";
 import Home from "./pages/Home";
 const App: React.FC = () => {
-  const { currentUser, hasAccount } = useAuth();
+  const { userId, hasAccount } = useAuth();
 
   return (
-    <Layout>
-      {!currentUser ? <Auth isRegister={!hasAccount} /> : <Home />}
-    </Layout>
+    <Layout>{!userId ? <Auth isRegister={!hasAccount} /> : <Home />}</Layout>
   );
 };
 

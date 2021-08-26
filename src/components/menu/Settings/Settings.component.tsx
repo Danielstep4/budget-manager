@@ -8,26 +8,26 @@ import SettingsInfo from "./SettingsInfo.component";
 
 const Settings: React.FC = () => {
   // Hooks
-  const { signOut, currentUser } = useAuth();
+  const { signOut, userId } = useAuth();
   const { setBackdropOpen } = useBackdrop();
   const [user, setUser] = useState<UserDocument | undefined>(undefined);
   const [isUpdated, setIsUpdated] = useState(false);
   // useEffects
   useEffect(() => {
-    if (!currentUser) return;
-    getUserInfo(currentUser.uid)
+    if (!userId) return;
+    getUserInfo(userId)
       .then((user) => {
         setUser(user);
       })
       .catch((e) => console.log(e))
       .finally(() => setIsUpdated(false));
-  }, [currentUser, isUpdated]);
+  }, [userId, isUpdated]);
   // Helper Functions
   const handleLogoutClick = () => {
     setBackdropOpen(false);
     signOut();
   };
-  if (!user || !currentUser) return null;
+  if (!user || !userId) return null;
   return (
     <>
       <Box display="flex" justifyContent="space-between">
@@ -47,7 +47,6 @@ const Settings: React.FC = () => {
           <SettingsInfo
             title="Currency"
             content={user.currency}
-            id={currentUser.uid}
             query="currency"
             setIsUpdated={setIsUpdated}
             isUpdated={isUpdated}
@@ -55,7 +54,6 @@ const Settings: React.FC = () => {
           <SettingsInfo
             title="Savings Goal (%)"
             content={user.savingGoal}
-            id={currentUser.uid}
             query="savingGoal"
             setIsUpdated={setIsUpdated}
             isUpdated={isUpdated}
@@ -75,7 +73,6 @@ const Settings: React.FC = () => {
           <SettingsInfo
             title="Full Name"
             content={user.name}
-            id={currentUser.uid}
             query="name"
             setIsUpdated={setIsUpdated}
             isUpdated={isUpdated}
@@ -83,7 +80,6 @@ const Settings: React.FC = () => {
           <SettingsInfo
             title="Email"
             content={user.email}
-            id={currentUser.uid}
             query="email"
             setIsUpdated={setIsUpdated}
             isUpdated={isUpdated}
