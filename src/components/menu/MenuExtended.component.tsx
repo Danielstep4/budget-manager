@@ -17,7 +17,7 @@ const MenuExtended: React.FC = ({ children }) => {
       top="0"
       left={theme.sizes.menuWidth + "px"}
       height="100%"
-      style={{ userSelect: "none" }}
+      style={{ userSelect: "none", overflowY: "auto" }}
     >
       {children}
     </Box>

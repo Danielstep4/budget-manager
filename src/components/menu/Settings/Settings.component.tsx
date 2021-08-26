@@ -4,6 +4,7 @@ import { useAuth, UserPersonalInfo } from "../../../context/AuthContext";
 import { useBackdrop } from "../../../context/BackdropContext";
 import { getUserInfo, UserDocument } from "../../../utils/db";
 import Button from "../../global/Button.component";
+import ChangePassword from "./ChangePassword.component";
 import SettingsInfo from "./SettingsInfo.component";
 
 const Settings: React.FC = () => {
@@ -95,6 +96,7 @@ const Settings: React.FC = () => {
         <Typography variant="h6" color="primary">
           Change Password
         </Typography>
+        <ChangePassword />
       </Box>
     </>
   );

@@ -73,6 +73,14 @@ const AuthProvider: React.FC = ({ children }) => {
       photoURL: currentUser.photoURL,
     };
   };
+  const changeUserPassword = async (newPassword: string) => {
+    if (!currentUser) return;
+    try {
+      await currentUser.updatePassword(newPassword);
+    } catch (e) {
+      console.log(e);
+    }
+  };
   // Value
   const value: AuthContextValue = {
     currentUser,
@@ -82,6 +90,7 @@ const AuthProvider: React.FC = ({ children }) => {
     signOut,
     getUserPersonalInfo,
     updateUserPersonalInfo,
+    changeUserPassword,
   };
 
   return (
@@ -108,6 +117,7 @@ export interface AuthContextValue {
   signOut: () => Promise<void>;
   getUserPersonalInfo: () => UserPersonalInfo | undefined;
   updateUserPersonalInfo: (query: string, newVal: string) => Promise<void>;
+  changeUserPassword: (newPassword: string) => Promise<void>;
 }
 
 export interface UserPersonalInfo {
