@@ -12,19 +12,17 @@ const NewFlow: React.FC<NewFlowProps> = ({ isExpense }) => {
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
   const [category, setCategory] = useState("");
-  const [price, setPrice] = useState("");
+  const [amount, setAmount] = useState("");
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    let intPrice = parseInt(price);
-    console.log(intPrice);
-    if (isNaN(intPrice)) return;
+    let intAmount = parseInt(amount);
+    if (isNaN(intAmount)) return;
     addFlow(
       {
         title,
         date,
         category,
-        amount: intPrice,
-        id: (Math.random() * 100000).toFixed(0),
+        amount: intAmount,
       },
       currentUser!.uid,
       isExpense
@@ -41,7 +39,7 @@ const NewFlow: React.FC<NewFlowProps> = ({ isExpense }) => {
         <TextInput label="Title" value={title} setValue={setTitle} />
         <TextInput label="Date" value={date} setValue={setDate} />
         <TextInput label="Category" value={category} setValue={setCategory} />
-        <TextInput label="Price" value={price} setValue={setPrice} />
+        <TextInput label="Amount" value={amount} setValue={setAmount} />
         <Box mt={1}>
           <Button submit>Submit</Button>
         </Box>

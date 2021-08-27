@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Box, Typography } from "@material-ui/core";
 import { getCurrentMonth, getCurrentYear } from "../../utils/getDates";
 import FlowContainer from "./FlowContainer.component";
-import { FlowSchema, getFlow } from "../../utils/db";
+import { FlowDocument, getFlow } from "../../utils/db";
 import { useAuth } from "../../context/AuthContext";
 import { useBackdrop } from "../../context/BackdropContext";
 
@@ -11,6 +11,7 @@ const MoneyFlow: React.FC = () => {
   const { backdropOpen } = useBackdrop();
   const [expenses, setExpenses] = useState<string[] | undefined>(undefined);
   const [incomes, setIncomes] = useState<string[] | undefined>(undefined);
+  const [currency, setCurrency] = useState<string>("ILS");
   useEffect(() => {
     if (backdropOpen) return;
     getFlow(currentUser!.uid)
@@ -18,6 +19,7 @@ const MoneyFlow: React.FC = () => {
         if (result) {
           setExpenses(result.expenses);
           setIncomes(result.incomes);
+          setCurrency(result.currency || currency);
         }
       })
       .catch((e) => console.log(e));
@@ -30,13 +32,15 @@ const MoneyFlow: React.FC = () => {
       <FlowContainer
         isExpense
         data={
-          expenses && (expenses.map((str) => JSON.parse(str)) as FlowSchema[])
+          expenses && (expenses.map((str) => JSON.parse(str)) as FlowDocument[])
         }
+        currency={currency}
       />
       <FlowContainer
         data={
-          incomes && (incomes.map((str) => JSON.parse(str)) as FlowSchema[])
+          incomes && (incomes.map((str) => JSON.parse(str)) as FlowDocument[])
         }
+        currency={currency}
       />
     </Box>
   );

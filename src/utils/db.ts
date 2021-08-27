@@ -2,6 +2,7 @@ import { firestore } from "../firebase";
 import firebase from "firebase";
 
 const { serverTimestamp } = firebase.firestore.FieldValue;
+
 export const getUserInfo = async (uid: string) => {
   const response = await firestore.collection("users").doc(uid).get();
   const data = response.data() as UserDocument | undefined;
@@ -25,6 +26,7 @@ export const setUserInfo = async (currentUser: firebase.User) => {
     console.log(e);
   }
 };
+
 export const updateUserSettings = async (
   uid: string,
   query: string,
@@ -38,12 +40,16 @@ export const updateUserSettings = async (
     console.log(e);
   }
 };
+
 export const addFlow = async (
   flow: FlowSchema,
   uid: string,
   isExpense?: boolean
 ) => {
-  const flowToString = JSON.stringify(flow);
+  const flowToString = JSON.stringify({
+    ...flow,
+    date: flow.date || serverTimestamp(),
+  });
   try {
     if (isExpense) {
       await firestore
@@ -72,6 +78,7 @@ export const getFlow = async (uid: string) => {
     return {
       expenses: data.expenses,
       incomes: data.incomes,
+      currency: data.Currency,
     };
   } catch (e) {
     console.log(e);
@@ -84,11 +91,13 @@ interface UserSchema {
   expenses?: string[];
   incomes?: string[];
 }
-export interface FlowSchema {
-  id: string;
+interface FlowSchema {
   title: string;
   date: any;
   category: string;
   amount: number;
 }
 export interface UserDocument extends UserSchema {}
+export interface FlowDocument extends FlowSchema {
+  id: string;
+}

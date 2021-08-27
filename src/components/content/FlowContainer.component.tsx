@@ -5,8 +5,12 @@ import { Box, Typography } from "@material-ui/core";
 import MenuExtended from "../menu/MenuExtended.component";
 import { useBackdrop } from "../../context/BackdropContext";
 import NewFlow from "../menu/NewFlow.component";
-import { FlowSchema } from "../../utils/db";
-const FlowContainer: React.FC<FlowContainerProps> = ({ isExpense, data }) => {
+const FlowContainer: React.FC<FlowContainerProps> = ({
+  isExpense,
+  data,
+  currency,
+}) => {
+  // States
   const [isOpen, setIsOpen] = useState(false);
   const { setBackdropOpen, backdropOpen } = useBackdrop();
   // useEffects
@@ -36,7 +40,7 @@ const FlowContainer: React.FC<FlowContainerProps> = ({ isExpense, data }) => {
                 {...obj}
                 key={obj.id}
                 isExpense={isExpense}
-                currency="ILS"
+                currency={currency}
               />
             ))}
         </Box>
@@ -54,5 +58,6 @@ export default FlowContainer;
 
 interface FlowContainerProps {
   isExpense?: boolean;
-  data?: FlowSchema[];
+  data?: any[];
+  currency: string;
 }
