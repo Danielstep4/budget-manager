@@ -19,7 +19,7 @@ const MoneyFlow: React.FC = () => {
         if (result) {
           setExpenses(result.expenses);
           setIncomes(result.incomes);
-          setCurrency(result.currency || currency);
+          setCurrency((c) => result.currency || c);
         }
       })
       .catch((e) => console.log(e));

@@ -5,6 +5,7 @@ import { Box, Typography } from "@material-ui/core";
 import MenuExtended from "../menu/MenuExtended.component";
 import { useBackdrop } from "../../context/BackdropContext";
 import NewFlow from "../menu/NewFlow.component";
+import { FlowDocument } from "../../utils/db";
 const FlowContainer: React.FC<FlowContainerProps> = ({
   isExpense,
   data,
@@ -58,6 +59,6 @@ export default FlowContainer;
 
 interface FlowContainerProps {
   isExpense?: boolean;
-  data?: any[];
+  data?: FlowDocument[];
   currency: string;
 }

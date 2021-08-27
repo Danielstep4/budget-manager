@@ -48,7 +48,7 @@ export const addFlow = async (
 ) => {
   const flowToString = JSON.stringify({
     ...flow,
-    date: flow.date || serverTimestamp(),
+    date: !flow.date || Date.now(),
   });
   try {
     if (isExpense) {
