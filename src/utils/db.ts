@@ -64,16 +64,31 @@ export const addFlow = async (
     console.log(e);
   }
 };
-
+export const getFlow = async (uid: string) => {
+  try {
+    const response = await firestore.collection("users").doc(uid).get();
+    const data = response.data() as UserDocument;
+    if (!data) return;
+    return {
+      expenses: data.expenses,
+      incomes: data.incomes,
+    };
+  } catch (e) {
+    console.log(e);
+  }
+};
 interface UserSchema {
   Currency: "ILS";
   "Saving Goal": string;
   createdOn: any;
+  expenses?: string[];
+  incomes?: string[];
 }
-interface FlowSchema {
+export interface FlowSchema {
+  id: string;
   title: string;
   date: any;
   category: string;
-  price: number;
+  amount: number;
 }
 export interface UserDocument extends UserSchema {}

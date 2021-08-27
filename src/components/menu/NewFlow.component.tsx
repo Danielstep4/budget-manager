@@ -4,9 +4,11 @@ import { FormEvent, useState } from "react";
 import Button from "../global/Button.component";
 import { addFlow } from "../../utils/db";
 import { useAuth } from "../../context/AuthContext";
+import { useBackdrop } from "../../context/BackdropContext";
 
 const NewFlow: React.FC<NewFlowProps> = ({ isExpense }) => {
   const { currentUser } = useAuth();
+  const { setBackdropOpen } = useBackdrop();
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
   const [category, setCategory] = useState("");
@@ -17,11 +19,17 @@ const NewFlow: React.FC<NewFlowProps> = ({ isExpense }) => {
     console.log(intPrice);
     if (isNaN(intPrice)) return;
     addFlow(
-      { title, date, category, price: intPrice },
+      {
+        title,
+        date,
+        category,
+        amount: intPrice,
+        id: (Math.random() * 100000).toFixed(0),
+      },
       currentUser!.uid,
       isExpense
     )
-      .then(() => console.log("success"))
+      .then(() => setBackdropOpen(false))
       .catch((e) => console.log(e));
   };
   return (
@@ -45,5 +53,5 @@ const NewFlow: React.FC<NewFlowProps> = ({ isExpense }) => {
 export default NewFlow;
 
 interface NewFlowProps {
-  isExpense?: true;
+  isExpense?: boolean;
 }

@@ -6,7 +6,7 @@ const InfoBar: React.FC<InfoBarProps> = ({
   isExpense,
   id,
   date,
-  catagory,
+  category,
   amount,
   currency,
 }) => {
@@ -25,7 +25,7 @@ const InfoBar: React.FC<InfoBarProps> = ({
     >
       <Typography>{"#" + id}</Typography>
       <Typography align="center">{date}</Typography>
-      <Typography align="center">{catagory}</Typography>
+      <Typography align="center">{category}</Typography>
       <Typography color={isExpense ? "error" : "textSecondary"} align="center">
         {amount + getSymbol(currency)}
       </Typography>
@@ -38,8 +38,8 @@ export default InfoBar;
 interface InfoBarProps {
   id: string;
   isExpense?: boolean;
-  date: string;
-  catagory: string;
+  date: any;
+  category: string;
   amount: number;
   currency: string;
 }

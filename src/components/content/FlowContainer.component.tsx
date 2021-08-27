@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { DemoDataExpense, DemoDataIncome } from "../../demo-data";
 import InfoBar from "./InfoBar.component";
 import Button from "../global/Button.component";
 import { Box, Typography } from "@material-ui/core";
 import MenuExtended from "../menu/MenuExtended.component";
 import { useBackdrop } from "../../context/BackdropContext";
 import NewFlow from "../menu/NewFlow.component";
+import { FlowSchema } from "../../utils/db";
 const FlowContainer: React.FC<FlowContainerProps> = ({ isExpense, data }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { setBackdropOpen, backdropOpen } = useBackdrop();
@@ -16,21 +16,29 @@ const FlowContainer: React.FC<FlowContainerProps> = ({ isExpense, data }) => {
   useEffect(() => {
     if (!backdropOpen) setIsOpen(false);
   }, [backdropOpen]);
+
   return (
     <>
       <Box width="50%" mt={3} display="flex" flexDirection="column">
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <Typography variant="h6">
-            There are {data.length} total {isExpense ? "expenses" : "incomes"}
+            There are {data ? data.length : 0} total{" "}
+            {isExpense ? "expenses" : "incomes"}
           </Typography>
           <Button onClick={() => setIsOpen(!isOpen)}>
             Add {isExpense ? "Expense" : "Income"}
           </Button>
         </Box>
         <Box mt={1}>
-          {data.map((obj) => (
-            <InfoBar {...obj} key={obj.id} />
-          ))}
+          {data &&
+            data.map((obj) => (
+              <InfoBar
+                {...obj}
+                key={obj.id}
+                isExpense={isExpense}
+                currency="ILS"
+              />
+            ))}
         </Box>
       </Box>
       {isOpen && (
@@ -45,6 +53,6 @@ const FlowContainer: React.FC<FlowContainerProps> = ({ isExpense, data }) => {
 export default FlowContainer;
 
 interface FlowContainerProps {
-  isExpense?: true;
-  data: DemoDataExpense[] | DemoDataIncome[];
+  isExpense?: boolean;
+  data?: FlowSchema[];
 }
