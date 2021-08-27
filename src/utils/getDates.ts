@@ -1,19 +1,24 @@
+const monthsTable = [
+  "January",
+  "Febuary",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+export const getMonth = (date: number) => {
+  const monthIdx = new Date(date).getMonth();
+  return monthsTable[monthIdx];
+};
 export const getCurrentMonth = (): string => {
-  const monthsTable = [
-    "January",
-    "Febuary",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
   const currentDate = new Date(Date.now()).getMonth();
   return monthsTable[currentDate];
 };
-export const getCurrentYear = (): number => new Date(Date.now()).getFullYear();
+export const getCurrentYear = (): string =>
+  new Date(Date.now()).getFullYear().toString();

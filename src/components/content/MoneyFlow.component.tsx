@@ -9,8 +9,10 @@ import { useBackdrop } from "../../context/BackdropContext";
 const MoneyFlow: React.FC = () => {
   const { currentUser } = useAuth();
   const { backdropOpen } = useBackdrop();
-  const [expenses, setExpenses] = useState<string[] | undefined>(undefined);
-  const [incomes, setIncomes] = useState<string[] | undefined>(undefined);
+  const [expenses, setExpenses] = useState<FlowDocument[] | undefined>(
+    undefined
+  );
+  const [incomes, setIncomes] = useState<FlowDocument[] | undefined>(undefined);
   const [currency, setCurrency] = useState<string>("ILS");
   useEffect(() => {
     if (backdropOpen) return;
@@ -29,19 +31,8 @@ const MoneyFlow: React.FC = () => {
       <Typography variant="h4">
         Money Flow - {getCurrentMonth()} {getCurrentYear()}
       </Typography>
-      <FlowContainer
-        isExpense
-        data={
-          expenses && (expenses.map((str) => JSON.parse(str)) as FlowDocument[])
-        }
-        currency={currency}
-      />
-      <FlowContainer
-        data={
-          incomes && (incomes.map((str) => JSON.parse(str)) as FlowDocument[])
-        }
-        currency={currency}
-      />
+      <FlowContainer isExpense data={expenses} currency={currency} />
+      <FlowContainer data={incomes} currency={currency} />
     </Box>
   );
 };

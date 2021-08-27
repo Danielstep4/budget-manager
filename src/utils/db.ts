@@ -1,6 +1,7 @@
 import { firestore } from "../firebase";
 import firebase from "firebase";
-
+import { getCurrentMonth, getCurrentYear, getMonth } from "./getDates";
+import { v4 } from "uuid";
 const { serverTimestamp } = firebase.firestore.FieldValue;
 
 export const getUserInfo = async (uid: string) => {
@@ -46,38 +47,63 @@ export const addFlow = async (
   uid: string,
   isExpense?: boolean
 ) => {
-  const flowToString = JSON.stringify({
+  const formatedFlow = {
     ...flow,
-    date: !flow.date || Date.now(),
-  });
+    date: Date.now(),
+    id: v4().slice(0, 7),
+  };
   try {
-    if (isExpense) {
-      await firestore
-        .collection("users")
-        .doc(uid)
-        .update({
-          expenses: firebase.firestore.FieldValue.arrayUnion(flowToString),
-        });
-    } else {
-      await firestore
-        .collection("users")
-        .doc(uid)
-        .update({
-          incomes: firebase.firestore.FieldValue.arrayUnion(flowToString),
-        });
-    }
+    await firestore
+      .collection("users")
+      .doc(uid)
+      .collection(isExpense ? "expenses" : "incomes")
+      .doc(getMonth(formatedFlow.date))
+      .collection(getCurrentYear())
+      .add(formatedFlow);
   } catch (e) {
     console.log(e);
   }
 };
 export const getFlow = async (uid: string) => {
   try {
+    const expenses: FlowDocument[] = [];
+    const incomes: FlowDocument[] = [];
+    (
+      await firestore
+        .collection("users")
+        .doc(uid)
+        .collection("expenses")
+        .doc(getCurrentMonth())
+        .collection(getCurrentYear())
+        .get()
+    ).forEach((item) => {
+      const data = item.data() as FlowSchema;
+      expenses.push({
+        ...data,
+        id: item.id,
+      });
+    });
+    (
+      await firestore
+        .collection("users")
+        .doc(uid)
+        .collection("incomes")
+        .doc(getCurrentMonth())
+        .collection(getCurrentYear())
+        .get()
+    ).forEach((item) => {
+      const data = item.data() as FlowSchema;
+      incomes.push({
+        ...data,
+        id: item.id,
+      });
+    });
     const response = await firestore.collection("users").doc(uid).get();
     const data = response.data() as UserDocument;
     if (!data) return;
     return {
-      expenses: data.expenses,
-      incomes: data.incomes,
+      expenses,
+      incomes,
       currency: data.Currency,
     };
   } catch (e) {
@@ -91,9 +117,10 @@ interface UserSchema {
   expenses?: string[];
   incomes?: string[];
 }
+
 interface FlowSchema {
   title: string;
-  date: any;
+  date: number;
   category: string;
   amount: number;
 }

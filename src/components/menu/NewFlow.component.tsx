@@ -20,7 +20,7 @@ const NewFlow: React.FC<NewFlowProps> = ({ isExpense }) => {
     addFlow(
       {
         title,
-        date,
+        date: 0,
         category,
         amount: intAmount,
       },

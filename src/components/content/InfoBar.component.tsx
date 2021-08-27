@@ -23,9 +23,7 @@ const InfoBar: React.FC<InfoBarProps> = ({
       borderRadius={theme.shape.borderRadius}
       style={{ cursor: "pointer", userSelect: "none" }}
     >
-      <Typography>
-        {"#" + (id || "XDG" + (Math.random() * 1000).toFixed(0))}
-      </Typography>
+      <Typography>{"#" + id.slice(0, 7)}</Typography>
       <Typography align="center">{new Date(date).toDateString()}</Typography>
       <Typography align="center">{category}</Typography>
       <Typography color={isExpense ? "error" : "textSecondary"} align="center">
