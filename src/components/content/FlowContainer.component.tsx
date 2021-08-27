@@ -30,20 +30,29 @@ const FlowContainer: React.FC<FlowContainerProps> = ({
             There are {data ? data.length : 0} total{" "}
             {isExpense ? "expenses" : "incomes"}
           </Typography>
-          <Button onClick={() => setIsOpen(!isOpen)}>
-            Add {isExpense ? "Expense" : "Income"}
-          </Button>
+          <Box display="flex">
+            <Button onClick={() => setIsOpen(!isOpen)}>
+              Add {isExpense ? "Expense" : "Income"}
+            </Button>
+          </Box>
         </Box>
         <Box mt={1}>
           {data &&
-            data.map((obj) => (
-              <InfoBar
-                {...obj}
-                key={obj.id}
-                isExpense={isExpense}
-                currency={currency}
-              />
-            ))}
+            data
+              .slice(0, 2)
+              .map((obj) => (
+                <InfoBar
+                  {...obj}
+                  key={obj.id}
+                  isExpense={isExpense}
+                  currency={currency}
+                />
+              ))}
+          {data && data.length > 2 && (
+            <Box mt={1}>
+              <Button>See More</Button>
+            </Box>
+          )}
         </Box>
       </Box>
       {isOpen && (
