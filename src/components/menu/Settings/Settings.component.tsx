@@ -2,7 +2,7 @@ import { Box, Typography } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import { useAuth, UserPersonalInfo } from "../../../context/AuthContext";
 import { useBackdrop } from "../../../context/BackdropContext";
-import { getUserInfo, UserDocument } from "../../../utils/db";
+import { getUserInfo, UserDocument } from "../../../utils/db/user";
 import Button from "../../global/Button.component";
 import ChangePassword from "./ChangePassword.component";
 import SettingsInfo from "./SettingsInfo.component";

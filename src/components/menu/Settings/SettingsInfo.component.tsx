@@ -2,7 +2,7 @@ import { IconButton, Typography, Box, TextField } from "@material-ui/core";
 import { Edit, Done, Clear } from "@material-ui/icons";
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../../../context/AuthContext";
-import { updateUserSettings } from "../../../utils/db";
+import { updateUserSettings } from "../../../utils/db/user";
 
 const SettingsInfo: React.FC<SettingsInfoProps> = ({
   title,

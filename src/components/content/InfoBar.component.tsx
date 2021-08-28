@@ -25,7 +25,7 @@ const InfoBar: React.FC<InfoBarProps> = ({
       style={{ cursor: "pointer", userSelect: "none" }}
     >
       <Typography>{"#" + id.slice(0, 7).toUpperCase()}</Typography>
-      <Typography align="center">
+      <Typography align="center" style={{ color: "#808080" }}>
         {new Date(date.seconds * 1000).toDateString()}
       </Typography>
       <Typography align="center">{category}</Typography>

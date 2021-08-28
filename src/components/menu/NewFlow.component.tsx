@@ -2,7 +2,7 @@ import { Box, Typography } from "@material-ui/core";
 import TextInput from "../global/TextInput.component";
 import { FormEvent, useState } from "react";
 import Button from "../global/Button.component";
-import { addFlow } from "../../utils/db";
+import { addFlow } from "../../utils/db/flow";
 import { useAuth } from "../../context/AuthContext";
 import { useBackdrop } from "../../context/BackdropContext";
 import DatePicker from "../global/DatePicker.component";
