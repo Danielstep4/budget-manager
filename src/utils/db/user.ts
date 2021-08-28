@@ -6,18 +6,13 @@ const { serverTimestamp } = firebase.firestore.FieldValue;
 export const getUserInfo = async (uid: string) => {
   const response = await firestore.collection("users").doc(uid).get();
   const data = response.data() as UserDocument | undefined;
-  if (!data) return;
-  return {
-    Currency: data.Currency,
-    "Saving Goal": data["Saving Goal"],
-    createdOn: data.createdOn,
-  };
+  return data || undefined;
 };
 
 export const setUserInfo = async (currentUser: firebase.User) => {
   const userDoc: UserSchema = {
-    Currency: "ILS",
-    "Saving Goal": "25",
+    currency: "ILS",
+    savingGoal: "25",
     createdOn: serverTimestamp(),
   };
   try {
@@ -42,8 +37,8 @@ export const updateUserSettings = async (
 };
 
 interface UserSchema {
-  Currency: "ILS";
-  "Saving Goal": string;
+  currency: "ILS";
+  savingGoal: string;
   createdOn: any;
   expenses?: string[];
   incomes?: string[];

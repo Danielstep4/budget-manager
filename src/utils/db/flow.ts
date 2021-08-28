@@ -62,7 +62,7 @@ export const getFlow = async (uid: string) => {
     return {
       expenses,
       incomes,
-      currency: data.Currency,
+      currency: data.currency,
     };
   } catch (e) {
     console.log(e);
