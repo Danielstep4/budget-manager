@@ -11,9 +11,10 @@ const NewFlow: React.FC<NewFlowProps> = ({ isExpense }) => {
   const { currentUser } = useAuth();
   const { setBackdropOpen } = useBackdrop();
   const [title, setTitle] = useState("");
-  const [date, setDate] = useState<Date | null>(new Date(Date.now()));
+  const [date, setDate] = useState<Date>(new Date(Date.now()));
   const [category, setCategory] = useState("");
   const [amount, setAmount] = useState("");
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     let intAmount = parseInt(amount);
@@ -21,7 +22,7 @@ const NewFlow: React.FC<NewFlowProps> = ({ isExpense }) => {
     addFlow(
       {
         title,
-        date: 0,
+        date,
         category,
         amount: intAmount,
       },

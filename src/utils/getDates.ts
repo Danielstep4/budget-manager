@@ -12,13 +12,16 @@ const monthsTable = [
   "November",
   "December",
 ];
-export const getMonth = (date: number) => {
+
+export const getMonth = (date: number | Date) => {
   const monthIdx = new Date(date).getMonth();
   return monthsTable[monthIdx];
 };
+
 export const getCurrentMonth = (): string => {
   const currentDate = new Date(Date.now()).getMonth();
   return monthsTable[currentDate];
 };
+
 export const getCurrentYear = (): string =>
   new Date(Date.now()).getFullYear().toString();

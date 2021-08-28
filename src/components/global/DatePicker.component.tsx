@@ -26,6 +26,10 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const DatePicker: React.FC<DatePickerProps> = ({ date, setDate }) => {
   const classes = useStyles();
+  const handelSetDate = (date: Date | null) => {
+    if (date) setDate(date);
+    else setDate(new Date(Date.now()));
+  };
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <KeyboardDatePicker
@@ -37,7 +41,7 @@ const DatePicker: React.FC<DatePickerProps> = ({ date, setDate }) => {
         disableFuture
         inputVariant="outlined"
         fullWidth
-        onChange={(date: Date | null) => setDate(date)}
+        onChange={handelSetDate}
         InputProps={{
           classes: {
             root: classes.Input,
@@ -63,6 +67,6 @@ const DatePicker: React.FC<DatePickerProps> = ({ date, setDate }) => {
 
 export default DatePicker;
 interface DatePickerProps {
-  date: Date | null;
-  setDate: React.Dispatch<React.SetStateAction<Date | null>>;
+  date: Date;
+  setDate: React.Dispatch<React.SetStateAction<Date>>;
 }

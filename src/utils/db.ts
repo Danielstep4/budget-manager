@@ -1,7 +1,6 @@
 import { firestore } from "../firebase";
 import firebase from "firebase";
 import { getCurrentMonth, getCurrentYear, getMonth } from "./getDates";
-import { v4 } from "uuid";
 const { serverTimestamp } = firebase.firestore.FieldValue;
 
 export const getUserInfo = async (uid: string) => {
@@ -47,19 +46,14 @@ export const addFlow = async (
   uid: string,
   isExpense?: boolean
 ) => {
-  const formatedFlow = {
-    ...flow,
-    date: Date.now(),
-    id: v4().slice(0, 7),
-  };
   try {
     await firestore
       .collection("users")
       .doc(uid)
       .collection(isExpense ? "expenses" : "incomes")
-      .doc(getMonth(formatedFlow.date))
+      .doc(getMonth(flow.date))
       .collection(getCurrentYear())
-      .add(formatedFlow);
+      .add(flow);
   } catch (e) {
     console.log(e);
   }
@@ -120,7 +114,7 @@ interface UserSchema {
 
 interface FlowSchema {
   title: string;
-  date: number;
+  date: Date | number;
   category: string;
   amount: number;
 }
