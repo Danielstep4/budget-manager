@@ -32,7 +32,7 @@ const theme = createTheme({
     borderRadius: 8,
   },
   sizes: {
-    menuWidth: 120,
+    menuWidth: 80,
   },
 });
 
