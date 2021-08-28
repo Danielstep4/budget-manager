@@ -3,7 +3,7 @@ import { createContext } from "react";
 import firebase from "firebase";
 import { auth } from "../firebase";
 import { useEffect } from "react";
-import { setUserInfo } from "../utils/db";
+import { setUserInfo } from "../utils/db/user";
 
 const AuthContext = createContext<AuthContextValue | {}>({});
 

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Box, Typography } from "@material-ui/core";
 import { getCurrentMonth, getCurrentYear } from "../../utils/getDates";
 import FlowContainer from "./FlowContainer.component";
-import { FlowDocument, getFlow } from "../../utils/db";
+import { FlowDocument, getFlow } from "../../utils/db/flow";
 import { useAuth } from "../../context/AuthContext";
 import { useBackdrop } from "../../context/BackdropContext";
 
