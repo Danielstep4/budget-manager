@@ -14,6 +14,7 @@ const MoneyFlow: React.FC = () => {
   );
   const [incomes, setIncomes] = useState<FlowDocument[] | undefined>(undefined);
   const [currency, setCurrency] = useState<string>("ILS");
+
   useEffect(() => {
     if (backdropOpen) return;
     getFlow(currentUser!.uid)
@@ -26,6 +27,7 @@ const MoneyFlow: React.FC = () => {
       })
       .catch((e) => console.log(e));
   }, [currentUser, backdropOpen]);
+
   return (
     <Box px={10} py={5} width="100%" minHeight="100vh">
       <Typography variant="h4">

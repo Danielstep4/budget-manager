@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
 }));
+
 /** Props: id?, label?, type?, className?, autoFocus?, value, setValue*/
 const TextInput: React.FC<TextInputProps> = ({
   id,

@@ -6,6 +6,7 @@ import MenuExtended from "../menu/MenuExtended.component";
 import { useBackdrop } from "../../context/BackdropContext";
 import NewFlow from "../menu/NewFlow.component";
 import { FlowDocument } from "../../utils/db";
+
 const FlowContainer: React.FC<FlowContainerProps> = ({
   isExpense,
   data,

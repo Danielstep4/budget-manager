@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { IconButton, Box, useTheme, Typography } from "@material-ui/core";
 import { HelpSharp, Close } from "@material-ui/icons";
 import { useBackdrop } from "../../context/BackdropContext";
+
 const HowItWorks: React.FC = () => {
   // Hooks
   const theme = useTheme();
@@ -15,6 +16,7 @@ const HowItWorks: React.FC = () => {
   useEffect(() => {
     if (!backdropOpen) setIsOpen(false);
   }, [backdropOpen]);
+
   return (
     <>
       <Box

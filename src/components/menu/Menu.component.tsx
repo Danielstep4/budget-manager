@@ -19,10 +19,12 @@ const Menu: React.FC = () => {
   useEffect(() => {
     if (!backdropOpen) setSettingsOpen(false);
   }, [backdropOpen]);
+  // Helper Functions
   const handleSettingsButton = () => {
     setBackdropOpen(false);
     setTimeout(() => setSettingsOpen(!settingsOpen), 0);
   };
+
   return (
     <>
       <Box display="flex" maxWidth="50%">

@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 
 const MenuExtended: React.FC = ({ children }) => {
   const theme = useTheme();
+
   return (
     <Box
       zIndex="2"

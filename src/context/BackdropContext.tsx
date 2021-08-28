@@ -8,6 +8,7 @@ export const useBackdrop = (): BackDropContextValue => {
   ///@ts-expect-error
   return useContext(BackdropContext);
 };
+
 const BackdropProvider: React.FC = ({ children }) => {
   // State
   const [backdropOpen, setBackdropOpen] = useState(false);
@@ -27,6 +28,7 @@ const BackdropProvider: React.FC = ({ children }) => {
     setBackdropOpen,
     setOverMenu,
   };
+
   return (
     <BackdropContext.Provider value={value}>
       {children}

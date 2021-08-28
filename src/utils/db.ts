@@ -1,6 +1,7 @@
 import { firestore } from "../firebase";
 import firebase from "firebase";
 import { getCurrentMonth, getCurrentYear, getMonth } from "./getDates";
+
 const { serverTimestamp } = firebase.firestore.FieldValue;
 
 export const getUserInfo = async (uid: string) => {
@@ -58,6 +59,7 @@ export const addFlow = async (
     console.log(e);
   }
 };
+
 export const getFlow = async (uid: string) => {
   try {
     const expenses: FlowDocument[] = [];
@@ -104,6 +106,7 @@ export const getFlow = async (uid: string) => {
     console.log(e);
   }
 };
+
 interface UserSchema {
   Currency: "ILS";
   "Saving Goal": string;
@@ -118,6 +121,7 @@ interface FlowSchema {
   category: string;
   amount: number;
 }
+
 export interface UserDocument extends UserSchema {}
 export interface FlowDocument extends FlowSchema {
   id: string;

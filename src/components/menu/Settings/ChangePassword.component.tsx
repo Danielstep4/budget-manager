@@ -10,6 +10,7 @@ const ChangePassword = () => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setconfirmNewPassword] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
+
   const handleClick = (e: FormEvent) => {
     e.preventDefault();
     if (newPassword !== confirmNewPassword) return;
@@ -17,6 +18,7 @@ const ChangePassword = () => {
       .then(() => setIsSuccess(true))
       .catch((e) => console.log(e));
   };
+
   if (isSuccess)
     return (
       <Box p={1}>

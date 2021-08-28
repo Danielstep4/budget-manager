@@ -42,6 +42,7 @@ const SettingsInfo: React.FC<SettingsInfoProps> = ({
       console.log(e);
     }
   };
+
   const handleClick = () => {
     if (!toEdit) setToEdit(true);
     else {
@@ -53,6 +54,7 @@ const SettingsInfo: React.FC<SettingsInfoProps> = ({
         .catch((e) => console.log(e));
     }
   };
+
   return (
     <>
       <Typography style={{ textTransform: "capitalize" }}>

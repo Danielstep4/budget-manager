@@ -28,6 +28,7 @@ const Auth: React.FC<AuthProps> = ({ isRegister }) => {
     e.preventDefault();
     return isLogin ? handleLogin() : handleRegister();
   };
+
   const handleRegister = async () => {
     if (password !== confirmPassword) return;
     try {
@@ -37,6 +38,7 @@ const Auth: React.FC<AuthProps> = ({ isRegister }) => {
       setError(e.message);
     }
   };
+
   const handleLogin = async () => {
     try {
       await login(email, password);
@@ -44,6 +46,7 @@ const Auth: React.FC<AuthProps> = ({ isRegister }) => {
       setError(e.message);
     }
   };
+
   return (
     <Box
       height="100%"

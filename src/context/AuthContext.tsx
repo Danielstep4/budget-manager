@@ -11,6 +11,7 @@ export const useAuth = (): AuthContextValue => {
   ///@ts-expect-error
   return useContext(AuthContext);
 };
+
 const AuthProvider: React.FC = ({ children }) => {
   // State
   const [currentUser, setCurrentUser] = useState<firebase.User | null>(null);
@@ -45,6 +46,7 @@ const AuthProvider: React.FC = ({ children }) => {
     }
     return response;
   };
+
   const signOut = async () => {
     await auth.signOut();
     window.location.reload();
@@ -65,6 +67,7 @@ const AuthProvider: React.FC = ({ children }) => {
       console.log(e);
     }
   };
+
   const getUserPersonalInfo = (): UserPersonalInfo | undefined => {
     if (!currentUser) return;
     return {
@@ -73,6 +76,7 @@ const AuthProvider: React.FC = ({ children }) => {
       photoURL: currentUser.photoURL,
     };
   };
+
   const changeUserPassword = async (newPassword: string) => {
     if (!currentUser) return;
     try {
@@ -81,6 +85,7 @@ const AuthProvider: React.FC = ({ children }) => {
       console.log(e);
     }
   };
+
   // Value
   const value: AuthContextValue = {
     currentUser,

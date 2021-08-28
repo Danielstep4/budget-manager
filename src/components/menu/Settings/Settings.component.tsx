@@ -35,6 +35,7 @@ const Settings: React.FC = () => {
     setBackdropOpen(false);
     signOut();
   };
+
   if (!user || !currentUser || !userPersonalInfo) return null;
   return (
     <>

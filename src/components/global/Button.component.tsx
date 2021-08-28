@@ -9,8 +9,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
 }));
+
 const Button: React.FC<ButtonProps> = ({ children, href, onClick, submit }) => {
   const classes = useStyles();
+
   return (
     <MaterialButton
       variant="contained"

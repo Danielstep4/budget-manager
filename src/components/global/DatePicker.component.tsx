@@ -26,10 +26,12 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const DatePicker: React.FC<DatePickerProps> = ({ date, setDate }) => {
   const classes = useStyles();
+
   const handelSetDate = (date: Date | null) => {
     if (date) setDate(date);
     else setDate(new Date(Date.now()));
   };
+
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <KeyboardDatePicker

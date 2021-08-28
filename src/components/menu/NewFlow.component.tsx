@@ -32,6 +32,7 @@ const NewFlow: React.FC<NewFlowProps> = ({ isExpense }) => {
       .then(() => setBackdropOpen(false))
       .catch((e) => console.log(e));
   };
+
   return (
     <>
       <Typography variant="h4">

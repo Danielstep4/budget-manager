@@ -11,6 +11,7 @@ const InfoBar: React.FC<InfoBarProps> = ({
   currency,
 }) => {
   const theme = useTheme();
+
   return (
     <Box
       bgcolor={theme.palette.background.paper}
