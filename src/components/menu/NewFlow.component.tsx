@@ -5,12 +5,13 @@ import Button from "../global/Button.component";
 import { addFlow } from "../../utils/db";
 import { useAuth } from "../../context/AuthContext";
 import { useBackdrop } from "../../context/BackdropContext";
+import DatePicker from "../global/DatePicker.component";
 
 const NewFlow: React.FC<NewFlowProps> = ({ isExpense }) => {
   const { currentUser } = useAuth();
   const { setBackdropOpen } = useBackdrop();
   const [title, setTitle] = useState("");
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState<Date | null>(new Date(Date.now()));
   const [category, setCategory] = useState("");
   const [amount, setAmount] = useState("");
   const handleSubmit = (e: FormEvent) => {
@@ -37,7 +38,7 @@ const NewFlow: React.FC<NewFlowProps> = ({ isExpense }) => {
       </Typography>
       <Box p={2} component="form" onSubmit={handleSubmit}>
         <TextInput label="Title" value={title} setValue={setTitle} />
-        <TextInput label="Date" value={date} setValue={setDate} />
+        <DatePicker date={date} setDate={setDate} />
         <TextInput label="Category" value={category} setValue={setCategory} />
         <TextInput label="Amount" value={amount} setValue={setAmount} />
         <Box mt={1}>

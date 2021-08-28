@@ -12,7 +12,7 @@ const MenuExtended: React.FC = ({ children }) => {
       borderLeft={"1px solid " + theme.palette.grey[500]}
       p={3}
       position="fixed"
-      width="40%"
+      width="100%"
       maxWidth="660px"
       top="0"
       left={theme.sizes.menuWidth + "px"}

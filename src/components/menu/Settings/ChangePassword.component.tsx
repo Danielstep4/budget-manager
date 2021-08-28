@@ -8,11 +8,11 @@ const ChangePassword = () => {
   const { changeUserPassword } = useAuth();
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
-  const [newPassword2, setNewpassword2] = useState("");
+  const [confirmNewPassword, setconfirmNewPassword] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
   const handleClick = (e: FormEvent) => {
     e.preventDefault();
-    if (newPassword !== newPassword2) return;
+    if (newPassword !== confirmNewPassword) return;
     changeUserPassword(newPassword)
       .then(() => setIsSuccess(true))
       .catch((e) => console.log(e));
@@ -40,8 +40,8 @@ const ChangePassword = () => {
         type="password"
       />
       <TextInput
-        value={newPassword2}
-        setValue={setNewpassword2}
+        value={confirmNewPassword}
+        setValue={setconfirmNewPassword}
         label="Confirm New Password"
         type="password"
       />

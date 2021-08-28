@@ -22,14 +22,14 @@ const Auth: React.FC<AuthProps> = ({ isRegister }) => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [password2, setPassword2] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   // Form Handler
   const hanldeSubmit = (e: FormEvent) => {
     e.preventDefault();
     return isLogin ? handleLogin() : handleRegister();
   };
   const handleRegister = async () => {
-    if (password !== password2) return;
+    if (password !== confirmPassword) return;
     try {
       await signup(email, password, fullName);
       localStorage.setItem("hasAccount", "true");
@@ -109,8 +109,8 @@ const Auth: React.FC<AuthProps> = ({ isRegister }) => {
               type="password"
               label="Confirm Password"
               id="confirm-password"
-              value={password2}
-              setValue={setPassword2}
+              value={confirmPassword}
+              setValue={setConfirmPassword}
             />
           )}
           <Box
