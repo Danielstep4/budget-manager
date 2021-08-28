@@ -39,7 +39,7 @@ const DatePicker: React.FC<DatePickerProps> = ({ date, setDate }) => {
         id="date-picker-dialog"
         label="Date"
         format="MM/dd/yyyy"
-        value={date}
+        value={new Date(date)}
         disableFuture
         inputVariant="outlined"
         fullWidth

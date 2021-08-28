@@ -54,7 +54,9 @@ export const addFlow = async (
       .collection(isExpense ? "expenses" : "incomes")
       .doc(getMonth(flow.date))
       .collection(getCurrentYear())
-      .add(flow);
+      .add({
+        ...flow,
+      });
   } catch (e) {
     console.log(e);
   }
@@ -73,7 +75,7 @@ export const getFlow = async (uid: string) => {
         .collection(getCurrentYear())
         .get()
     ).forEach((item) => {
-      const data = item.data() as FlowSchema;
+      const data = item.data() as FlowDocument;
       expenses.push({
         ...data,
         id: item.id,
@@ -88,7 +90,7 @@ export const getFlow = async (uid: string) => {
         .collection(getCurrentYear())
         .get()
     ).forEach((item) => {
-      const data = item.data() as FlowSchema;
+      const data = item.data() as FlowDocument;
       incomes.push({
         ...data,
         id: item.id,
@@ -117,12 +119,15 @@ interface UserSchema {
 
 interface FlowSchema {
   title: string;
-  date: Date | number;
+  date: Date;
   category: string;
   amount: number;
 }
 
 export interface UserDocument extends UserSchema {}
-export interface FlowDocument extends FlowSchema {
+export interface FlowDocument extends Omit<FlowSchema, "date"> {
   id: string;
+  date: {
+    seconds: number;
+  };
 }
