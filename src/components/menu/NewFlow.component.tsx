@@ -10,7 +10,7 @@ import { useError } from "../../context/ErrorContext";
 
 const NewFlow: React.FC<NewFlowProps> = ({ isExpense }) => {
   const { currentUser } = useAuth();
-  const { createSnackError, formValidation, handleFormValidation } = useError();
+  const { createSnackError, handleFormValidation } = useError();
   const { setBackdropOpen } = useBackdrop();
   const [title, setTitle] = useState("");
   const [date, setDate] = useState<Date>(new Date(Date.now()));
