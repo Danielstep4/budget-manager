@@ -1,22 +1,31 @@
 import { Box, Typography } from "@material-ui/core";
 import TextInput from "../global/TextInput.component";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import Button from "../global/Button.component";
 import { addFlow } from "../../utils/db/flow";
 import { useAuth } from "../../context/AuthContext";
 import { useBackdrop } from "../../context/BackdropContext";
 import DatePicker from "../global/DatePicker.component";
 import { useError } from "../../context/ErrorContext";
+import { getUserCategories } from "../../utils/db/user";
+import Autocomplete from "../global/Autocomplete.component";
 
 const NewFlow: React.FC<NewFlowProps> = ({ isExpense }) => {
   const { currentUser } = useAuth();
   const { createSnackError, handleFormValidation } = useError();
   const { setBackdropOpen } = useBackdrop();
+  const [usedCategories, setUsedCategories] = useState<string[]>([]);
   const [title, setTitle] = useState("");
   const [date, setDate] = useState<Date>(new Date(Date.now()));
   const [category, setCategory] = useState("");
   const [amount, setAmount] = useState("");
-
+  useEffect(() => {
+    if (currentUser) {
+      getUserCategories(currentUser.uid).then(
+        (result) => result && setUsedCategories(result)
+      );
+    }
+  }, []);
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     let intAmount = parseInt(amount);
@@ -55,11 +64,12 @@ const NewFlow: React.FC<NewFlowProps> = ({ isExpense }) => {
           id="flow_title"
         />
         <DatePicker date={date} setDate={setDate} />
-        <TextInput
-          label="Category"
+        <Autocomplete
+          data={usedCategories}
           value={category}
           setValue={setCategory}
           id="flow_category"
+          label="Category"
         />
         <TextInput
           label="Amount"

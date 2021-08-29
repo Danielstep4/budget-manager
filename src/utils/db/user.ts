@@ -14,6 +14,7 @@ export const setUserInfo = async (currentUser: firebase.User) => {
     currency: "ILS",
     savingGoal: "25",
     createdOn: serverTimestamp(),
+    categories: [],
   };
   try {
     await firestore.collection("users").doc(currentUser.uid).set(userDoc);
@@ -36,12 +37,40 @@ export const updateUserSettings = async (
   }
 };
 
+export const getUserCategories = async (
+  uid: string
+): Promise<string[] | void> => {
+  try {
+    const response = await firestore.collection("users").doc(uid).get();
+    const data = response.data() as UserDocument | undefined;
+    return data ? data.categories : undefined;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const updateUserCategories = async (uid: string, category: string) => {
+  try {
+    category = category.toLowerCase();
+    const userCategories = await getUserCategories(uid);
+    if (userCategories) {
+      if (userCategories.includes(category)) return;
+      else {
+        userCategories.push(category);
+        firestore.collection("users").doc(uid).update({
+          categories: userCategories,
+        });
+      }
+    }
+  } catch (e) {
+    console.log(e);
+  }
+};
 interface UserSchema {
   currency: "ILS";
   savingGoal: string;
   createdOn: any;
-  expenses?: string[];
-  incomes?: string[];
+  categories: string[];
 }
 
 export interface UserDocument extends UserSchema {}

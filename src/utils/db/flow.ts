@@ -1,6 +1,6 @@
 import { firestore } from "../../firebase";
 import { getCurrentMonth, getCurrentYear, getMonth } from "../getDates";
-import { UserDocument } from "./user";
+import { updateUserCategories, UserDocument } from "./user";
 
 export const addFlow = async (
   flow: FlowSchema,
@@ -17,6 +17,7 @@ export const addFlow = async (
       .add({
         ...flow,
       });
+    await updateUserCategories(uid, flow.category);
   } catch (e) {
     console.log(e);
   }
