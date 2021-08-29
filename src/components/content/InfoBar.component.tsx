@@ -11,6 +11,7 @@ const InfoBar: React.FC<InfoBarProps> = ({
   currency,
 }) => {
   const theme = useTheme();
+  console.log(currency);
   return (
     <Box
       bgcolor={theme.palette.background.paper}
@@ -31,7 +32,7 @@ const InfoBar: React.FC<InfoBarProps> = ({
         {category[0].toUpperCase() + category.slice(1)}
       </Typography>
       <Typography color={isExpense ? "error" : "textSecondary"} align="center">
-        {amount + getSymbol(currency)}
+        {amount.toString() + getSymbol(currency)}
       </Typography>
     </Box>
   );

@@ -1,19 +1,17 @@
 import { Box, Typography } from "@material-ui/core";
 import TextInput from "../global/TextInput.component";
 import { FormEvent, useEffect, useState } from "react";
-import Button from "../global/Button.component";
 import { addFlow } from "../../utils/db/flow";
 import { useAuth } from "../../context/AuthContext";
-import { useBackdrop } from "../../context/BackdropContext";
-import DatePicker from "../global/DatePicker.component";
 import { useError } from "../../context/ErrorContext";
 import { getUserCategories } from "../../utils/db/user";
+import Button from "../global/Button.component";
+import DatePicker from "../global/DatePicker.component";
 import Autocomplete from "../global/Autocomplete.component";
 
-const NewFlow: React.FC<NewFlowProps> = ({ isExpense }) => {
+const NewFlow: React.FC<NewFlowProps> = ({ isExpense, setIsUpdated }) => {
   const { currentUser } = useAuth();
   const { createSnackError, handleFormValidation } = useError();
-  const { setBackdropOpen } = useBackdrop();
   const [usedCategories, setUsedCategories] = useState<string[]>([]);
   const [title, setTitle] = useState("");
   const [date, setDate] = useState<Date>(new Date(Date.now()));
@@ -47,7 +45,7 @@ const NewFlow: React.FC<NewFlowProps> = ({ isExpense }) => {
       currentUser!.uid,
       isExpense
     )
-      .then(() => setBackdropOpen(false))
+      .then(() => setIsUpdated(true))
       .catch((e) => console.log(e));
   };
 
@@ -89,4 +87,5 @@ export default NewFlow;
 
 interface NewFlowProps {
   isExpense?: boolean;
+  setIsUpdated: React.Dispatch<React.SetStateAction<boolean>>;
 }

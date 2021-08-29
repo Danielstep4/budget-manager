@@ -8,27 +8,46 @@ import { useBackdrop } from "../../context/BackdropContext";
 
 const MoneyFlow: React.FC = () => {
   const { currentUser } = useAuth();
-  const { backdropOpen } = useBackdrop();
   const theme = useTheme();
   const [expenses, setExpenses] = useState<FlowDocument[] | undefined>(
     undefined
   );
   const [incomes, setIncomes] = useState<FlowDocument[] | undefined>(undefined);
-  const [currency, setCurrency] = useState<string>("ILS");
+  const [currency, setCurrency] = useState("ILS");
+  const [isUpdated, setIsUpdated] = useState(false);
 
   useEffect(() => {
-    if (backdropOpen) return;
+    if (!isUpdated) {
+      const cachedFlow = localStorage.getItem("flow");
+      if (!cachedFlow) handleGetFlow();
+      else {
+        const { expenses, incomes, currency } = JSON.parse(cachedFlow) as {
+          incomes: FlowDocument[];
+          expenses: FlowDocument[];
+          currency: string;
+        };
+        setExpenses(expenses);
+        setIncomes(incomes);
+        setCurrency((c) => currency || c);
+      }
+    } else {
+      handleGetFlow();
+      setIsUpdated(false);
+    }
+  }, [currentUser, isUpdated]);
+
+  const handleGetFlow = () => {
     getFlow(currentUser!.uid)
       .then((result) => {
         if (result) {
           setExpenses(result.expenses);
           setIncomes(result.incomes);
           setCurrency((c) => result.currency || c);
+          localStorage.setItem("flow", JSON.stringify(result));
         }
       })
       .catch((e) => console.log(e));
-  }, [currentUser, backdropOpen]);
-
+  };
   return (
     <Box
       pl={theme.sizes.menuWidth + 30 + "px"}
@@ -42,8 +61,17 @@ const MoneyFlow: React.FC = () => {
       <Typography variant="h4">
         Money Flow - {getCurrentMonth()} {getCurrentYear()}
       </Typography>
-      <FlowContainer isExpense data={expenses} currency={currency} />
-      <FlowContainer data={incomes} currency={currency} />
+      <FlowContainer
+        isExpense
+        data={expenses}
+        currency={currency}
+        setIsUpdated={setIsUpdated}
+      />
+      <FlowContainer
+        data={incomes}
+        currency={currency}
+        setIsUpdated={setIsUpdated}
+      />
     </Box>
   );
 };
