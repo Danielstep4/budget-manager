@@ -6,9 +6,11 @@ import { addFlow } from "../../utils/db/flow";
 import { useAuth } from "../../context/AuthContext";
 import { useBackdrop } from "../../context/BackdropContext";
 import DatePicker from "../global/DatePicker.component";
+import { useError } from "../../context/ErrorContext";
 
 const NewFlow: React.FC<NewFlowProps> = ({ isExpense }) => {
   const { currentUser } = useAuth();
+  const { createSnackError } = useError();
   const { setBackdropOpen } = useBackdrop();
   const [title, setTitle] = useState("");
   const [date, setDate] = useState<Date>(new Date(Date.now()));
@@ -18,7 +20,7 @@ const NewFlow: React.FC<NewFlowProps> = ({ isExpense }) => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     let intAmount = parseInt(amount);
-    if (isNaN(intAmount)) return;
+    if (isNaN(intAmount)) return createSnackError("Please Provide a number");
     addFlow(
       {
         title,

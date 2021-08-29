@@ -27,6 +27,9 @@ const theme = createTheme({
     action: {
       active: "#fff",
     },
+    error: {
+      main: "#ff0000",
+    },
   },
   shape: {
     borderRadius: 8,

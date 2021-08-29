@@ -7,13 +7,16 @@ import ThemeProvider from "@material-ui/styles/ThemeProvider";
 import AuthProvider from "./context/AuthContext";
 import theme from "./style/theme";
 import BackdropProvider from "./context/BackdropContext";
+import ErrorProvider from "./context/ErrorContext";
 
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <AuthProvider>
         <BackdropProvider>
-          <App />
+          <ErrorProvider>
+            <App />
+          </ErrorProvider>
         </BackdropProvider>
       </AuthProvider>
     </ThemeProvider>
