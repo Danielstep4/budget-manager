@@ -15,6 +15,7 @@ const MenuExtended: React.FC = ({ children }) => {
       position="fixed"
       width="100%"
       maxWidth="660px"
+      minHeight="650px"
       top="0"
       left={theme.sizes.menuWidth + "px"}
       height="100%"

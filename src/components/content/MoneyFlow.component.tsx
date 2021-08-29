@@ -31,7 +31,7 @@ const MoneyFlow: React.FC = () => {
 
   return (
     <Box
-      pl={theme.sizes.menuWidth + 50 + "px"}
+      pl={theme.sizes.menuWidth + 30 + "px"}
       py={5}
       width="100%"
       minHeight="100vh"
