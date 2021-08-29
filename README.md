@@ -2,10 +2,6 @@
 
 ### #TODO:
 
-1. Error Context:
-
-- Creating Error Context
-
 2. Correct Forms:
 
 - New Flow - Add category autocomplete
