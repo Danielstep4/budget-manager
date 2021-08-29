@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { createContext } from "react";
 import { Snackbar } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
+
 const ErrorContext = createContext<ErrorContextValue | {}>({});
 
 export const useError = (): ErrorContextValue => {
@@ -17,7 +18,6 @@ const ErrorProvider: React.FC = ({ children }) => {
   });
   const [error, setError] = useState("");
   const [openSnack, setOpenSnack] = useState(false);
-
   // Functions
   const createSnackError = (message: string) => {
     setError(message);
