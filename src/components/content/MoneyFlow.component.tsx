@@ -4,7 +4,6 @@ import { getCurrentMonth, getCurrentYear } from "../../utils/getDates";
 import FlowContainer from "./FlowContainer.component";
 import { FlowDocument, getFlow } from "../../utils/db/flow";
 import { useAuth } from "../../context/AuthContext";
-import { useBackdrop } from "../../context/BackdropContext";
 
 const MoneyFlow: React.FC = () => {
   const { currentUser } = useAuth();
@@ -17,6 +16,18 @@ const MoneyFlow: React.FC = () => {
   const [isUpdated, setIsUpdated] = useState(false);
 
   useEffect(() => {
+    const handleGetFlow = () => {
+      getFlow(currentUser!.uid)
+        .then((result) => {
+          if (result) {
+            setExpenses(result.expenses);
+            setIncomes(result.incomes);
+            setCurrency((c) => result.currency || c);
+            localStorage.setItem("flow", JSON.stringify(result));
+          }
+        })
+        .catch((e) => console.log(e));
+    };
     if (!isUpdated) {
       const cachedFlow = localStorage.getItem("flow");
       if (!cachedFlow) handleGetFlow();
@@ -36,18 +47,6 @@ const MoneyFlow: React.FC = () => {
     }
   }, [currentUser, isUpdated]);
 
-  const handleGetFlow = () => {
-    getFlow(currentUser!.uid)
-      .then((result) => {
-        if (result) {
-          setExpenses(result.expenses);
-          setIncomes(result.incomes);
-          setCurrency((c) => result.currency || c);
-          localStorage.setItem("flow", JSON.stringify(result));
-        }
-      })
-      .catch((e) => console.log(e));
-  };
   return (
     <Box
       pl={theme.sizes.menuWidth + 30 + "px"}

@@ -23,7 +23,7 @@ const NewFlow: React.FC<NewFlowProps> = ({ isExpense, setIsUpdated }) => {
         (result) => result && setUsedCategories(result)
       );
     }
-  }, []);
+  }, [currentUser]);
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     let intAmount = parseInt(amount);
