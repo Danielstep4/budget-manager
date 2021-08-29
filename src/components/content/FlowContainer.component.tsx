@@ -14,7 +14,9 @@ const FlowContainer: React.FC<FlowContainerProps> = ({
 }) => {
   // States
   const [isOpen, setIsOpen] = useState(false);
+  const [showMore, setShowMore] = useState(false);
   const { setBackdropOpen, backdropOpen } = useBackdrop();
+  const showData = showMore ? data : data?.slice(0, 2);
   // useEffects
   useEffect(() => {
     setBackdropOpen(isOpen);
@@ -38,20 +40,20 @@ const FlowContainer: React.FC<FlowContainerProps> = ({
           </Box>
         </Box>
         <Box mt={1}>
-          {data &&
-            data
-              .slice(0, 2)
-              .map((obj) => (
-                <InfoBar
-                  {...obj}
-                  key={obj.id}
-                  isExpense={isExpense}
-                  currency={currency}
-                />
-              ))}
+          {showData &&
+            showData.map((obj) => (
+              <InfoBar
+                {...obj}
+                key={obj.id}
+                isExpense={isExpense}
+                currency={currency}
+              />
+            ))}
           {data && data.length > 2 && (
             <Box mt={1}>
-              <Button>See More</Button>
+              <Button onClick={() => setShowMore(!showMore)}>
+                {!showMore ? "See More" : "Show Less"}
+              </Button>
             </Box>
           )}
         </Box>

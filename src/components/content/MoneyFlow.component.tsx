@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Box, Typography } from "@material-ui/core";
+import { Box, Typography, useTheme } from "@material-ui/core";
 import { getCurrentMonth, getCurrentYear } from "../../utils/getDates";
 import FlowContainer from "./FlowContainer.component";
 import { FlowDocument, getFlow } from "../../utils/db/flow";
@@ -9,6 +9,7 @@ import { useBackdrop } from "../../context/BackdropContext";
 const MoneyFlow: React.FC = () => {
   const { currentUser } = useAuth();
   const { backdropOpen } = useBackdrop();
+  const theme = useTheme();
   const [expenses, setExpenses] = useState<FlowDocument[] | undefined>(
     undefined
   );
@@ -29,7 +30,15 @@ const MoneyFlow: React.FC = () => {
   }, [currentUser, backdropOpen]);
 
   return (
-    <Box px={10} py={5} width="100%" minHeight="100vh">
+    <Box
+      pl={theme.sizes.menuWidth + 50 + "px"}
+      py={5}
+      width="100%"
+      minHeight="100vh"
+      display="flex"
+      flexDirection="column"
+      alignItems="flex-start"
+    >
       <Typography variant="h4">
         Money Flow - {getCurrentMonth()} {getCurrentYear()}
       </Typography>
