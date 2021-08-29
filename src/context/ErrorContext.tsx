@@ -11,17 +11,40 @@ export const useError = (): ErrorContextValue => {
 
 const ErrorProvider: React.FC = ({ children }) => {
   // State
+  const [formValidation, setFormValidation] = useState<FormValidation>({
+    error: false,
+    fields: {},
+  });
   const [error, setError] = useState("");
   const [openSnack, setOpenSnack] = useState(false);
+
   // Functions
   const createSnackError = (message: string) => {
     setError(message);
     setOpenSnack(true);
   };
   const handleCloseSnack = () => setOpenSnack(false);
+  const handleFormValidation = (field: Field) =>
+    setFormValidation((prev) => ({
+      error: true,
+      fields: {
+        ...prev.fields,
+        ...field,
+      },
+    }));
+  const removeField = (key: string) => {
+    setFormValidation((prev) => {
+      Reflect.deleteProperty(prev.fields, key);
+      if (!Object.keys(prev.fields).length) prev.error = false;
+      return prev;
+    });
+  };
   // Value
   const value: ErrorContextValue = {
     createSnackError,
+    handleFormValidation,
+    removeField,
+    formValidation,
   };
 
   return (
@@ -45,4 +68,16 @@ export default ErrorProvider;
 
 interface ErrorContextValue {
   createSnackError: (message: string) => void;
+  handleFormValidation: (field: Field) => void;
+  removeField: (key: string) => void;
+  formValidation: FormValidation;
+}
+interface FormValidation {
+  error: boolean;
+  fields: Field;
+}
+interface Field {
+  [key: string]: {
+    message: string;
+  };
 }

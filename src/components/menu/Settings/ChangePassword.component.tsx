@@ -34,18 +34,21 @@ const ChangePassword = () => {
         setValue={setOldPassword}
         label="Old Password"
         type="password"
+        id="change_password_old"
       />
       <TextInput
         value={newPassword}
         setValue={setNewPassword}
         label="New Password"
         type="password"
+        id="change_password_new"
       />
       <TextInput
         value={confirmNewPassword}
         setValue={setconfirmNewPassword}
         label="Confirm New Password"
         type="password"
+        id="change_password_confirm_new"
       />
       <Box mt={1}></Box>
       <Button submit>Change Password</Button>

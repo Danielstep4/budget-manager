@@ -1,4 +1,5 @@
 import { makeStyles, TextField, Theme } from "@material-ui/core";
+import { useError } from "../../context/ErrorContext";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -29,6 +30,7 @@ const TextInput: React.FC<TextInputProps> = ({
   setValue,
 }) => {
   const classes = useStyles();
+  const { formValidation, removeField } = useError();
   return (
     <TextField
       id={id}
@@ -39,7 +41,10 @@ const TextInput: React.FC<TextInputProps> = ({
       required
       fullWidth
       value={value}
-      onChange={(e) => setValue(e.target.value)}
+      onChange={(e) => {
+        setValue(e.target.value);
+        if (!!formValidation.fields[id]) removeField(id);
+      }}
       InputProps={{
         classes: {
           root: classes.Input,
@@ -51,6 +56,10 @@ const TextInput: React.FC<TextInputProps> = ({
           root: classes.InputLabel,
         },
       }}
+      error={!!formValidation.fields[id]}
+      helperText={
+        formValidation.fields[id] ? formValidation.fields[id].message : ""
+      }
       className={className || classes.root}
     />
   );
@@ -62,7 +71,7 @@ interface TextInputProps {
   value: string;
   setValue: React.Dispatch<React.SetStateAction<string>>;
   label?: string;
-  id?: string;
+  id: string;
   className?: string;
   autoFocus?: boolean;
 }

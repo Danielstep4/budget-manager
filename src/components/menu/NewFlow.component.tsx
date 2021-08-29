@@ -10,7 +10,7 @@ import { useError } from "../../context/ErrorContext";
 
 const NewFlow: React.FC<NewFlowProps> = ({ isExpense }) => {
   const { currentUser } = useAuth();
-  const { createSnackError } = useError();
+  const { createSnackError, formValidation, handleFormValidation } = useError();
   const { setBackdropOpen } = useBackdrop();
   const [title, setTitle] = useState("");
   const [date, setDate] = useState<Date>(new Date(Date.now()));
@@ -20,7 +20,14 @@ const NewFlow: React.FC<NewFlowProps> = ({ isExpense }) => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     let intAmount = parseInt(amount);
-    if (isNaN(intAmount)) return createSnackError("Please Provide a number");
+    if (isNaN(intAmount)) {
+      handleFormValidation({
+        flow_amount: {
+          message: "Please Provide a number",
+        },
+      });
+      return createSnackError("Please Provide a number");
+    }
     addFlow(
       {
         title,
@@ -41,10 +48,25 @@ const NewFlow: React.FC<NewFlowProps> = ({ isExpense }) => {
         New {isExpense ? "Expense" : "Income"}
       </Typography>
       <Box p={2} component="form" onSubmit={handleSubmit}>
-        <TextInput label="Title" value={title} setValue={setTitle} />
+        <TextInput
+          label="Title"
+          value={title}
+          setValue={setTitle}
+          id="flow_title"
+        />
         <DatePicker date={date} setDate={setDate} />
-        <TextInput label="Category" value={category} setValue={setCategory} />
-        <TextInput label="Amount" value={amount} setValue={setAmount} />
+        <TextInput
+          label="Category"
+          value={category}
+          setValue={setCategory}
+          id="flow_category"
+        />
+        <TextInput
+          label="Amount"
+          value={amount}
+          setValue={setAmount}
+          id="flow_amount"
+        />
         <Box mt={1}>
           <Button submit>Submit</Button>
         </Box>
