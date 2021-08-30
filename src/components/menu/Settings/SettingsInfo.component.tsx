@@ -11,7 +11,6 @@ const SettingsInfo: React.FC<SettingsInfoProps> = ({
   setIsUpdated,
   isUpdated,
   inputType,
-  children,
 }) => {
   // Hooks
   const [toEdit, setToEdit] = useState(false);
