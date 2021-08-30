@@ -19,6 +19,7 @@ const Settings: React.FC = () => {
   // useEffects
   useEffect(() => {
     if (!currentUser) return;
+    // #TODO: Cache general info and user info
     setUserPersonalInfo(getUserPersonalInfo());
     getUserInfo(currentUser.uid)
       .then((response) => {
