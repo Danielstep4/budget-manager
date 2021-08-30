@@ -39,4 +39,28 @@ const theme = createTheme({
   },
 });
 
+theme.overrides = {
+  MuiTextField: {
+    root: {
+      margin: "0.5rem 0",
+    },
+  },
+  MuiOutlinedInput: {
+    root: {
+      color: theme.palette.common.white,
+    },
+    notchedOutline: {
+      borderColor: theme.palette.primary.light,
+      "&:hover": {
+        borderColor: theme.palette.common.white,
+      },
+    },
+  },
+  MuiInputLabel: {
+    root: {
+      color: theme.palette.primary.light,
+    },
+  },
+};
+
 export default theme;

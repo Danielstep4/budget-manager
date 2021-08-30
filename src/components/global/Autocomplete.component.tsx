@@ -1,25 +1,8 @@
 import React from "react";
-import { Theme, makeStyles } from "@material-ui/core/styles";
 import { Autocomplete as AutoComplete } from "@material-ui/lab";
 import { TextField } from "@material-ui/core";
 import { useError } from "../../context/ErrorContext";
 
-const useStyles = makeStyles((theme: Theme) => ({
-  root: {
-    margin: "0.5rem 0",
-  },
-  Input: {
-    color: theme.palette.common.white,
-  },
-  InputLabel: {
-    color: theme.palette.primary.light,
-  },
-  notchedOutline: {
-    "& .MuiOutlinedInput-notchedOutline": {
-      borderColor: theme.palette.primary.light,
-    },
-  },
-}));
 /** Props: id?, label?, type?, className?, autoFocus?, value, setValue, data*/
 const Autocomplete: React.FC<AutocompleteProps> = ({
   id,
@@ -31,17 +14,12 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
   setValue,
   data,
 }) => {
-  const classes = useStyles();
   const { formValidation, removeField } = useError();
-  console.log(data);
   return (
     <AutoComplete
       options={data}
       getOptionLabel={(option) => option}
       freeSolo
-      classes={{
-        inputRoot: classes.notchedOutline,
-      }}
       renderInput={(params) => (
         <TextField
           {...params}
@@ -57,16 +35,11 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
           autoFocus={autoFocus}
           required
           fullWidth
-          InputLabelProps={{
-            classes: {
-              root: classes.InputLabel,
-            },
-          }}
           error={!!formValidation.fields[id]}
           helperText={
             formValidation.fields[id] ? formValidation.fields[id].message : ""
           }
-          className={className || classes.root}
+          className={className}
         />
       )}
     />
