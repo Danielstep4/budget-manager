@@ -61,6 +61,18 @@ theme.overrides = {
       color: theme.palette.primary.light,
     },
   },
+  MuiButton: {
+    containedPrimary: {
+      textTransform: "none",
+      fontWeight: "bold",
+      "&:hover": {
+        backgroundColor: theme.palette.background.paper,
+      },
+    },
+    textPrimary: {
+      color: theme.palette.primary.light,
+    },
+  },
 };
 
 export default theme;

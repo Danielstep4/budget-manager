@@ -1,27 +1,12 @@
-import { Button as MaterialButton, makeStyles, Theme } from "@material-ui/core";
-
-const useStyles = makeStyles((theme: Theme) => ({
-  contained: {
-    textTransform: "none",
-    fontWeight: "bold",
-    "&:hover": {
-      backgroundColor: theme.palette.background.paper,
-    },
-  },
-}));
+import { Button as MaterialButton } from "@material-ui/core";
 
 const Button: React.FC<ButtonProps> = ({ children, href, onClick, submit }) => {
-  const classes = useStyles();
-
   return (
     <MaterialButton
       variant="contained"
       color="primary"
       disableRipple
       href={href}
-      classes={{
-        containedPrimary: classes.contained,
-      }}
       onClick={onClick}
       type={submit ? "submit" : "button"}
     >
@@ -29,7 +14,6 @@ const Button: React.FC<ButtonProps> = ({ children, href, onClick, submit }) => {
     </MaterialButton>
   );
 };
-
 export default Button;
 
 interface ButtonProps {

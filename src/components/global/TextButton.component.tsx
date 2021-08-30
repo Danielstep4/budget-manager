@@ -1,21 +1,11 @@
-import { Button, makeStyles, Theme } from "@material-ui/core";
-
-const useStyles = makeStyles((theme: Theme) => ({
-  text: {
-    color: theme.palette.primary.light,
-  },
-}));
+import { Button } from "@material-ui/core";
 
 const TextButton: React.FC<TextButtonProps> = ({ children, href, onClick }) => {
-  const classes = useStyles();
   return (
     <Button
       variant="text"
       color="primary"
       disableRipple
-      classes={{
-        textPrimary: classes.text,
-      }}
       href={href}
       onClick={onClick}
     >
