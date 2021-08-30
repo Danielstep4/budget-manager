@@ -62,21 +62,6 @@ const Settings: React.FC = () => {
           alignItems="center"
           p={1}
         >
-          {/* {Object.keys(user).map((key) => {
-            if (key === "createdOn") return null;
-            else
-              return (
-                <SettingsInfo
-                  key={key}
-                  title={key}
-                  /// @ts-ignore
-                  content={user[key] || ""}
-                  query={key}
-                  setIsUpdated={setIsUpdated}
-                  isUpdated={isUpdated}
-                />
-              );
-          })} */}
           <SettingsInfo
             title="currency"
             content={user && user.currency}

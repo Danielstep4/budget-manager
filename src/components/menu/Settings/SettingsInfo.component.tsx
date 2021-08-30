@@ -1,6 +1,6 @@
+import React, { useState, useEffect, FormEvent } from "react";
 import { IconButton, Typography, Box, TextField } from "@material-ui/core";
 import { Edit, Done, Clear } from "@material-ui/icons";
-import React, { useState, useEffect } from "react";
 import { useAuth } from "../../../context/AuthContext";
 import { updateUserSettings } from "../../../utils/db/user";
 
@@ -11,6 +11,7 @@ const SettingsInfo: React.FC<SettingsInfoProps> = ({
   setIsUpdated,
   isUpdated,
   inputType,
+  children,
 }) => {
   // Hooks
   const [toEdit, setToEdit] = useState(false);
@@ -43,29 +44,28 @@ const SettingsInfo: React.FC<SettingsInfoProps> = ({
       console.log(e);
     }
   };
-
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    if (!currentUser) return;
+    editUserInfo(currentUser.uid, query, value)
+      .then(() => {
+        setIsUpdated(true);
+      })
+      .catch((e) => console.log(e));
+  };
   const handleClick = () => {
-    if (!toEdit) setToEdit(true);
-    else {
-      if (!currentUser) return;
-      editUserInfo(currentUser.uid, query, value)
-        .then(() => {
-          setIsUpdated(true);
-        })
-        .catch((e) => console.log(e));
-    }
+    setToEdit(true);
   };
 
   return (
     <>
-      <Typography style={{ textTransform: "capitalize" }}>
-        {title.includes("url") ? title.replace("url", "") : title}
-      </Typography>
+      <Typography style={{ textTransform: "capitalize" }}>{title}</Typography>
       <Box
         display="grid"
         gridTemplateColumns="2fr 1fr"
         alignItems="center"
         component={toEdit ? "form" : "div"}
+        onSubmit={handleSubmit}
       >
         {toEdit ? (
           <TextField
@@ -85,7 +85,10 @@ const SettingsInfo: React.FC<SettingsInfoProps> = ({
           </Typography>
         )}
         <Box>
-          <IconButton onClick={handleClick}>
+          <IconButton
+            onClick={toEdit ? handleSubmit : handleClick}
+            type={toEdit ? "submit" : "button"}
+          >
             {toEdit ? <Done /> : <Edit />}
           </IconButton>
           {toEdit && (
