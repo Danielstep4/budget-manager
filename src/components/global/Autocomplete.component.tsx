@@ -33,7 +33,6 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
           }}
           type={type}
           autoFocus={autoFocus}
-          required
           fullWidth
           error={!!formValidation.fields[id]}
           helperText={

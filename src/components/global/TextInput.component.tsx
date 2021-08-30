@@ -10,8 +10,11 @@ const TextInput: React.FC<TextInputProps> = ({
   autoFocus,
   value,
   setValue,
+  required,
 }) => {
   const { formValidation, removeField } = useError();
+  const fieldInValidation = formValidation.fields[id];
+  const fieldExistInValidation = !!fieldInValidation;
   return (
     <TextField
       id={id}
@@ -19,21 +22,20 @@ const TextInput: React.FC<TextInputProps> = ({
       type={type}
       variant="outlined"
       autoFocus={autoFocus}
-      required
+      required={required}
       fullWidth
       value={value}
       onChange={(e) => {
         setValue(e.target.value);
-        if (!!formValidation.fields[id]) removeField(id);
+        if (fieldExistInValidation) removeField(id);
       }}
-      error={!!formValidation.fields[id]}
-      helperText={
-        formValidation.fields[id] ? formValidation.fields[id].message : ""
-      }
+      error={fieldExistInValidation}
+      helperText={fieldExistInValidation ? fieldInValidation.message : ""}
       className={className}
     />
   );
 };
+
 export default TextInput;
 
 interface TextInputProps {
@@ -44,4 +46,5 @@ interface TextInputProps {
   id: string;
   className?: string;
   autoFocus?: boolean;
+  required?: boolean;
 }
