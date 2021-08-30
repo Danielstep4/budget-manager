@@ -62,7 +62,7 @@ const Settings: React.FC = () => {
           alignItems="center"
           p={1}
         >
-          {Object.keys(user).map((key) => {
+          {/* {Object.keys(user).map((key) => {
             if (key === "createdOn") return null;
             else
               return (
@@ -76,7 +76,21 @@ const Settings: React.FC = () => {
                   isUpdated={isUpdated}
                 />
               );
-          })}
+          })} */}
+          <SettingsInfo
+            title="currency"
+            content={user && user.currency}
+            query="currency"
+            setIsUpdated={setIsUpdated}
+            isUpdated={isUpdated}
+          />
+          <SettingsInfo
+            title="Saving Goal (%)"
+            content={user && user.savingGoal}
+            query="savingGoal"
+            setIsUpdated={setIsUpdated}
+            isUpdated={isUpdated}
+          />
         </Box>
       </Box>
       <Box p={1}>
@@ -94,8 +108,9 @@ const Settings: React.FC = () => {
               key={key}
               title={key.toLowerCase()}
               /// @ts-ignore
-              content={userPersonalInfo[key] || ""}
+              content={userPersonalInfo[key]}
               query={key}
+              inputType={key === "email" ? key : undefined}
               setIsUpdated={setIsUpdated}
               isUpdated={isUpdated}
             />

@@ -10,6 +10,7 @@ const SettingsInfo: React.FC<SettingsInfoProps> = ({
   query,
   setIsUpdated,
   isUpdated,
+  inputType,
 }) => {
   // Hooks
   const [toEdit, setToEdit] = useState(false);
@@ -71,6 +72,7 @@ const SettingsInfo: React.FC<SettingsInfoProps> = ({
             value={value}
             color="primary"
             fullWidth
+            type={inputType}
             onChange={(e) => setValue(e.target.value)}
           />
         ) : (
@@ -105,4 +107,5 @@ interface SettingsInfoProps {
   query: string;
   setIsUpdated: React.Dispatch<React.SetStateAction<boolean>>;
   isUpdated: boolean;
+  inputType?: string;
 }
