@@ -4,7 +4,6 @@
 
 1. Forms:
 
-- Add Autocomplete to currency.
 - Add Validation to all forms.
 
 2. Add:
