@@ -2,15 +2,16 @@
 
 ### #TODO:
 
-1. Fix:
+1. Forms:
 
-- Settings Component Forms.
+- Add Autocomplete to currency.
+- Add Validation to all forms.
 
 2. Add:
 
-- Flow Edit Component
-- Charts Component
+- Flow Edit Component.
+- Charts Component.
 
-3. Correct Forms:
+3. How It Works:
 
-- Settings - Make Currency a autocomplete component.
+- Add correct content to model.
