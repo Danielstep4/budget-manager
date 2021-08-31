@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 import { Box, useTheme } from "@material-ui/core";
-import React from "react";
-=======
-import { Box, Typography, useTheme } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
->>>>>>> charts
 import { ResponsiveContainer, Pie, PieChart, Cell } from "recharts";
 import { useAuth } from "../../../context/AuthContext";
 import { getTotalFlow } from "../../../utils/db/flow";
