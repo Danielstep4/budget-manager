@@ -2,7 +2,7 @@ import React, { useState, useEffect, FormEvent } from "react";
 import { IconButton, Typography, Box, TextField } from "@material-ui/core";
 import { Edit, Done, Clear } from "@material-ui/icons";
 import { useAuth } from "../../../context/AuthContext";
-import { updateUserSettings } from "../../../utils/db/user";
+import { updateUserInfo } from "../../../utils/db/user";
 
 const SettingsInfo: React.FC<SettingsInfoProps> = ({
   title,
@@ -37,7 +37,7 @@ const SettingsInfo: React.FC<SettingsInfoProps> = ({
       ) {
         await updateUserPersonalInfo(query, newVal);
       } else {
-        await updateUserSettings(uid, query, newVal);
+        await updateUserInfo(uid, query, newVal);
       }
     } catch (e) {
       console.log(e);
@@ -48,6 +48,7 @@ const SettingsInfo: React.FC<SettingsInfoProps> = ({
     if (!currentUser) return;
     editUserInfo(currentUser.uid, query, value)
       .then(() => {
+        setToEdit(false);
         setIsUpdated(true);
       })
       .catch((e) => console.log(e));

@@ -4,6 +4,10 @@ import firebase from "firebase";
 const { serverTimestamp } = firebase.firestore.FieldValue;
 
 export const getUserInfo = async (uid: string) => {
+  const cachedUserInfo = localStorage.getItem("userInfo");
+  if (cachedUserInfo) {
+    return JSON.parse(cachedUserInfo) as UserDocument;
+  }
   const response = await firestore.collection("users").doc(uid).get();
   const data = response.data() as UserDocument | undefined;
   return data || undefined;
@@ -18,20 +22,29 @@ export const setUserInfo = async (currentUser: firebase.User) => {
   };
   try {
     await firestore.collection("users").doc(currentUser.uid).set(userDoc);
+    localStorage.setItem("userInfo", JSON.stringify(userDoc));
   } catch (e) {
     console.log(e);
   }
 };
 
-export const updateUserSettings = async (
+export const updateUserInfo = async (
   uid: string,
   query: string,
   newVal: string
 ) => {
+  const cachedUserInfo = localStorage.getItem("userInfo");
+  if (cachedUserInfo) {
+    const userInfo = JSON.parse(cachedUserInfo) as UserDocument;
+    /// @ts-ignore
+    userInfo[query] = newVal;
+    localStorage.setItem("userInfo", JSON.stringify(userInfo));
+  }
   const fieldToUpdate: any = {};
   fieldToUpdate[query] = newVal;
   try {
     firestore.collection("users").doc(uid).update(fieldToUpdate);
+    return Promise.resolve();
   } catch (e) {
     console.log(e);
   }

@@ -20,24 +20,15 @@ const Settings: React.FC = () => {
   useEffect(() => {
     if (!currentUser) return;
     setUserPersonalInfo(getUserPersonalInfo());
-    if (isUpdated) {
-      getUserInfo(currentUser.uid)
-        .then((response) => {
-          if (!response) return;
-          setUser(response);
-          localStorage.setItem("userInfo", JSON.stringify(response));
-        })
-        .catch((e) => console.log(e))
-        .finally(() => {
-          setIsUpdated(false);
-        });
-    } else {
-      const cachedUserInfo = localStorage.getItem("userInfo");
-      if (cachedUserInfo) {
-        const parsedUserInfo = JSON.parse(cachedUserInfo) as UserDocument;
-        setUser(parsedUserInfo);
-      }
-    }
+    getUserInfo(currentUser.uid)
+      .then((response) => {
+        if (!response) return;
+        setUser(response);
+      })
+      .catch((e) => console.log(e))
+      .finally(() => {
+        setIsUpdated(false);
+      });
   }, [isUpdated, getUserPersonalInfo, currentUser]);
   // Helper Functions
   const handleLogoutClick = () => {
