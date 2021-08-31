@@ -6,14 +6,11 @@
 
 - Settings Component Forms.
 
-1. Add:
+2. Add:
 
 - Flow Edit Component
 - Charts Component
 
-1. Correct Forms:
+3. Correct Forms:
 
-- New Flow - Add category autocomplete
-- Settings - Make Currency a select element.
-
-1. Add Routes
+- Settings - Make Currency a autocomplete component.
