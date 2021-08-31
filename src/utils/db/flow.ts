@@ -69,7 +69,19 @@ export const getFlow = async (uid: string) => {
     console.log(e);
   }
 };
-
+// In this branch its demo data, will fix it in caching branch.
+export const getTotalFlow = () => {
+  return [
+    {
+      name: "Expenses",
+      value: 3200,
+    },
+    {
+      name: "Incomes",
+      value: 10000,
+    },
+  ];
+};
 interface FlowSchema {
   title: string;
   date: Date;
