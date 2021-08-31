@@ -16,35 +16,15 @@ const MoneyFlow: React.FC = () => {
   const [isUpdated, setIsUpdated] = useState(false);
 
   useEffect(() => {
-    const handleGetFlow = () => {
-      getFlow(currentUser!.uid)
-        .then((result) => {
-          if (result) {
-            setExpenses(result.expenses);
-            setIncomes(result.incomes);
-            setCurrency((c) => result.currency || c);
-            localStorage.setItem("flow", JSON.stringify(result));
-          }
-        })
-        .catch((e) => console.log(e));
-    };
-    if (!isUpdated) {
-      const cachedFlow = localStorage.getItem("flow");
-      if (!cachedFlow) handleGetFlow();
-      else {
-        const { expenses, incomes, currency } = JSON.parse(cachedFlow) as {
-          incomes: FlowDocument[];
-          expenses: FlowDocument[];
-          currency: string;
-        };
-        setExpenses(expenses);
-        setIncomes(incomes);
-        setCurrency((c) => currency || c);
-      }
-    } else {
-      handleGetFlow();
-      setIsUpdated(false);
-    }
+    getFlow(currentUser!.uid, isUpdated)
+      .then((result) => {
+        if (result) {
+          setExpenses(result.expenses);
+          setIncomes(result.incomes);
+          setCurrency((c) => result.currency || c);
+        }
+      })
+      .catch((e) => console.log(e));
   }, [currentUser, isUpdated]);
 
   return (

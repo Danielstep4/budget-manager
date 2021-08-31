@@ -1,5 +1,5 @@
-import { Box, Typography, useTheme } from "@material-ui/core";
-import React, { useState } from "react";
+import { Box, useTheme } from "@material-ui/core";
+import React from "react";
 import { ResponsiveContainer, Pie, PieChart, Cell } from "recharts";
 import { getTotalFlow } from "../../../utils/db/flow";
 import { getSymbol } from "../../../utils/getSymbol";

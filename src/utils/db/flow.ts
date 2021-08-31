@@ -7,6 +7,11 @@ export const addFlow = async (
   uid: string,
   isExpense?: boolean
 ) => {
+  const cachedFlow = localStorage.getItem("flow");
+  if (cachedFlow) {
+    const localStorageFlow = JSON.parse(cachedFlow);
+    localStorageFlow[isExpense ? "expenses" : "incomes"].push();
+  }
   try {
     await firestore
       .collection("users")
@@ -23,7 +28,17 @@ export const addFlow = async (
   }
 };
 
-export const getFlow = async (uid: string) => {
+export const getFlow = async (uid: string, forceUpdate = false) => {
+  if (!forceUpdate) {
+    const cachedFlow = localStorage.getItem("flow");
+    if (cachedFlow) {
+      return JSON.parse(cachedFlow) as {
+        expenses: FlowDocument[];
+        incomes: FlowDocument[];
+        currency: string;
+      };
+    }
+  }
   try {
     const expenses: FlowDocument[] = [];
     const incomes: FlowDocument[] = [];
@@ -60,6 +75,10 @@ export const getFlow = async (uid: string) => {
     const response = await firestore.collection("users").doc(uid).get();
     const data = response.data() as UserDocument;
     if (!data) return;
+    localStorage.setItem(
+      "flow",
+      JSON.stringify({ expenses, incomes, currency: data.currency })
+    );
     return {
       expenses,
       incomes,
