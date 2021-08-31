@@ -40,6 +40,11 @@ export const updateUserSettings = async (
 export const getUserCategories = async (
   uid: string
 ): Promise<string[] | void> => {
+  const userInfo = localStorage.getItem("userInfo");
+  if (userInfo) {
+    const { categories } = JSON.parse(userInfo) as UserDocument;
+    return categories;
+  }
   try {
     const response = await firestore.collection("users").doc(uid).get();
     const data = response.data() as UserDocument | undefined;
