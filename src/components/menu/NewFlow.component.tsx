@@ -68,6 +68,7 @@ const NewFlow: React.FC<NewFlowProps> = ({ isExpense, setIsUpdated }) => {
           setValue={setCategory}
           id="flow_category"
           label="Category"
+          freeSolo
         />
         <TextInput
           label="Amount"

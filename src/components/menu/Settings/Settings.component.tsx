@@ -59,6 +59,8 @@ const Settings: React.FC = () => {
             query="currency"
             setIsUpdated={setIsUpdated}
             isUpdated={isUpdated}
+            autocomplete
+            autocompleteData={["ILS"]}
           />
           <SettingsInfo
             title="Saving Goal (%)"

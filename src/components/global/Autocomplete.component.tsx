@@ -13,13 +13,14 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
   value,
   setValue,
   data,
+  freeSolo = false,
 }) => {
   const { formValidation, removeField } = useError();
   return (
     <AutoComplete
       options={data}
       getOptionLabel={(option) => option}
-      freeSolo
+      freeSolo={freeSolo}
       renderInput={(params) => (
         <TextField
           {...params}
@@ -55,4 +56,5 @@ interface AutocompleteProps {
   className?: string;
   autoFocus?: boolean;
   data: string[];
+  freeSolo?: boolean;
 }

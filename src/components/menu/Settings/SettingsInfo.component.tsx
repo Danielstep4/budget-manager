@@ -3,6 +3,7 @@ import { IconButton, Typography, Box, TextField } from "@material-ui/core";
 import { Edit, Done, Clear } from "@material-ui/icons";
 import { useAuth } from "../../../context/AuthContext";
 import { updateUserInfo } from "../../../utils/db/user";
+import Autocomplete from "../../global/Autocomplete.component";
 
 const SettingsInfo: React.FC<SettingsInfoProps> = ({
   title,
@@ -11,6 +12,8 @@ const SettingsInfo: React.FC<SettingsInfoProps> = ({
   setIsUpdated,
   isUpdated,
   inputType,
+  autocomplete,
+  autocompleteData,
 }) => {
   // Hooks
   const [toEdit, setToEdit] = useState(false);
@@ -68,13 +71,22 @@ const SettingsInfo: React.FC<SettingsInfoProps> = ({
         onSubmit={handleSubmit}
       >
         {toEdit ? (
-          <TextField
-            value={value}
-            color="primary"
-            fullWidth
-            type={inputType}
-            onChange={(e) => setValue(e.target.value)}
-          />
+          autocomplete && autocompleteData ? (
+            <Autocomplete
+              id={"settings_" + query}
+              value={value}
+              setValue={setValue}
+              data={autocompleteData}
+            />
+          ) : (
+            <TextField
+              value={value}
+              color="primary"
+              fullWidth
+              type={inputType}
+              onChange={(e) => setValue(e.target.value)}
+            />
+          )
         ) : (
           <Typography color="primary">
             {content
@@ -111,4 +123,6 @@ interface SettingsInfoProps {
   setIsUpdated: React.Dispatch<React.SetStateAction<boolean>>;
   isUpdated: boolean;
   inputType?: string;
+  autocomplete?: boolean;
+  autocompleteData?: string[];
 }
