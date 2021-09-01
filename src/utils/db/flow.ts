@@ -7,10 +7,10 @@ export const addFlow = async (
   uid: string,
   isExpense?: boolean
 ) => {
-  const cachedFlow = sessionStorage.getItem("flow");
+  const cachedFlow = localStorage.getItem("flow");
   if (cachedFlow) {
-    const sessionStorageFlow = JSON.parse(cachedFlow);
-    sessionStorageFlow[isExpense ? "expenses" : "incomes"].push();
+    const localStorageFlow = JSON.parse(cachedFlow);
+    localStorageFlow[isExpense ? "expenses" : "incomes"].push();
   }
   try {
     await firestore
@@ -30,7 +30,7 @@ export const addFlow = async (
 
 export const getFlow = async (uid: string, forceUpdate = false) => {
   if (!forceUpdate) {
-    const cachedFlow = sessionStorage.getItem("flow");
+    const cachedFlow = localStorage.getItem("flow");
     if (cachedFlow) {
       return JSON.parse(cachedFlow) as {
         expenses: FlowDocument[];
@@ -75,7 +75,7 @@ export const getFlow = async (uid: string, forceUpdate = false) => {
     const response = await firestore.collection("users").doc(uid).get();
     const data = response.data() as UserDocument;
     if (!data) return;
-    sessionStorage.setItem(
+    localStorage.setItem(
       "flow",
       JSON.stringify({ expenses, incomes, currency: data.currency })
     );

@@ -4,7 +4,7 @@ import firebase from "firebase";
 const { serverTimestamp } = firebase.firestore.FieldValue;
 
 export const getUserInfo = async (uid: string) => {
-  const cachedUserInfo = sessionStorage.getItem("userInfo");
+  const cachedUserInfo = localStorage.getItem("userInfo");
   if (cachedUserInfo) {
     return JSON.parse(cachedUserInfo) as UserDocument;
   }
@@ -22,7 +22,7 @@ export const setUserInfo = async (currentUser: firebase.User) => {
   };
   try {
     await firestore.collection("users").doc(currentUser.uid).set(userDoc);
-    sessionStorage.setItem("userInfo", JSON.stringify(userDoc));
+    localStorage.setItem("userInfo", JSON.stringify(userDoc));
   } catch (e) {
     console.log(e);
   }
@@ -33,12 +33,12 @@ export const updateUserInfo = async (
   query: string,
   newVal: string
 ) => {
-  const cachedUserInfo = sessionStorage.getItem("userInfo");
+  const cachedUserInfo = localStorage.getItem("userInfo");
   if (cachedUserInfo) {
     const userInfo = JSON.parse(cachedUserInfo) as UserDocument;
     /// @ts-ignore
     userInfo[query] = newVal;
-    sessionStorage.setItem("userInfo", JSON.stringify(userInfo));
+    localStorage.setItem("userInfo", JSON.stringify(userInfo));
   }
   const fieldToUpdate: any = {};
   fieldToUpdate[query] = newVal;
@@ -53,7 +53,7 @@ export const updateUserInfo = async (
 export const getUserCategories = async (
   uid: string
 ): Promise<string[] | void> => {
-  const userInfo = sessionStorage.getItem("userInfo");
+  const userInfo = localStorage.getItem("userInfo");
   if (userInfo) {
     const { categories } = JSON.parse(userInfo) as UserDocument;
     return categories;
