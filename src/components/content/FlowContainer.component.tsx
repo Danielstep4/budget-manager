@@ -11,7 +11,6 @@ const FlowContainer: React.FC<FlowContainerProps> = ({
   isExpense,
   data,
   currency,
-  setIsUpdated,
 }) => {
   // States
   const [isOpen, setIsOpen] = useState(false);
@@ -61,7 +60,7 @@ const FlowContainer: React.FC<FlowContainerProps> = ({
       </Box>
       {isOpen && (
         <MenuExtended>
-          <NewFlow isExpense={isExpense} setIsUpdated={setIsUpdated} />
+          <NewFlow isExpense={isExpense} />
         </MenuExtended>
       )}
     </>
@@ -74,5 +73,4 @@ interface FlowContainerProps {
   isExpense?: boolean;
   data?: FlowDocument[];
   currency: string;
-  setIsUpdated: React.Dispatch<React.SetStateAction<boolean>>;
 }

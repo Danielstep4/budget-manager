@@ -10,15 +10,18 @@ import DatePicker from "../global/DatePicker.component";
 import Autocomplete from "../global/Autocomplete.component";
 import { useBackdrop } from "../../context/BackdropContext";
 
-const NewFlow: React.FC<NewFlowProps> = ({ isExpense, setIsUpdated }) => {
+const NewFlow: React.FC<NewFlowProps> = ({ isExpense }) => {
+  // Context
   const { currentUser } = useAuth();
   const { createSnackError, handleFormValidation } = useError();
   const { setBackdropOpen } = useBackdrop();
+  // State
   const [usedCategories, setUsedCategories] = useState<string[]>([]);
   const [title, setTitle] = useState("");
   const [date, setDate] = useState<Date>(new Date(Date.now()));
   const [category, setCategory] = useState("");
   const [amount, setAmount] = useState("");
+  // useEffects
   useEffect(() => {
     if (currentUser) {
       getUserCategories(currentUser.uid).then(
@@ -26,6 +29,7 @@ const NewFlow: React.FC<NewFlowProps> = ({ isExpense, setIsUpdated }) => {
       );
     }
   }, [currentUser]);
+  // Handlers
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     let intAmount = parseInt(amount);
@@ -48,7 +52,6 @@ const NewFlow: React.FC<NewFlowProps> = ({ isExpense, setIsUpdated }) => {
       isExpense
     )
       .then(() => {
-        setIsUpdated(true);
         setBackdropOpen(false);
       })
       .catch((e) => console.log(e));
@@ -93,5 +96,4 @@ export default NewFlow;
 
 interface NewFlowProps {
   isExpense?: boolean;
-  setIsUpdated: React.Dispatch<React.SetStateAction<boolean>>;
 }

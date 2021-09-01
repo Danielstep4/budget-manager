@@ -2,30 +2,13 @@ import { useState, useEffect } from "react";
 import { Box, Typography, useTheme } from "@material-ui/core";
 import { getCurrentMonth, getCurrentYear } from "../../utils/getDates";
 import FlowContainer from "./FlowContainer.component";
-import { FlowDocument, getFlow } from "../../utils/db/flow";
+import { FlowDocument, getMonthlyFlow } from "../../utils/db/flow";
 import { useAuth } from "../../context/AuthContext";
+import { useFlow } from "../../context/FlowContext";
 
 const MoneyFlow: React.FC = () => {
-  const { currentUser } = useAuth();
   const theme = useTheme();
-  const [expenses, setExpenses] = useState<FlowDocument[] | undefined>(
-    undefined
-  );
-  const [incomes, setIncomes] = useState<FlowDocument[] | undefined>(undefined);
-  const [currency, setCurrency] = useState("ILS");
-  const [isUpdated, setIsUpdated] = useState(false);
-
-  useEffect(() => {
-    getFlow(currentUser!.uid, isUpdated)
-      .then((result) => {
-        if (result) {
-          setExpenses(result.expenses);
-          setIncomes(result.incomes);
-          setCurrency((c) => result.currency || c);
-        }
-      })
-      .catch((e) => console.log(e));
-  }, [currentUser, isUpdated]);
+  const { monthlyIncomesData, monthlyExpensesData, currency } = useFlow();
 
   return (
     <Box
@@ -40,17 +23,8 @@ const MoneyFlow: React.FC = () => {
       <Typography variant="h4">
         Money Flow - {getCurrentMonth()} {getCurrentYear()}
       </Typography>
-      <FlowContainer
-        isExpense
-        data={expenses}
-        currency={currency}
-        setIsUpdated={setIsUpdated}
-      />
-      <FlowContainer
-        data={incomes}
-        currency={currency}
-        setIsUpdated={setIsUpdated}
-      />
+      <FlowContainer isExpense data={monthlyExpensesData} currency={currency} />
+      <FlowContainer data={monthlyIncomesData} currency={currency} />
     </Box>
   );
 };

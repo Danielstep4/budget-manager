@@ -8,6 +8,7 @@ import AuthProvider from "./context/AuthContext";
 import theme from "./style/theme";
 import BackdropProvider from "./context/BackdropContext";
 import ErrorProvider from "./context/ErrorContext";
+import FlowProvider from "./context/FlowContext";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -15,7 +16,9 @@ ReactDOM.render(
       <AuthProvider>
         <BackdropProvider>
           <ErrorProvider>
-            <App />
+            <FlowProvider>
+              <App />
+            </FlowProvider>
           </ErrorProvider>
         </BackdropProvider>
       </AuthProvider>

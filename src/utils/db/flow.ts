@@ -29,7 +29,7 @@ export const addFlow = async (
   }
 };
 
-export const getFlow = async (uid: string, forceUpdate = false) => {
+export const getMonthlyFlow = async (uid: string, forceUpdate = false) => {
   if (!forceUpdate) {
     const cachedFlow = localStorage.getItem("flow");
     if (cachedFlow) {
@@ -89,33 +89,19 @@ export const getFlow = async (uid: string, forceUpdate = false) => {
     console.log(e);
   }
 };
-// In this branch its demo data, will fix it in caching branch.
-export const getTotalFlow = async (uid: string) => {
-  const flow = await getFlow(uid);
+
+export const getTotalMonthlyFlow = async (uid: string) => {
+  const flow = await getMonthlyFlow(uid);
   if (flow) {
     const { expenses, incomes } = flow;
     const totalExpenses = expenses.reduce((acc, curr) => acc + curr.amount, 0);
     const totalIncomes = incomes.reduce((acc, curr) => acc + curr.amount, 0);
 
-    return [
-      {
-        name: "Expenses",
-        value: totalExpenses,
-      },
-      { name: "Incomes", value: totalIncomes },
-    ];
+    return {
+      totalExpenses,
+      totalIncomes,
+    };
   }
-
-  return [
-    {
-      name: "Expenses",
-      value: 3200,
-    },
-    {
-      name: "Incomes",
-      value: 10000,
-    },
-  ];
 };
 interface FlowSchema {
   title: string;
