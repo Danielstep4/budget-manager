@@ -39,31 +39,31 @@ const FlowProvider: React.FC = ({ children }) => {
   >();
   // useEffects
   useEffect(() => {
-    if (!currentUser) return;
-    getTotalMonthlyFlow(currentUser!.uid)
-      .then((result) => {
-        if (result) {
-          setUserMonthlyTotalExpenses(result.totalExpenses);
-          setUserMonthlyTotalIncomes(result.totalIncomes);
-        }
-      })
-      .catch((e) => console.log(e));
-  }, [currentUser]);
+    initState()
+      .then(() => setIsUpdated(false))
+      .catch(console.log);
+  }, [currentUser, isUpdated]);
 
-  useEffect(() => {
-    if (!currentUser) return;
-    getMonthlyFlow(currentUser.uid)
-      .then((result) => {
-        if (result) {
-          setMonthlyIncomesData(result.incomes);
-          setMonthlyExpensesData(result.expenses);
-          setCurrency(result.currency);
-        }
-      })
-      .catch((e) => console.log(e));
-  }, [currentUser]);
   // Helper Functions
-
+  const initState = async () => {
+    if (!currentUser) return;
+    try {
+      const totalMonthlyFlow = await getTotalMonthlyFlow(currentUser!.uid);
+      if (totalMonthlyFlow) {
+        setUserMonthlyTotalExpenses(totalMonthlyFlow.totalExpenses);
+        setUserMonthlyTotalIncomes(totalMonthlyFlow.totalIncomes);
+      }
+      const monthlyFlow = await getMonthlyFlow(currentUser.uid, isUpdated);
+      if (monthlyFlow) {
+        setMonthlyIncomesData(monthlyFlow.incomes);
+        setMonthlyExpensesData(monthlyFlow.expenses);
+        setCurrency(monthlyFlow.currency);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const handleFlowUpdated = () => [setIsUpdated(true)];
   // Value
   const value: FlowContextValue = {
     currency,
@@ -71,6 +71,7 @@ const FlowProvider: React.FC = ({ children }) => {
     monthlyIncomesData,
     userMonthlyTotalExpenses,
     userMonthlyTotalIncomes,
+    handleFlowUpdated,
   };
 
   return <FlowContext.Provider value={value}>{children}</FlowContext.Provider>;
@@ -84,4 +85,5 @@ export interface FlowContextValue {
   monthlyIncomesData: FlowDocument[] | undefined;
   userMonthlyTotalExpenses: number | undefined;
   userMonthlyTotalIncomes: number | undefined;
+  handleFlowUpdated: () => void;
 }

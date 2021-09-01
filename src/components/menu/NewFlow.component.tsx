@@ -9,10 +9,12 @@ import Button from "../global/Button.component";
 import DatePicker from "../global/DatePicker.component";
 import Autocomplete from "../global/Autocomplete.component";
 import { useBackdrop } from "../../context/BackdropContext";
+import { useFlow } from "../../context/FlowContext";
 
 const NewFlow: React.FC<NewFlowProps> = ({ isExpense }) => {
   // Context
   const { currentUser } = useAuth();
+  const { handleFlowUpdated } = useFlow();
   const { createSnackError, handleFormValidation } = useError();
   const { setBackdropOpen } = useBackdrop();
   // State
@@ -52,6 +54,7 @@ const NewFlow: React.FC<NewFlowProps> = ({ isExpense }) => {
       isExpense
     )
       .then(() => {
+        handleFlowUpdated();
         setBackdropOpen(false);
       })
       .catch((e) => console.log(e));
