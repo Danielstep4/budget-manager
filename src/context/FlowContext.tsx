@@ -48,16 +48,16 @@ const FlowProvider: React.FC = ({ children }) => {
   const initState = async () => {
     if (!currentUser) return;
     try {
-      const totalMonthlyFlow = await getTotalMonthlyFlow(currentUser!.uid);
-      if (totalMonthlyFlow) {
-        setUserMonthlyTotalExpenses(totalMonthlyFlow.totalExpenses);
-        setUserMonthlyTotalIncomes(totalMonthlyFlow.totalIncomes);
-      }
       const monthlyFlow = await getMonthlyFlow(currentUser.uid, isUpdated);
       if (monthlyFlow) {
         setMonthlyIncomesData(monthlyFlow.incomes);
         setMonthlyExpensesData(monthlyFlow.expenses);
         setCurrency(monthlyFlow.currency);
+      }
+      const totalMonthlyFlow = await getTotalMonthlyFlow(currentUser!.uid);
+      if (totalMonthlyFlow) {
+        setUserMonthlyTotalExpenses(totalMonthlyFlow.totalExpenses);
+        setUserMonthlyTotalIncomes(totalMonthlyFlow.totalIncomes);
       }
     } catch (e) {
       console.log(e);
