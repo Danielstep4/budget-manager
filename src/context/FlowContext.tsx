@@ -8,6 +8,7 @@ import {
 import { getCurrentMonth, getCurrentYear } from "../utils/getDates";
 import { useAuth } from "./AuthContext";
 
+// Currently unused
 const CURRENT_DATE = {
   month: getCurrentMonth(),
   year: getCurrentYear(),
