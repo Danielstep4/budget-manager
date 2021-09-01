@@ -13,7 +13,7 @@ const PieComp: React.FC = () => {
     getTotalFlow(currentUser!.uid)
       .then((result) => setData(result))
       .catch((e) => console.log(e));
-  }, []);
+  }, [currentUser]);
   return (
     <Box position="fixed" right="0" top="0" height="100%">
       <ResponsiveContainer width={700} height="80%">

@@ -10,7 +10,7 @@ export const addFlow = async (
   const cachedFlow = localStorage.getItem("flow");
   if (cachedFlow) {
     const localStorageFlow = JSON.parse(cachedFlow);
-    localStorageFlow[isExpense ? "expenses" : "incomes"].push();
+    localStorageFlow[isExpense ? "expenses" : "incomes"].push(flow);
   }
   try {
     await firestore
@@ -23,6 +23,7 @@ export const addFlow = async (
         ...flow,
       });
     await updateUserCategories(uid, flow.category);
+    return Promise.resolve();
   } catch (e) {
     console.log(e);
   }

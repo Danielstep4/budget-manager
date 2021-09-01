@@ -8,10 +8,12 @@ import { getUserCategories } from "../../utils/db/user";
 import Button from "../global/Button.component";
 import DatePicker from "../global/DatePicker.component";
 import Autocomplete from "../global/Autocomplete.component";
+import { useBackdrop } from "../../context/BackdropContext";
 
 const NewFlow: React.FC<NewFlowProps> = ({ isExpense, setIsUpdated }) => {
   const { currentUser } = useAuth();
   const { createSnackError, handleFormValidation } = useError();
+  const { setBackdropOpen } = useBackdrop();
   const [usedCategories, setUsedCategories] = useState<string[]>([]);
   const [title, setTitle] = useState("");
   const [date, setDate] = useState<Date>(new Date(Date.now()));
@@ -45,7 +47,10 @@ const NewFlow: React.FC<NewFlowProps> = ({ isExpense, setIsUpdated }) => {
       currentUser!.uid,
       isExpense
     )
-      .then(() => setIsUpdated(true))
+      .then(() => {
+        setIsUpdated(true);
+        setBackdropOpen(false);
+      })
       .catch((e) => console.log(e));
   };
 

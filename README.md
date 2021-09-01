@@ -14,3 +14,7 @@
 3. How It Works:
 
 - Add correct content to model.
+
+4. Caching:
+
+- On new month force update cached items.
