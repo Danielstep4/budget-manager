@@ -2,11 +2,11 @@ import { Box, Typography, useTheme } from "@material-ui/core";
 import TextInput from "../global/TextInput.component";
 import Button from "../global/Button.component";
 import TextButton from "../global/TextButton.component";
-import { FormEvent, useState, useEffect } from "react";
+import { FormEvent, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useError } from "../../context/ErrorContext";
 import firebase from "firebase";
-import { validateAuthForm } from "../../utils/AuthFormValidation";
+import { validateAuthForm } from "../../utils/authFormValidation";
 
 const Auth: React.FC<AuthProps> = ({ isRegister }) => {
   // Hooks
