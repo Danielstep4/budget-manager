@@ -9,10 +9,12 @@ import { getCurrentMonth, getCurrentYear } from "../utils/getDates";
 import { useAuth } from "./AuthContext";
 
 // Currently unused
+/* eslint-disable */
 const CURRENT_DATE = {
   month: getCurrentMonth(),
   year: getCurrentYear(),
 };
+/* eslint-enable */
 
 const FlowContext = createContext<FlowContextValue | {}>({});
 
@@ -39,12 +41,13 @@ const FlowProvider: React.FC = ({ children }) => {
     number | undefined
   >();
   // useEffects
+  /* eslint-disable */
   useEffect(() => {
     initState()
       .then(() => setIsUpdated(false))
       .catch(console.log);
   }, [currentUser, isUpdated]);
-
+  /* eslint-enable */
   // Helper Functions
   const initState = async () => {
     if (!currentUser) return;

@@ -3,8 +3,11 @@ import { Field } from "../context/ErrorContext";
 const validateInputEmail = (formField: FormField): true | Field => {
   const { id, val } = formField;
   // Stackoverflow
+  /* eslint-disable */
   const re =
     /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+  /* eslint-enable */
+
   return (
     re.test(val.toLowerCase()) || {
       [id]: { message: "Please Provide An Email" },
