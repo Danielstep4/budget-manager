@@ -1,11 +1,13 @@
 import { Box, Typography } from "@material-ui/core";
 import { FormEvent, useState } from "react";
 import { useAuth } from "../../../context/AuthContext";
+import { useError } from "../../../context/ErrorContext";
 import Button from "../../global/Button.component";
 import TextInput from "../../global/TextInput.component";
 
 const ChangePassword = () => {
   const { changeUserPassword } = useAuth();
+  const { handleFormValidation, createSnackError } = useError();
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setconfirmNewPassword] = useState("");
@@ -13,10 +15,29 @@ const ChangePassword = () => {
 
   const handleClick = (e: FormEvent) => {
     e.preventDefault();
-    if (newPassword !== confirmNewPassword) return;
-    changeUserPassword(newPassword)
+    if (newPassword !== confirmNewPassword)
+      return handleFormValidation({
+        change_password_confirm_new: {
+          message: "Please make sure both passwords are the same.",
+        },
+        change_password_new: {
+          message: "Please make sure both passwords are the same.",
+        },
+      });
+    changeUserPassword(oldPassword, newPassword)
       .then(() => setIsSuccess(true))
-      .catch((e) => console.log(e));
+      .catch((e: any) => {
+        if (typeof e === "string") {
+          if (e.includes("old")) {
+            createSnackError(e);
+            handleFormValidation({
+              change_password_old: {
+                message: "Invalid old password",
+              },
+            });
+          }
+        }
+      });
   };
 
   if (isSuccess)

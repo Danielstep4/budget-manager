@@ -57,7 +57,6 @@ const Auth: React.FC<AuthProps> = ({ isRegister }) => {
   const handleLogin = async () => {
     try {
       const validation = validateAuthForm([{ id: "email", val: email }]);
-      console.log(validation);
       if (validation === true) {
         await login(email, password);
       } else {

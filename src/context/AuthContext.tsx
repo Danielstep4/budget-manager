@@ -4,6 +4,7 @@ import firebase from "firebase";
 import { auth } from "../firebase";
 import { useEffect } from "react";
 import { setUserInfo } from "../utils/db/user";
+import { useError } from "./ErrorContext";
 
 const AuthContext = createContext<AuthContextValue | {}>({});
 
@@ -13,6 +14,8 @@ export const useAuth = (): AuthContextValue => {
 };
 
 const AuthProvider: React.FC = ({ children }) => {
+  // Hooks
+  const { createSnackError } = useError();
   // State
   const [currentUser, setCurrentUser] = useState<firebase.User | null>(null);
   const [hasAccount, setHasAccount] = useState(false);
@@ -77,12 +80,24 @@ const AuthProvider: React.FC = ({ children }) => {
     };
   };
 
-  const changeUserPassword = async (newPassword: string) => {
-    if (!currentUser) return;
+  const changeUserPassword = async (
+    oldPassword: string,
+    newPassword: string
+  ) => {
+    if (!currentUser || !currentUser.email) return;
     try {
+      const crdential = firebase.auth.EmailAuthProvider.credential(
+        currentUser.email,
+        oldPassword
+      );
+      await currentUser.reauthenticateWithCredential(crdential);
       await currentUser.updatePassword(newPassword);
-    } catch (e) {
-      console.log(e);
+      return Promise.resolve();
+    } catch (e: any) {
+      const err: firebase.auth.Error = e;
+      if (err.code === "auth/wrong-password") {
+        return Promise.reject("Wrong old passowrd");
+      }
     }
   };
 
@@ -122,7 +137,10 @@ export interface AuthContextValue {
   signOut: () => Promise<void>;
   getUserPersonalInfo: () => UserPersonalInfo | undefined;
   updateUserPersonalInfo: (query: string, newVal: string) => Promise<void>;
-  changeUserPassword: (newPassword: string) => Promise<void>;
+  changeUserPassword: (
+    oldPassword: string,
+    newPassword: string
+  ) => Promise<void>;
 }
 
 export interface UserPersonalInfo {
