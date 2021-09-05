@@ -24,7 +24,7 @@ const validateInputPassword = (formField: FormField): true | Field => {
     re.test(val) || {
       [id]: {
         message:
-          "Please provide a valid password between 6-16 characters.\n Must contain least one special character !@#$%^&*. \n Must contain at least 1 numeric character. \n Must contain at least 1 uppercase character and lowercase character.",
+          "Please provide a valid password between 6-16 characters.\n Must contain least one special character !@#$%^&*. \n Must contain at least 1 numeric character. \n Must contain at least 1 uppercase character.",
       },
     }
   );

@@ -56,10 +56,8 @@ const Auth: React.FC<AuthProps> = ({ isRegister }) => {
 
   const handleLogin = async () => {
     try {
-      const validation = validateAuthForm([
-        { id: "email", val: email },
-        { id: "password", val: password },
-      ]);
+      const validation = validateAuthForm([{ id: "email", val: email }]);
+      console.log(validation);
       if (validation === true) {
         await login(email, password);
       } else {
@@ -67,6 +65,7 @@ const Auth: React.FC<AuthProps> = ({ isRegister }) => {
       }
     } catch (e: any) {
       const err: firebase.auth.Error = e;
+      createSnackError(err.message);
       if (err.code === "auth/user-not-found")
         createSnackError("User is not Found.");
     }
