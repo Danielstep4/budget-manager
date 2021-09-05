@@ -4,20 +4,16 @@ import Button from "../global/Button.component";
 import TextButton from "../global/TextButton.component";
 import { FormEvent, useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
+import { useError } from "../../context/ErrorContext";
+import firebase from "firebase";
+import { validateAuthForm } from "../../utils/AuthFormValidation";
 
 const Auth: React.FC<AuthProps> = ({ isRegister }) => {
   // Hooks
   const theme = useTheme();
+  const { handleFormValidation, createSnackError } = useError();
   const [isLogin, setIsLogin] = useState(!isRegister);
-  const [error, setError] = useState("");
   const { signup, login } = useAuth();
-  // Error Message useEffect
-  useEffect(() => {
-    const time = setTimeout(() => setError(""), 2000);
-    return () => {
-      clearTimeout(time);
-    };
-  }, [error]);
   // Form States
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -34,16 +30,27 @@ const Auth: React.FC<AuthProps> = ({ isRegister }) => {
     try {
       await signup(email, password, fullName);
       localStorage.setItem("hasAccount", "true");
-    } catch (e) {
-      setError(e.message);
+    } catch (e: any) {
+      const err: firebase.auth.Error = e;
+      createSnackError(err.message);
     }
   };
 
   const handleLogin = async () => {
     try {
-      await login(email, password);
-    } catch (e) {
-      setError(e.message);
+      const validation = validateAuthForm([
+        { id: "email", val: email },
+        { id: "password", val: password },
+      ]);
+      if (validation === true) {
+        await login(email, password);
+      } else {
+        handleFormValidation(validation);
+      }
+    } catch (e: any) {
+      const err: firebase.auth.Error = e;
+      if (err.code === "auth/user-not-found")
+        createSnackError("User is not Found.");
     }
   };
 
@@ -79,7 +86,6 @@ const Auth: React.FC<AuthProps> = ({ isRegister }) => {
           <Typography color="primary" variant="h4">
             Budget Manager
           </Typography>
-          {error && <Typography variant="h4">{error}</Typography>}
         </Box>
         <Box component="form" py={2} onSubmit={hanldeSubmit}>
           {!isLogin && (
@@ -90,15 +96,17 @@ const Auth: React.FC<AuthProps> = ({ isRegister }) => {
               autoFocus={!isLogin}
               value={fullName}
               setValue={setFullName}
+              required
             />
           )}
           <TextInput
-            type="email"
+            // type="email"
             label="Email"
             id="email"
             autoFocus={isLogin}
             value={email}
             setValue={setEmail}
+            required
           />
           <TextInput
             type="password"
@@ -106,6 +114,7 @@ const Auth: React.FC<AuthProps> = ({ isRegister }) => {
             id="password"
             value={password}
             setValue={setPassword}
+            required
           />
           {!isLogin && (
             <TextInput
@@ -114,6 +123,7 @@ const Auth: React.FC<AuthProps> = ({ isRegister }) => {
               id="confirm-password"
               value={confirmPassword}
               setValue={setConfirmPassword}
+              required
             />
           )}
           <Box

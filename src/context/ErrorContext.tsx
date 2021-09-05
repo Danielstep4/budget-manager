@@ -76,7 +76,8 @@ interface FormValidation {
   error: boolean;
   fields: Field;
 }
-interface Field {
+/** The Key is the input ID! */
+export interface Field {
   [key: string]: {
     message: string;
   };
