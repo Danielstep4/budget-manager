@@ -4,7 +4,6 @@ import firebase from "firebase";
 import { auth } from "../firebase";
 import { useEffect } from "react";
 import { setUserInfo } from "../utils/db/user";
-import { useError } from "./ErrorContext";
 
 const AuthContext = createContext<AuthContextValue | {}>({});
 
@@ -14,8 +13,6 @@ export const useAuth = (): AuthContextValue => {
 };
 
 const AuthProvider: React.FC = ({ children }) => {
-  // Hooks
-  const { createSnackError } = useError();
   // State
   const [currentUser, setCurrentUser] = useState<firebase.User | null>(null);
   const [hasAccount, setHasAccount] = useState(false);
