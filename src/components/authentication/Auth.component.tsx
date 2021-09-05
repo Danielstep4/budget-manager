@@ -6,7 +6,7 @@ import { FormEvent, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useError } from "../../context/ErrorContext";
 import firebase from "firebase";
-import { validateAuthForm } from "../../utils/AuthFormValidation";
+import { validateAuthForm } from "../../utils/authFormValidation";
 
 const Auth: React.FC<AuthProps> = ({ isRegister }) => {
   // Hooks
@@ -26,9 +26,27 @@ const Auth: React.FC<AuthProps> = ({ isRegister }) => {
   };
 
   const handleRegister = async () => {
-    if (password !== confirmPassword) return;
+    if (password !== confirmPassword) {
+      return handleFormValidation({
+        "confirm-password": {
+          message: "Please make sure both passwords are the same.",
+        },
+        password: {
+          message: "Please make sure both passwords are the same.",
+        },
+      });
+    }
     try {
-      await signup(email, password, fullName);
+      const validation = validateAuthForm([
+        { id: "email", val: email },
+        { id: "password", val: password },
+        { id: "fullname", val: fullName },
+      ]);
+      if (validation === true) {
+        await signup(email, password, fullName);
+      } else {
+        handleFormValidation(validation);
+      }
       localStorage.setItem("hasAccount", "true");
     } catch (e: any) {
       const err: firebase.auth.Error = e;
