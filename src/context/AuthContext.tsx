@@ -16,6 +16,7 @@ const AuthProvider: React.FC = ({ children }) => {
   // State
   const [currentUser, setCurrentUser] = useState<firebase.User | null>(null);
   const [hasAccount, setHasAccount] = useState(false);
+  const [isUpdated, setIsUpdated] = useState(false);
   const [loading, setLoading] = useState(true);
   // useEffects
   useEffect(() => {
@@ -33,7 +34,7 @@ const AuthProvider: React.FC = ({ children }) => {
     return unsubscribe;
   }, []);
   // Helper Functions
-  const login = async (email: string, password: string) => {
+  const login = (email: string, password: string) => {
     return auth.signInWithEmailAndPassword(email, password);
   };
 
@@ -101,9 +102,9 @@ const AuthProvider: React.FC = ({ children }) => {
   // Value
   const value: AuthContextValue = {
     currentUser,
+    hasAccount,
     signup,
     login,
-    hasAccount,
     signOut,
     getUserPersonalInfo,
     updateUserPersonalInfo,

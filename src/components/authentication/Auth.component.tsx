@@ -12,8 +12,9 @@ const Auth: React.FC<AuthProps> = ({ isRegister }) => {
   // Hooks
   const theme = useTheme();
   const { handleFormValidation, createSnackError } = useError();
-  const [isLogin, setIsLogin] = useState(!isRegister);
   const { signup, login } = useAuth();
+  // State
+  const [isLogin, setIsLogin] = useState(!isRegister);
   // Form States
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -116,7 +117,6 @@ const Auth: React.FC<AuthProps> = ({ isRegister }) => {
             />
           )}
           <TextInput
-            // type="email"
             label="Email"
             id="email"
             autoFocus={isLogin}
@@ -159,6 +159,7 @@ const Auth: React.FC<AuthProps> = ({ isRegister }) => {
               <TextButton onClick={() => setIsLogin(!isLogin)}>
                 click here
               </TextButton>
+              {/* Add to login page reset password button */}
             </Box>
           </Box>
         </Box>

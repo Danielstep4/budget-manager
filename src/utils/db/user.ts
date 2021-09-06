@@ -84,6 +84,7 @@ export const updateUserCategories = async (uid: string, category: string) => {
     console.log(e);
   }
 };
+
 interface UserSchema {
   currency: "ILS";
   savingGoal: string;

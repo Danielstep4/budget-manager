@@ -67,7 +67,7 @@ const FlowProvider: React.FC = ({ children }) => {
       console.log(e);
     }
   };
-  const handleFlowUpdated = () => [setIsUpdated(true)];
+  const handleFlowUpdated = () => setIsUpdated(true);
   // Value
   const value: FlowContextValue = {
     currency,
