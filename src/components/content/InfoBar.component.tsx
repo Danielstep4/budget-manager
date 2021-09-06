@@ -22,7 +22,7 @@ const InfoBar: React.FC<InfoBarProps> = ({
   }, [backdropOpen]);
   useEffect(() => {
     if (toEdit) setBackdropOpen(true);
-  }, [toEdit]);
+  }, [toEdit, setBackdropOpen]);
 
   return (
     <>
@@ -60,6 +60,7 @@ const InfoBar: React.FC<InfoBarProps> = ({
             category={category}
             amount={amount}
             seconds={date.seconds}
+            isExpense={isExpense}
           />
         </MenuExtended>
       )}
