@@ -4,8 +4,8 @@ import Button from "../global/Button.component";
 import { Box, Typography } from "@material-ui/core";
 import MenuExtended from "../menu/MenuExtended.component";
 import { useBackdrop } from "../../context/BackdropContext";
-import NewFlow from "../menu/Flow/NewFlow.component";
 import { FlowDocument } from "../../utils/db/flow";
+import FlowForm from "../menu/Flow/FlowForm.component";
 
 const FlowContainer: React.FC<FlowContainerProps> = ({
   isExpense,
@@ -60,7 +60,11 @@ const FlowContainer: React.FC<FlowContainerProps> = ({
       </Box>
       {isOpen && (
         <MenuExtended>
-          <NewFlow isExpense={isExpense} />
+          <FlowForm isExpense={isExpense}>
+            <Typography variant="h4" color="primary">
+              New {isExpense ? "Expense" : "Income"}
+            </Typography>
+          </FlowForm>
         </MenuExtended>
       )}
     </>

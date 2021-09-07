@@ -103,7 +103,7 @@ export const getTotalMonthlyFlow = async (uid: string) => {
     };
   }
 };
-interface FlowSchema {
+export interface FlowSchema {
   title: string;
   date: Date;
   category: string;

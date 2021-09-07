@@ -4,6 +4,8 @@ import {
   FlowDocument,
   getMonthlyFlow,
   getTotalMonthlyFlow,
+  addFlow,
+  FlowSchema,
 } from "../utils/db/flow";
 import { getCurrentMonth, getCurrentYear } from "../utils/getDates";
 import { useAuth } from "./AuthContext";
@@ -76,6 +78,7 @@ const FlowProvider: React.FC = ({ children }) => {
     userMonthlyTotalExpenses,
     userMonthlyTotalIncomes,
     handleFlowUpdated,
+    addFlow,
   };
 
   return <FlowContext.Provider value={value}>{children}</FlowContext.Provider>;
@@ -90,4 +93,9 @@ export interface FlowContextValue {
   userMonthlyTotalExpenses: number | undefined;
   userMonthlyTotalIncomes: number | undefined;
   handleFlowUpdated: () => void;
+  addFlow: (
+    flow: FlowSchema,
+    uid: string,
+    isExpense?: boolean | undefined
+  ) => Promise<void>;
 }
