@@ -1,4 +1,5 @@
-import { Box } from "@material-ui/core";
+import { Box, IconButton } from "@material-ui/core";
+import { Delete } from "@material-ui/icons";
 import Button from "../../global/Button.component";
 import React, { FormEvent, useEffect, useState } from "react";
 import Autocomplete from "../../global/Autocomplete.component";
@@ -108,7 +109,7 @@ const FlowForm: React.FC<FlowFormProps> = ({
           id="flow_amount"
         />
         <Box mt={1}>
-          <Button submit>Submit</Button>
+          <Button submit>{isEdit ? "Save" : "Submit"}</Button>
         </Box>
       </Box>
     </>

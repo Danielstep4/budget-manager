@@ -3,12 +3,12 @@ import React, { useState } from "react";
 import FlowForm from "./FlowForm.component";
 
 const FullInfoBar: React.FC<FullInfoBarProps> = (props) => {
-  const [isEdit, setIsEdit] = useState(true);
+  const [isEdit, setIsEdit] = useState(false);
 
   return (
     <Box p={1}>
       {isEdit ? (
-        <FlowForm {...props}>
+        <FlowForm {...props} isEdit={isEdit}>
           <Typography color="primary" variant="h5">
             Edit
             {props.isExpense ? " Expense" : " Income"}
