@@ -1,15 +1,15 @@
 import { Box, Typography } from "@material-ui/core";
-import TextInput from "../global/TextInput.component";
+import TextInput from "../../global/TextInput.component";
 import { FormEvent, useEffect, useState } from "react";
-import { addFlow } from "../../utils/db/flow";
-import { useAuth } from "../../context/AuthContext";
-import { useError } from "../../context/ErrorContext";
-import { getUserCategories } from "../../utils/db/user";
-import Button from "../global/Button.component";
-import DatePicker from "../global/DatePicker.component";
-import Autocomplete from "../global/Autocomplete.component";
-import { useBackdrop } from "../../context/BackdropContext";
-import { useFlow } from "../../context/FlowContext";
+import { addFlow } from "../../../utils/db/flow";
+import { useAuth } from "../../../context/AuthContext";
+import { useError } from "../../../context/ErrorContext";
+import { getUserCategories } from "../../../utils/db/user";
+import Button from "../../global/Button.component";
+import DatePicker from "../../global/DatePicker.component";
+import Autocomplete from "../../global/Autocomplete.component";
+import { useBackdrop } from "../../../context/BackdropContext";
+import { useFlow } from "../../../context/FlowContext";
 
 const NewFlow: React.FC<NewFlowProps> = ({ isExpense }) => {
   // Context

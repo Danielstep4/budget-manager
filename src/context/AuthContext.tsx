@@ -16,7 +16,6 @@ const AuthProvider: React.FC = ({ children }) => {
   // State
   const [currentUser, setCurrentUser] = useState<firebase.User | null>(null);
   const [hasAccount, setHasAccount] = useState(false);
-  const [isUpdated, setIsUpdated] = useState(false);
   const [loading, setLoading] = useState(true);
   // useEffects
   useEffect(() => {

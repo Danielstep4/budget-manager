@@ -2,7 +2,7 @@ import { Box, Typography, useTheme } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { useBackdrop } from "../../context/BackdropContext";
 import { getSymbol } from "../../utils/getSymbol";
-import FullInfoBar from "../menu/FullInfoBar";
+import FullInfoBar from "../menu/Flow/FullInfoBar";
 import MenuExtended from "../menu/MenuExtended.component";
 
 const InfoBar: React.FC<InfoBarProps> = ({
