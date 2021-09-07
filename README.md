@@ -1,6 +1,8 @@
 # budget-manager
 
-# Fixing Flow.
+# Don't use user util in comps only on context.
+
+# Restructure the SettingsInfo to use composition.
 
 ### #TODO:
 

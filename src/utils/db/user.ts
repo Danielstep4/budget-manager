@@ -43,8 +43,7 @@ export const updateUserInfo = async (
   const fieldToUpdate: any = {};
   fieldToUpdate[query] = newVal;
   try {
-    firestore.collection("users").doc(uid).update(fieldToUpdate);
-    return Promise.resolve();
+    await firestore.collection("users").doc(uid).update(fieldToUpdate);
   } catch (e) {
     console.log(e);
   }
