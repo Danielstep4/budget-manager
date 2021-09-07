@@ -10,6 +10,7 @@ import { useFlow } from "../../../context/FlowContext";
 import { useBackdrop } from "../../../context/BackdropContext";
 import { useAuth } from "../../../context/AuthContext";
 import { getUserCategories } from "../../../utils/db/user";
+import { updateFlow } from "../../../utils/db/flow";
 
 const FlowForm: React.FC<FlowFormProps> = ({
   children,
@@ -80,7 +81,12 @@ const FlowForm: React.FC<FlowFormProps> = ({
     if (!id) return;
     const editedFlow = createFlowObject();
     if (!editedFlow) return;
-    // TODO: Add editFlow Func
+    updateFlow(editedFlow, currentUser!.uid, id, isExpense)
+      .then(() => {
+        handleFlowUpdated();
+        setBackdropOpen(false);
+      })
+      .catch(console.log);
   };
 
   return (

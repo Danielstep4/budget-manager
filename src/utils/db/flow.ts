@@ -2,6 +2,14 @@ import { firestore } from "../../firebase";
 import { getCurrentMonth, getCurrentYear, getMonth } from "../getDates";
 import { updateUserCategories, UserDocument } from "./user";
 
+export const updateFlow = async (
+  flow: FlowSchema,
+  uid: string,
+  fid: string,
+  isExpense?: boolean
+) => {
+  // TODO: update flow by id
+};
 export const addFlow = async (
   flow: FlowSchema,
   uid: string,
