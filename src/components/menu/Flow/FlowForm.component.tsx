@@ -1,5 +1,4 @@
-import { Box, IconButton } from "@material-ui/core";
-import { Delete } from "@material-ui/icons";
+import { Box } from "@material-ui/core";
 import Button from "../../global/Button.component";
 import React, { FormEvent, useEffect, useState } from "react";
 import Autocomplete from "../../global/Autocomplete.component";
