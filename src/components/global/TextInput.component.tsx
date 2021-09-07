@@ -1,7 +1,7 @@
 import { TextField } from "@material-ui/core";
 import { useError } from "../../context/ErrorContext";
 
-/** Props: id?, label?, type?, className?, autoFocus?, value, setValue*/
+/** Props: id, value, setValue, label?, type?, className?, autoFocus? */
 const TextInput: React.FC<TextInputProps> = ({
   id,
   label,

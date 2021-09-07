@@ -72,7 +72,7 @@ const NewFlow: React.FC<NewFlowProps> = ({ isExpense }) => {
           setValue={setTitle}
           id="flow_title"
         />
-        <DatePicker date={date} setDate={setDate} />
+        <DatePicker id="flow_date" date={date} setDate={setDate} />
         <Autocomplete
           data={usedCategories}
           value={category}

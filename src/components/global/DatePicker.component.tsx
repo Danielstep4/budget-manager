@@ -5,6 +5,7 @@ import {
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
 
+/** Props: id, value, setValue, label?, type?, className?, autoFocus? */
 const DatePicker: React.FC<DatePickerProps> = ({ date, setDate }) => {
   const handelSetDate = (date: Date | null) => {
     if (date) setDate(date);
@@ -36,7 +37,9 @@ const DatePicker: React.FC<DatePickerProps> = ({ date, setDate }) => {
 };
 
 export default DatePicker;
+
 interface DatePickerProps {
+  id: string;
   date: Date;
   setDate: React.Dispatch<React.SetStateAction<Date>>;
 }

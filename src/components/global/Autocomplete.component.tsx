@@ -3,7 +3,7 @@ import { Autocomplete as AutoComplete } from "@material-ui/lab";
 import { TextField } from "@material-ui/core";
 import { useError } from "../../context/ErrorContext";
 
-/** Props: id?, label?, type?, className?, autoFocus?, value, setValue, data*/
+/** Props: id, value, setValue, data, label?, type?, className?, autoFocus? */
 const Autocomplete: React.FC<AutocompleteProps> = ({
   id,
   label,
@@ -21,6 +21,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
       options={data}
       getOptionLabel={(option) => option}
       freeSolo={freeSolo}
+      value={value}
       renderInput={(params) => (
         <TextField
           {...params}
