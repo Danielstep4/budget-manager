@@ -1,23 +1,37 @@
 import { Box, Typography } from "@material-ui/core";
 import React, { useState } from "react";
+import Button from "../../global/Button.component";
 import FlowForm from "./FlowForm.component";
 
-const FullInfoBar: React.FC<FullInfoBarProps> = (props) => {
+const FullInfoBar: React.FC<FullInfoBarProps> = ({
+  isExpense,
+  id,
+  ...rest
+}) => {
   const [isEdit, setIsEdit] = useState(false);
 
   return (
-    <Box p={1}>
+    <Box p={2} position="relative">
+      <Box position="absolute" right="0">
+        <Button onClick={() => setIsEdit(!isEdit)}>
+          {isEdit ? "Cancel" : "Edit"}
+        </Button>
+      </Box>
       {isEdit ? (
-        <FlowForm {...props} isEdit={isEdit}>
+        <FlowForm {...rest} isEdit={isEdit} isExpense={isExpense}>
           <Typography color="primary" variant="h5">
             Edit
-            {props.isExpense ? " Expense" : " Income"}
-            {" - #" + props.id.slice(0, 7).toUpperCase()}
+            {isExpense ? " Expense" : " Income"}
+            {" - #" + id.slice(0, 7).toUpperCase()}
           </Typography>
         </FlowForm>
       ) : (
-        // TODO: Add content if isEdit is false
-        "Hello world"
+        <Box>
+          <Typography variant="h5" color="primary">
+            {isExpense ? "Expense" : "Income"} - #{id.slice(0, 7).toUpperCase()}
+          </Typography>
+          {/* TODO: design what charts to see with the basic content */}
+        </Box>
       )}
     </Box>
   );
