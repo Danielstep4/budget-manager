@@ -1,9 +1,5 @@
 # budget-manager
 
-# Don't use user util in comps only on context.
-
-# Restructure the SettingsInfo to use composition.
-
 ### #TODO:
 
 1. Forms:
