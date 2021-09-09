@@ -1,5 +1,6 @@
 import { Box, Typography } from "@material-ui/core";
 import React, { useState } from "react";
+import InfoBarPie from "../../content/Charts/InfoBarPie.component";
 import Button from "../../global/Button.component";
 import FlowForm from "./FlowForm.component";
 
@@ -32,7 +33,7 @@ const FullInfoBar: React.FC<FullInfoBarProps> = ({
           </Typography>
         </FlowForm>
       ) : (
-        <Box>
+        <Box position="relative">
           <Typography variant="h5" color="primary">
             {isExpense ? "Expense" : "Income"} - #{id.slice(0, 7).toUpperCase()}
           </Typography>
@@ -54,6 +55,7 @@ const FullInfoBar: React.FC<FullInfoBarProps> = ({
             ))}
             {/* TODO: Add Graphs & Charts */}
           </Box>
+          <InfoBarPie />
         </Box>
       )}
     </Box>
