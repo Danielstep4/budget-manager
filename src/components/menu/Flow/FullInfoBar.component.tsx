@@ -45,6 +45,7 @@ const FullInfoBar: React.FC<FullInfoBarProps> = ({
                 justifyContent="flex-start"
                 alignItems="center"
                 mb={1}
+                key={item.name}
               >
                 <Typography variant="h6">{item.name}:</Typography>
                 <Box mr={3}></Box>
