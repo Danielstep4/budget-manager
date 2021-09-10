@@ -8,7 +8,7 @@
 
 1. Auth Component:
 
-- Add forgat password button and functionality.
+- Add forgot password button and functionality.
 
 2. Settings Component:
 
