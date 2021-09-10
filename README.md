@@ -1,20 +1,40 @@
 # budget-manager
 
-### #TODO:
+## IMPORTANT TODO: Check and Fix Caching. (Firebase functions to cache | Redis Service caching)
 
-1. Forms:
+## TODO: Add Responsivness to aplha version (Replace Box with Grid if needed or useStyles breakpoints.)
 
-- Add Validation to all forms.
+### #TODOs:
 
-2. Add:
+1. Auth Component:
 
-- Flow Edit Component.
-- Charts Component.
+- Add forgat password button and functionality.
 
-3. How It Works:
+2. Settings Component:
 
-- Add correct content to model.
+- Add form validation.
 
-4. Caching:
+3. New Flow Component:
 
-- On new month force update cached items.
+- Check all form validation.
+
+4. FullInfoBar Component:
+
+- Fix Edit button.
+- Fix Chart.
+- Check all form validation.
+
+5. MoneyFlow Component:
+
+- Fix Width of Add Expense and Add Income button, to be the same.
+- Fix Chart.
+
+6. Global:
+
+- Replace all loading text with loading indicator.
+
+7. HowItWorks Component:
+
+- Add Text.
+
+#### When all the todos are done delete unnecessary branches, and start working on future features.

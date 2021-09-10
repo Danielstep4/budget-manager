@@ -36,7 +36,7 @@ const Settings: React.FC = () => {
     signOut();
   };
 
-  if (!user || !currentUser || !userPersonalInfo) return null;
+  if (!currentUser) return null;
   return (
     <>
       <Box display="flex" justifyContent="space-between">
@@ -53,22 +53,28 @@ const Settings: React.FC = () => {
           alignItems="center"
           p={1}
         >
-          <SettingsInfo
-            title="currency"
-            content={user && user.currency}
-            query="currency"
-            setIsUpdated={setIsUpdated}
-            isUpdated={isUpdated}
-            autocomplete
-            autocompleteData={["ILS"]}
-          />
-          <SettingsInfo
-            title="Saving Goal (%)"
-            content={user && user.savingGoal}
-            query="savingGoal"
-            setIsUpdated={setIsUpdated}
-            isUpdated={isUpdated}
-          />
+          {user ? (
+            <>
+              <SettingsInfo
+                title="currency"
+                content={user.currency}
+                query="currency"
+                setIsUpdated={setIsUpdated}
+                isUpdated={isUpdated}
+                autocomplete
+                autocompleteData={["ILS"]}
+              />
+              <SettingsInfo
+                title="Saving Goal (%)"
+                content={user.savingGoal}
+                query="savingGoal"
+                setIsUpdated={setIsUpdated}
+                isUpdated={isUpdated}
+              />
+            </>
+          ) : (
+            "Loading..."
+          )}
         </Box>
       </Box>
       <Box p={1}>
@@ -81,18 +87,20 @@ const Settings: React.FC = () => {
           alignItems="center"
           p={1}
         >
-          {Object.keys(userPersonalInfo).map((key) => (
-            <SettingsInfo
-              key={key}
-              title={key.toLowerCase()}
-              /// @ts-ignore
-              content={userPersonalInfo[key]}
-              query={key}
-              inputType={key === "email" ? key : undefined}
-              setIsUpdated={setIsUpdated}
-              isUpdated={isUpdated}
-            />
-          ))}
+          {userPersonalInfo
+            ? Object.keys(userPersonalInfo).map((key) => (
+                <SettingsInfo
+                  key={key}
+                  title={key.toLowerCase()}
+                  /// @ts-ignore
+                  content={userPersonalInfo[key]}
+                  query={key}
+                  inputType={key === "email" ? key : undefined}
+                  setIsUpdated={setIsUpdated}
+                  isUpdated={isUpdated}
+                />
+              ))
+            : "Loading..."}
         </Box>
       </Box>
       <Box p={1}>
