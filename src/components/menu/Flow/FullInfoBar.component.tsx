@@ -1,5 +1,11 @@
-import { Box, Typography } from "@material-ui/core";
+import { Box, Typography, IconButton } from "@material-ui/core";
+import { Delete } from "@material-ui/icons";
 import React, { useState } from "react";
+import { useAuth } from "../../../context/AuthContext";
+import { useBackdrop } from "../../../context/BackdropContext";
+import { useError } from "../../../context/ErrorContext";
+import { useFlow } from "../../../context/FlowContext";
+import { removeFlow } from "../../../utils/db/flow";
 import InfoBarPie from "../../content/Charts/InfoBarPie.component";
 import Button from "../../global/Button.component";
 import FlowForm from "./FlowForm.component";
@@ -9,28 +15,58 @@ const FullInfoBar: React.FC<FullInfoBarProps> = ({
   id,
   ...rest
 }) => {
+  // Hooks
+  const { currentUser } = useAuth();
+  const { handleFlowUpdated } = useFlow();
+  const { setBackdropOpen } = useBackdrop();
+  const { createSnackError } = useError();
+  // State
+  const [isEdit, setIsEdit] = useState(false);
+  // Props
   const { title, seconds, category, amount } = rest;
+  // Helper Array
+  const DATE = new Date(seconds * 1000);
   const contentStructureArray: ContentStructureArray[] = [
     { name: "Title", content: title },
-    { name: "Date", content: new Date(seconds * 1000).toDateString() },
+    { name: "Date", content: DATE.toDateString() },
     { name: "Category", content: category },
     { name: "Amount", content: amount },
   ];
-  const [isEdit, setIsEdit] = useState(false);
+  const handleDeleteFlow = () => {
+    if (!currentUser) return;
+    removeFlow(
+      { title, date: DATE, category, amount },
+      currentUser.uid,
+      id,
+      isExpense
+    )
+      .then(() => {
+        handleFlowUpdated();
+        setBackdropOpen(false);
+      })
+      .catch(createSnackError);
+  };
   return (
     <Box p={2} position="relative">
-      <Box display="flex" justifyContent="space-between">
+      <Box display="flex" justifyContent="space-between" alignItems="center">
         <Typography color="primary" variant="h5">
           {isEdit && "Edit"}
           {isExpense ? " Expense" : " Income"}
           {" - #" + id.slice(0, 7).toUpperCase()}
         </Typography>
-        <Button onClick={() => setIsEdit(!isEdit)}>
-          {isEdit ? "Cancel" : "Edit"}
-        </Button>
+        <Box>
+          <Button onClick={() => setIsEdit(!isEdit)}>
+            {isEdit ? "Cancel" : "Edit"}
+          </Button>
+          {!isEdit && (
+            <IconButton onClick={handleDeleteFlow}>
+              <Delete />
+            </IconButton>
+          )}
+        </Box>
       </Box>
       {isEdit ? (
-        <FlowForm {...rest} isEdit={isEdit} isExpense={isExpense} />
+        <FlowForm {...rest} isEdit={isEdit} isExpense={isExpense} id={id} />
       ) : (
         <Box position="relative">
           <Box display="grid" gridTemplateColumns="1fr 1fr" mt={4} p={2}>

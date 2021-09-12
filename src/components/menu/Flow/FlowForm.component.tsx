@@ -76,6 +76,8 @@ const FlowForm: React.FC<FlowFormProps> = ({
       .catch(createSnackError);
   };
   const handleEditFlow = () => {
+    console.log("hi");
+    console.log(id);
     if (!id) return;
     const editedFlow = createFlowObject();
     if (!editedFlow) return;

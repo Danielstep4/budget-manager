@@ -1,5 +1,10 @@
 import { firestore } from "../../firebase";
-import { getCurrentMonth, getCurrentYear, getMonth } from "../getDates";
+import {
+  getCurrentMonth,
+  getCurrentYear,
+  getMonth,
+  getYear,
+} from "../getDates";
 import { updateUserCategories, UserDocument } from "./user";
 
 export const updateFlow = async (
@@ -8,7 +13,40 @@ export const updateFlow = async (
   fid: string,
   isExpense?: boolean
 ) => {
-  // TODO: update flow by id
+  try {
+    await firestore
+      .collection("users")
+      .doc(uid)
+      .collection(isExpense ? "expenses" : "incomes")
+      .doc(getMonth(flow.date))
+      .collection(getYear(flow.date).toString())
+      .doc(fid)
+      .update(flow);
+    return Promise.resolve(fid + " Updated Succefully.");
+  } catch {
+    return Promise.reject("Error! Please try again.");
+  }
+};
+
+export const removeFlow = async (
+  flow: FlowSchema,
+  uid: string,
+  fid: string,
+  isExpense?: boolean
+) => {
+  try {
+    await firestore
+      .collection("users")
+      .doc(uid)
+      .collection(isExpense ? "expenses" : "incomes")
+      .doc(getMonth(flow.date))
+      .collection(getYear(flow.date).toString())
+      .doc(fid)
+      .delete();
+    return Promise.resolve(fid + " Deleted Succefully.");
+  } catch {
+    return Promise.reject("Error! Please try again.");
+  }
 };
 export const addFlow = async (
   flow: FlowSchema,
