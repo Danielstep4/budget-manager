@@ -10,10 +10,6 @@
 
 - Fix Chart.
 
-2. MoneyFlow Component:
-
-- Fix Chart.
-
 3. Global:
 
 - Replace all loading text with loading indicator.
