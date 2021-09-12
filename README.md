@@ -6,10 +6,6 @@
 
 ### #TODOs:
 
-1. Auth Component:
-
-- Add forgot password button and functionality.
-
 2. Settings Component:
 
 - Add form validation.
