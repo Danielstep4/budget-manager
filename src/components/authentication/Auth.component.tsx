@@ -6,8 +6,8 @@ import { FormEvent, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useError } from "../../context/ErrorContext";
 import firebase from "firebase";
-import { validateAuthForm } from "../../utils/authFormValidation";
 import validator from "validator";
+import { validateAuthForm } from "../../utils/forms-validation/authFormValidation";
 
 const Auth: React.FC<AuthProps> = ({ isRegister }) => {
   // Hooks

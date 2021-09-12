@@ -4,6 +4,8 @@ import { Edit, Done, Clear } from "@material-ui/icons";
 import { useAuth } from "../../../context/AuthContext";
 import { updateUserInfo } from "../../../utils/db/user";
 import Autocomplete from "../../global/Autocomplete.component";
+import { validateSettingsForm } from "../../../utils/forms-validation/settingsFormValidation";
+import { useError } from "../../../context/ErrorContext";
 
 const SettingsInfo: React.FC<SettingsInfoProps> = ({
   title,
@@ -16,9 +18,15 @@ const SettingsInfo: React.FC<SettingsInfoProps> = ({
   autocompleteData,
 }) => {
   // Hooks
+  const { currentUser, updateUserPersonalInfo } = useAuth();
+  const { formValidation, removeField, handleFormValidation } = useError();
+
+  // State
   const [toEdit, setToEdit] = useState(false);
   const [value, setValue] = useState(content);
-  const { currentUser, updateUserPersonalInfo } = useAuth();
+  const FIELD_ID = `settings_${query}`;
+  const fieldInValidation = formValidation.fields[FIELD_ID];
+  const fieldExistInValidation = !!fieldInValidation;
   // useEffects
   useEffect(() => {
     if (!isUpdated) {
@@ -32,18 +40,24 @@ const SettingsInfo: React.FC<SettingsInfoProps> = ({
     newVal: string
   ) => {
     if (!uid) return;
-    try {
-      if (
-        query === "displayName" ||
-        query === "email" ||
-        query === "photoURL"
-      ) {
-        await updateUserPersonalInfo(query, newVal);
-      } else {
-        await updateUserInfo(uid, query, newVal);
+    const validation = validateSettingsForm(FIELD_ID, newVal);
+    if (validation === true) {
+      try {
+        if (
+          query === "displayName" ||
+          query === "email" ||
+          query === "photoURL"
+        ) {
+          await updateUserPersonalInfo(query, newVal);
+        } else {
+          await updateUserInfo(uid, query, newVal);
+        }
+      } catch (e) {
+        console.log(e);
       }
-    } catch (e) {
-      console.log(e);
+    } else {
+      handleFormValidation(validation);
+      return Promise.reject("Invalid input.");
     }
   };
   const handleSubmit = (e: FormEvent) => {
@@ -73,7 +87,7 @@ const SettingsInfo: React.FC<SettingsInfoProps> = ({
         {toEdit ? (
           autocomplete && autocompleteData ? (
             <Autocomplete
-              id={"settings_" + query}
+              id={FIELD_ID}
               value={value}
               setValue={setValue}
               data={autocompleteData}
@@ -83,8 +97,16 @@ const SettingsInfo: React.FC<SettingsInfoProps> = ({
               value={value}
               color="primary"
               fullWidth
+              id={FIELD_ID}
               type={inputType}
-              onChange={(e) => setValue(e.target.value)}
+              onChange={(e) => {
+                setValue(e.target.value);
+                if (fieldExistInValidation) removeField(FIELD_ID);
+              }}
+              error={fieldExistInValidation}
+              helperText={
+                fieldExistInValidation ? fieldInValidation.message : ""
+              }
             />
           )
         ) : (
