@@ -1,7 +1,7 @@
 import { Field } from "../../context/ErrorContext";
 import {
   validateInputPassword,
-  validateInputName,
+  validateInputString,
   validateInputEmail,
   FormField,
 } from "./formValidatorsHelpers";
@@ -18,7 +18,7 @@ export const validateAuthForm = (formFields: FormField[]): true | Field => {
     else if (formField.id.includes("password"))
       correctFieldFlag = validateInputPassword(formField);
     else if (formField.id.includes("fullname"))
-      correctFieldFlag = validateInputName(formField);
+      correctFieldFlag = validateInputString(formField);
     if (correctFieldFlag !== true) break;
   }
   return correctFieldFlag;

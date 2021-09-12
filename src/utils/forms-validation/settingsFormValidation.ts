@@ -2,6 +2,7 @@ import { Field } from "../../context/ErrorContext";
 import {
   validateInputEmail,
   validateInputIsNumber,
+  validateInputString,
   validateInputUrl,
 } from "./formValidatorsHelpers";
 
@@ -13,7 +14,7 @@ export const validateSettingsForm = (id: string, val: string): true | Field => {
   if (lowerCaseId.includes("url"))
     correctFieldFlag = validateInputUrl({ id, val });
   if (lowerCaseId.includes("name"))
-    correctFieldFlag = validateInputEmail({ id, val });
+    correctFieldFlag = validateInputString({ id, val });
   if (lowerCaseId.includes("saving"))
     correctFieldFlag = validateInputIsNumber({ id, val });
   return correctFieldFlag;

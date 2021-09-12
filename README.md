@@ -8,7 +8,7 @@
 
 2. Settings Component:
 
-- Add form validation.
+- Add form validation to change password section.
 
 3. New Flow Component:
 

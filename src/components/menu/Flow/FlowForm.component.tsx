@@ -10,6 +10,7 @@ import { useBackdrop } from "../../../context/BackdropContext";
 import { useAuth } from "../../../context/AuthContext";
 import { getUserCategories } from "../../../utils/db/user";
 import { updateFlow } from "../../../utils/db/flow";
+import { validateFlowForm } from "../../../utils/forms-validation/flowFormValidation";
 
 const FlowForm: React.FC<FlowFormProps> = ({
   children,
@@ -44,27 +45,25 @@ const FlowForm: React.FC<FlowFormProps> = ({
     e.preventDefault();
     return isEdit ? handleEditFlow() : handleNewFlow();
   };
-  const checkAmountIsInt = () => {
-    let intAmount = parseInt(flowAmount);
-    if (isNaN(intAmount)) {
-      handleFormValidation({
-        flow_amount: {
-          message: "Please Provide a number",
-        },
-      });
-      return createSnackError("Please Provide a number");
-    }
-    return intAmount;
-  };
   const createFlowObject = () => {
-    const amount = checkAmountIsInt();
-    if (!amount) return;
-    return {
-      title: flowTitle,
-      date: flowDate,
-      category: flowCategory,
-      amount,
-    };
+    const validation = validateFlowForm([
+      {
+        id: "flow_title",
+        val: flowTitle,
+      },
+      { id: "flow_amount", val: flowAmount },
+      { id: "flow_category", val: flowCategory },
+    ]);
+    if (validation === true) {
+      return {
+        title: flowTitle,
+        date: flowDate,
+        category: flowCategory,
+        amount: +flowAmount,
+      };
+    } else {
+      handleFormValidation(validation);
+    }
   };
   const handleNewFlow = () => {
     const newFlow = createFlowObject();
@@ -74,7 +73,7 @@ const FlowForm: React.FC<FlowFormProps> = ({
         handleFlowUpdated();
         setBackdropOpen(false);
       })
-      .catch(console.log);
+      .catch(createSnackError);
   };
   const handleEditFlow = () => {
     if (!id) return;
@@ -85,7 +84,7 @@ const FlowForm: React.FC<FlowFormProps> = ({
         handleFlowUpdated();
         setBackdropOpen(false);
       })
-      .catch(console.log);
+      .catch(createSnackError);
   };
 
   return (

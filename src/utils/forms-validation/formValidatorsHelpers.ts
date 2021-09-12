@@ -40,17 +40,14 @@ export const validateInputUrl = (formField: FormField): true | Field => {
   );
 };
 
-export const validateInputName = (formField: FormField): true | Field => {
+export const validateInputString = (formField: FormField): true | Field => {
   const { id, val } = formField;
-  const checkString = val
-    .split(" ")
-    .map((str) => str.trim())
-    .join(" ");
 
   return (
-    checkString.length <= 32 || {
+    (validator.isLength(val.trim(), { min: 1, max: 32 }) &&
+      !validator.isEmpty(val.trim())) || {
       [id]: {
-        message: "Full name can't be more than 32 characters.",
+        message: "Input can't be empty, and must be less than 32 charaters.",
       },
     }
   );
