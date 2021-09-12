@@ -7,12 +7,13 @@ import { useAuth } from "../../context/AuthContext";
 import { useError } from "../../context/ErrorContext";
 import firebase from "firebase";
 import { validateAuthForm } from "../../utils/authFormValidation";
+import validator from "validator";
 
 const Auth: React.FC<AuthProps> = ({ isRegister }) => {
   // Hooks
   const theme = useTheme();
   const { handleFormValidation, createSnackError } = useError();
-  const { signup, login } = useAuth();
+  const { signup, login, resetPasswordByEmail } = useAuth();
   // State
   const [isLogin, setIsLogin] = useState(!isRegister);
   // Form States
@@ -71,6 +72,22 @@ const Auth: React.FC<AuthProps> = ({ isRegister }) => {
     }
   };
 
+  const handleForgotPassword = () => {
+    if (validator.isEmail(email)) {
+      resetPasswordByEmail(email)
+        .then((result) => {
+          window.location.href = `http://${result}`;
+        })
+        .catch((e) => createSnackError(e));
+    } else {
+      handleFormValidation({
+        email: {
+          message: "Please provide email",
+        },
+      });
+    }
+  };
+
   return (
     <Box
       height="100%"
@@ -87,6 +104,7 @@ const Auth: React.FC<AuthProps> = ({ isRegister }) => {
         bgcolor={theme.palette.background.paper}
         borderRadius={theme.shape.borderRadius}
         boxShadow={theme.shadows[3]}
+        position="relative"
       >
         <Box
           display="flex"
@@ -156,13 +174,21 @@ const Auth: React.FC<AuthProps> = ({ isRegister }) => {
               ) : (
                 <Typography>You dont have a user? </Typography>
               )}
-              <TextButton onClick={() => setIsLogin(!isLogin)}>
-                click here
-              </TextButton>
-              {/* Add to login page reset password button */}
+              <Box pl={1}>
+                <TextButton onClick={() => setIsLogin(!isLogin)}>
+                  click here
+                </TextButton>
+              </Box>
             </Box>
           </Box>
         </Box>
+        {isLogin && (
+          <Box position="absolute" bottom="10px">
+            <TextButton onClick={handleForgotPassword}>
+              Forgot password?
+            </TextButton>
+          </Box>
+        )}
       </Box>
     </Box>
   );

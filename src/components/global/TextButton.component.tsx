@@ -8,6 +8,7 @@ const TextButton: React.FC<TextButtonProps> = ({ children, href, onClick }) => {
       disableRipple
       href={href}
       onClick={onClick}
+      style={{ textTransform: "capitalize", padding: 0 }}
     >
       {children}
     </Button>

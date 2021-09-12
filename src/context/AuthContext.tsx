@@ -98,6 +98,14 @@ const AuthProvider: React.FC = ({ children }) => {
     }
   };
 
+  const resetPasswordByEmail = async (email: string) => {
+    try {
+      await auth.sendPasswordResetEmail(email);
+      return email.split("@")[1];
+    } catch (e) {
+      return Promise.reject("Try again please.");
+    }
+  };
   // Value
   const value: AuthContextValue = {
     currentUser,
@@ -108,6 +116,7 @@ const AuthProvider: React.FC = ({ children }) => {
     getUserPersonalInfo,
     updateUserPersonalInfo,
     changeUserPassword,
+    resetPasswordByEmail,
   };
 
   return (
@@ -138,6 +147,7 @@ export interface AuthContextValue {
     oldPassword: string,
     newPassword: string
   ) => Promise<void>;
+  resetPasswordByEmail: (email: string) => Promise<string>;
 }
 
 export interface UserPersonalInfo {
