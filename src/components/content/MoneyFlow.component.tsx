@@ -4,15 +4,14 @@ import FlowContainer from "./FlowContainer.component";
 import { useFlow } from "../../context/FlowContext";
 
 const MoneyFlow: React.FC = () => {
-  const theme = useTheme();
   const { monthlyIncomesData, monthlyExpensesData, currency } = useFlow();
 
   return (
     <Box
-      pl={theme.sizes.menuWidth + 30 + "px"}
       py={5}
       width="100%"
       minHeight="100vh"
+      maxWidth="1000px"
       display="flex"
       flexDirection="column"
       alignItems="flex-start"

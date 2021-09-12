@@ -27,7 +27,7 @@ const FlowContainer: React.FC<FlowContainerProps> = ({
 
   return (
     <>
-      <Box width="50%" mt={3} display="flex" flexDirection="column">
+      <Box width="100%" mt={3} display="flex" flexDirection="column">
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <Typography variant="h6">
             There are {data ? data.length : 0} total{" "}

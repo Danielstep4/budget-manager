@@ -18,8 +18,8 @@ const PieComp: React.FC = () => {
     },
   ];
   return (
-    <Box position="fixed" right="0" top="0" height="100%">
-      <ResponsiveContainer width={700} height="80%">
+    <Box height="100%" width="100%">
+      <ResponsiveContainer width={600} height="100%">
         <PieChart width={730} height={250}>
           <Pie
             data={DATA}
