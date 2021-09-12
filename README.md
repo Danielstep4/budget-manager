@@ -6,30 +6,22 @@
 
 ### #TODOs:
 
-2. Settings Component:
-
-- Add form validation to change password section.
-
-3. New Flow Component:
-
-- Check all form validation.
-
-4. FullInfoBar Component:
+1. FullInfoBar Component:
 
 - Fix Edit button.
+- Add update and delete functionlaity.
 - Fix Chart.
-- Check all form validation.
 
-5. MoneyFlow Component:
+2. MoneyFlow Component:
 
 - Fix Width of Add Expense and Add Income button, to be the same.
 - Fix Chart.
 
-6. Global:
+3. Global:
 
 - Replace all loading text with loading indicator.
 
-7. HowItWorks Component:
+4. HowItWorks Component:
 
 - Add Text.
 
