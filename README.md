@@ -12,7 +12,6 @@
 
 2. MoneyFlow Component:
 
-- Fix Width of Add Expense and Add Income button, to be the same.
 - Fix Chart.
 
 3. Global:

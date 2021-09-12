@@ -33,8 +33,8 @@ const FlowContainer: React.FC<FlowContainerProps> = ({
             There are {data ? data.length : 0} total{" "}
             {isExpense ? "expenses" : "incomes"}
           </Typography>
-          <Box display="flex">
-            <Button onClick={() => setIsOpen(!isOpen)}>
+          <Box width="130px">
+            <Button onClick={() => setIsOpen(!isOpen)} fullWidth>
               Add {isExpense ? "Expense" : "Income"}
             </Button>
           </Box>
