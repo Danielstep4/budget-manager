@@ -19,24 +19,20 @@ const FullInfoBar: React.FC<FullInfoBarProps> = ({
   const [isEdit, setIsEdit] = useState(false);
   return (
     <Box p={2} position="relative">
-      <Box position="absolute" right="0">
+      <Box display="flex" justifyContent="space-between">
+        <Typography color="primary" variant="h5">
+          {isEdit && "Edit"}
+          {isExpense ? " Expense" : " Income"}
+          {" - #" + id.slice(0, 7).toUpperCase()}
+        </Typography>
         <Button onClick={() => setIsEdit(!isEdit)}>
           {isEdit ? "Cancel" : "Edit"}
         </Button>
       </Box>
       {isEdit ? (
-        <FlowForm {...rest} isEdit={isEdit} isExpense={isExpense}>
-          <Typography color="primary" variant="h5">
-            Edit
-            {isExpense ? " Expense" : " Income"}
-            {" - #" + id.slice(0, 7).toUpperCase()}
-          </Typography>
-        </FlowForm>
+        <FlowForm {...rest} isEdit={isEdit} isExpense={isExpense} />
       ) : (
         <Box position="relative">
-          <Typography variant="h5" color="primary">
-            {isExpense ? "Expense" : "Income"} - #{id.slice(0, 7).toUpperCase()}
-          </Typography>
           <Box display="grid" gridTemplateColumns="1fr 1fr" mt={4} p={2}>
             {contentStructureArray.map((item) => (
               <Box

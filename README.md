@@ -8,7 +8,6 @@
 
 1. FullInfoBar Component:
 
-- Fix Edit button.
 - Add update and delete functionlaity.
 - Fix Chart.
 
