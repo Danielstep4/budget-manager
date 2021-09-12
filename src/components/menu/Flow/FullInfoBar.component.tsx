@@ -5,7 +5,6 @@ import { useAuth } from "../../../context/AuthContext";
 import { useBackdrop } from "../../../context/BackdropContext";
 import { useError } from "../../../context/ErrorContext";
 import { useFlow } from "../../../context/FlowContext";
-import { removeFlow } from "../../../utils/db/flow";
 import InfoBarPie from "../../content/Charts/InfoBarPie.component";
 import Button from "../../global/Button.component";
 import FlowForm from "./FlowForm.component";
@@ -17,7 +16,7 @@ const FullInfoBar: React.FC<FullInfoBarProps> = ({
 }) => {
   // Hooks
   const { currentUser } = useAuth();
-  const { handleFlowUpdated } = useFlow();
+  const { handleFlowUpdated, removeFlow } = useFlow();
   const { setBackdropOpen } = useBackdrop();
   const { createSnackError } = useError();
   // State

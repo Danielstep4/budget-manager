@@ -9,7 +9,6 @@ import { useFlow } from "../../../context/FlowContext";
 import { useBackdrop } from "../../../context/BackdropContext";
 import { useAuth } from "../../../context/AuthContext";
 import { getUserCategories } from "../../../utils/db/user";
-import { updateFlow } from "../../../utils/db/flow";
 import { validateFlowForm } from "../../../utils/forms-validation/flowFormValidation";
 
 const FlowForm: React.FC<FlowFormProps> = ({
@@ -25,7 +24,7 @@ const FlowForm: React.FC<FlowFormProps> = ({
   const { currentUser } = useAuth();
   const { handleFormValidation, createSnackError } = useError();
   const { setBackdropOpen } = useBackdrop();
-  const { addFlow, handleFlowUpdated } = useFlow();
+  const { addFlow, handleFlowUpdated, updateFlow } = useFlow();
   // State
   const [usedCategories, setUsedCategories] = useState<string[]>([]);
   const [flowDate, setFlowDate] = useState(new Date(date || Date.now()));

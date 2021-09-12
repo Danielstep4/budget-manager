@@ -8,7 +8,6 @@
 
 1. FullInfoBar Component:
 
-- Add update and delete functionlaity.
 - Fix Chart.
 
 2. MoneyFlow Component:
