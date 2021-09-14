@@ -1,4 +1,4 @@
-import { Box, Typography, useTheme } from "@material-ui/core";
+import { Box, Typography } from "@material-ui/core";
 import { getCurrentMonth, getCurrentYear } from "../../utils/getDates";
 import FlowContainer from "./FlowContainer.component";
 import { useFlow } from "../../context/FlowContext";

@@ -10,12 +10,16 @@
 
 - Fix Chart.
 
-3. Global:
+2. Global:
 
 - Replace all loading text with loading indicator.
 
-4. HowItWorks Component:
+3. HowItWorks Component:
 
 - Add Text.
+
+4. Forms:
+
+- Fix Amount max number.
 
 #### When all the todos are done delete unnecessary branches, and start working on future features.
