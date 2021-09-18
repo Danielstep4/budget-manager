@@ -24,9 +24,8 @@ export const getYear = (date: number | Date) => {
 };
 
 export const getCurrentMonth = (): string => {
-  const currentDate = new Date(Date.now()).getMonth();
+  const currentDate = new Date().getMonth();
   return monthsTable[currentDate];
 };
 
-export const getCurrentYear = (): string =>
-  new Date(Date.now()).getFullYear().toString();
+export const getCurrentYear = (): string => new Date().getFullYear().toString();

@@ -22,4 +22,8 @@
 
 - Fix Amount max number.
 
+5. MoneyFlow Component:
+
+- Fix Chart
+
 #### When all the todos are done delete unnecessary branches, and start working on future features.
