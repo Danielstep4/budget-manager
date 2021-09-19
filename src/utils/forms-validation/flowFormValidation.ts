@@ -1,8 +1,8 @@
 import { Field } from "../../context/ErrorContext";
 import {
-  validateInputIsNumber,
   FormField,
   validateInputString,
+  validateInputFlowNum,
 } from "./formValidatorsHelpers";
 
 /**
@@ -13,7 +13,7 @@ export const validateFlowForm = (formFields: FormField[]): true | Field => {
   let correctFieldFlag: true | Field = true;
   for (let formField of formFields) {
     if (formField.id.includes("amount"))
-      correctFieldFlag = validateInputIsNumber(formField);
+      correctFieldFlag = validateInputFlowNum(formField);
     else if (formField.id.includes("title"))
       correctFieldFlag = validateInputString(formField);
     else if (formField.id.includes("category"))

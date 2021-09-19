@@ -63,7 +63,17 @@ export const validateInputIsNumber = (formField: FormField): true | Field => {
     }
   );
 };
-
+export const validateInputFlowNum = (formField: FormField): true | Field => {
+  const validation = validateInputIsNumber(formField);
+  if (validation == true) {
+    const { id, val } = formField;
+    if (+val > 1000000)
+      return {
+        [id]: { message: "Please provide a number less than 1 milion." },
+      };
+  }
+  return validation;
+};
 export interface FormField {
   id: string;
   val: string;
