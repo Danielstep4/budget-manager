@@ -1,4 +1,4 @@
-import { Box, Typography, useTheme } from "@material-ui/core";
+import { Box, Typography, useMediaQuery, useTheme } from "@material-ui/core";
 import TextInput from "../global/TextInput.component";
 import Button from "../global/Button.component";
 import TextButton from "../global/TextButton.component";
@@ -12,6 +12,7 @@ import { validateAuthForm } from "../../utils/forms-validation/authFormValidatio
 const Auth: React.FC<AuthProps> = ({ isRegister }) => {
   // Hooks
   const theme = useTheme();
+  const matchesXSmall = useMediaQuery(theme.breakpoints.down("xs"));
   const { handleFormValidation, createSnackError } = useError();
   const { signup, login, resetPasswordByEmail } = useAuth();
   // State
@@ -26,7 +27,6 @@ const Auth: React.FC<AuthProps> = ({ isRegister }) => {
     e.preventDefault();
     return isLogin ? handleLogin() : handleRegister();
   };
-
   const handleRegister = async () => {
     if (password !== confirmPassword) {
       return handleFormValidation({
@@ -108,7 +108,7 @@ const Auth: React.FC<AuthProps> = ({ isRegister }) => {
       >
         <Box
           display="flex"
-          flexDirection="row"
+          flexDirection={matchesXSmall ? "column" : "row"}
           justifyContent="center"
           alignItems="baseline"
         >
@@ -165,10 +165,15 @@ const Auth: React.FC<AuthProps> = ({ isRegister }) => {
             justifyContent="space-between"
             color="white"
             alignItems="baseline"
+            flexDirection={matchesXSmall ? "column" : "row"}
             py={2}
           >
             <Button submit>{!isLogin ? "Register" : "Login"}</Button>
-            <Box display="flex" alignItems="baseline">
+            <Box
+              display="flex"
+              alignItems="baseline"
+              mt={matchesXSmall ? 1 : 0}
+            >
               {!isLogin ? (
                 <Typography>Already have a user? </Typography>
               ) : (
