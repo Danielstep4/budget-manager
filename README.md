@@ -2,7 +2,7 @@
 
 ## IMPORTANT TODO: Check and Fix Caching. (Firebase functions to cache | Redis Service caching)
 
-## TODO: Add Responsivness to aplha version (Replace Box with Grid if needed or useStyles breakpoints.)
+## TODO: Add Responsivness to aplha version (Replace Box with Grid if needed or useStyles breakpoints.) !!!
 
 ### #TODOs:
 
@@ -17,10 +17,6 @@
 3. HowItWorks Component:
 
 - Add Text.
-
-4. Forms:
-
-- Fix Amount max number.
 
 5. MoneyFlow Component:
 
