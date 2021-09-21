@@ -1,11 +1,18 @@
 import { useState, useEffect } from "react";
-import { IconButton, Box, useTheme, Typography } from "@material-ui/core";
+import {
+  IconButton,
+  Box,
+  useTheme,
+  Typography,
+  useMediaQuery,
+} from "@material-ui/core";
 import { HelpSharp, Close } from "@material-ui/icons";
 import { useBackdrop } from "../../context/BackdropContext";
 
 const HowItWorks: React.FC = () => {
   // Hooks
   const theme = useTheme();
+  const matchesXSmall = useMediaQuery(theme.breakpoints.down("xs"));
   const { setBackdropOpen, backdropOpen, setOverMenu } = useBackdrop();
   const [isOpen, setIsOpen] = useState(false);
   // useEffects
@@ -23,10 +30,11 @@ const HowItWorks: React.FC = () => {
         position="fixed"
         bgcolor={theme.palette.background.paper}
         borderRadius={theme.shape.borderRadius}
-        p={5}
-        display={isOpen ? "block" : "none"}
-        height="90%"
-        width="90%"
+        p={matchesXSmall ? 1 : 5}
+        display={isOpen ? "flex" : "none"}
+        flexDirection="column"
+        height={matchesXSmall ? "100%" : "90%"}
+        width={matchesXSmall ? "100%" : "90%"}
         left="0"
         right="0"
         top="0"
@@ -38,6 +46,7 @@ const HowItWorks: React.FC = () => {
           display="flex"
           justifyContent="space-between"
           alignItems="baseline"
+          mb={2}
         >
           <Typography color="primary" variant="h4">
             How It Works?
@@ -46,7 +55,7 @@ const HowItWorks: React.FC = () => {
             <Close />
           </IconButton>
         </Box>
-        <Box display="flex" flexDirection="column">
+        <Box display="flex" flexDirection="column" overflow="auto">
           <Typography>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
             dapibus ipsum facilisis faucibus maximus. Aliquam pellentesque nibh
@@ -59,6 +68,15 @@ const HowItWorks: React.FC = () => {
             hendrerit enim sollicitudin. Donec non ligula auctor, semper turpis
             sed, tempor tellus. Ut leo ante, faucibus at massa sed, interdum
             commodo arcu. Pellentesque dolor nulla, vulputate vel enim
+            elementum, finibus euismod nisl. Nam fermentum mi vitae lorem
+            elementum, finibus euismod nisl. Nam fermentum mi vitae lorem
+            elementum, finibus euismod nisl. Nam fermentum mi vitae lorem
+            elementum, finibus euismod nisl. Nam fermentum mi vitae lorem
+            elementum, finibus euismod nisl. Nam fermentum mi vitae lorem
+            elementum, finibus euismod nisl. Nam fermentum mi vitae lorem
+            elementum, finibus euismod nisl. Nam fermentum mi vitae lorem
+            elementum, finibus euismod nisl. Nam fermentum mi vitae lorem
+            elementum, finibus euismod nisl. Nam fermentum mi vitae lorem
             elementum, finibus euismod nisl. Nam fermentum mi vitae lorem
             feugiat venenatis. Duis ornare odio sed metus pulvinar tempus.
             Vivamus in vestibulum lorem, id mattis ex. Pellentesque eros metus,
