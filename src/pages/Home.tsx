@@ -17,7 +17,8 @@ const Home: React.FC = () => {
         display="flex"
         flexDirection={matchesMedium ? "column" : "row"}
         justifyContent="space-between"
-        pr={matchesMedium ? "30px" : 0}
+        pt={matchesXSmall ? theme.sizes.menuWidth + "px" : "0"}
+        pr={matchesMedium ? "30px" : "0"}
         pl={matchesXSmall ? "30px" : theme.sizes.menuWidth + 30 + "px"}
       >
         <MoneyFlow />

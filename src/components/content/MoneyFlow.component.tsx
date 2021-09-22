@@ -6,7 +6,6 @@ import { useFlow } from "../../context/FlowContext";
 const MoneyFlow: React.FC = () => {
   const theme = useTheme();
   const matchesXSmall = useMediaQuery(theme.breakpoints.down("xs"));
-  const matchesMedium = useMediaQuery(theme.breakpoints.down("md"));
   const { monthlyIncomesData, monthlyExpensesData, currency } = useFlow();
 
   return (

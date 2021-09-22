@@ -6,6 +6,7 @@ import { getSymbol } from "../../../utils/getSymbol";
 
 const InfoBarPie: React.FC = () => {
   const theme = useTheme();
+  // eslint-disable-next-line
   const { userMonthlyTotalExpenses, userMonthlyTotalIncomes } = useFlow();
   const DATA = [
     {

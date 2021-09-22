@@ -6,7 +6,11 @@ import {
   useMediaQuery,
   useTheme,
 } from "@material-ui/core";
-import { AccountBalance, Settings as SettingsIcon } from "@material-ui/icons";
+import {
+  AccountBalance,
+  BorderLeft,
+  Settings as SettingsIcon,
+} from "@material-ui/icons";
 import Settings from "./Settings/Settings.component";
 import { useState, useEffect } from "react";
 import { useBackdrop } from "../../context/BackdropContext";
@@ -36,12 +40,12 @@ const Menu: React.FC = () => {
   return (
     <>
       <Box
-        minHeight="650px"
-        display={matchesXSmall && "none"}
-        width={theme.sizes.menuWidth + "px"}
+        minHeight={matchesXSmall ? "0" : "650px"}
+        width={matchesXSmall ? "100vw" : theme.sizes.menuWidth + "px"}
         bgcolor={theme.palette.background.paper}
-        height="100vh"
+        height={matchesXSmall ? theme.sizes.menuWidth : "100vh"}
         position="fixed"
+        top="0"
         zIndex="2"
       >
         <Box
@@ -60,10 +64,12 @@ const Menu: React.FC = () => {
         <Box
           display="flex"
           justifyContent="center"
-          width="100%"
+          width={matchesXSmall ? "auto" : "100%"}
+          height={matchesXSmall ? "100%" : "auto"}
           alignItems="center"
           position="absolute"
-          bottom={theme.sizes.menuWidth + 10 + "px"}
+          bottom={matchesXSmall ? "0" : theme.sizes.menuWidth + 10 + "px"}
+          right={matchesXSmall ? theme.sizes.menuWidth + 10 + "px" : "auto"}
         >
           <IconButton onClick={handleSettingsButton}>
             <SettingsIcon color="action" />
@@ -74,11 +80,14 @@ const Menu: React.FC = () => {
           height={theme.sizes.menuWidth + "px"}
           position="absolute"
           bottom="0"
-          left="0"
+          left={matchesXSmall ? "auto" : "0"}
+          right={matchesXSmall ? "0" : "auto"}
           display="flex"
           justifyContent="center"
           alignItems="center"
-          borderTop={"0.5px solid" + theme.palette.grey[500]}
+          borderTop={
+            matchesXSmall ? "none" : "0.5px solid" + theme.palette.grey[500]
+          }
         >
           <Avatar
             alt="default"
