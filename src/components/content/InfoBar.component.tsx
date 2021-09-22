@@ -1,4 +1,4 @@
-import { Box, Typography, useTheme } from "@material-ui/core";
+import { Box, Typography, useMediaQuery, useTheme } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { useBackdrop } from "../../context/BackdropContext";
 import { getSymbol } from "../../utils/getSymbol";
@@ -15,8 +15,11 @@ const InfoBar: React.FC<InfoBarProps> = ({
   currency,
 }) => {
   const theme = useTheme();
+  const matchesXSmall = useMediaQuery(theme.breakpoints.down("xs"));
+  const matchesSmall = useMediaQuery(theme.breakpoints.down("sm"));
   const { setBackdropOpen, backdropOpen } = useBackdrop();
   const [toEdit, setToEdit] = useState(false);
+  const DATE = new Date(date.seconds * 1000);
   useEffect(() => {
     if (!backdropOpen) setToEdit(false);
   }, [backdropOpen]);
@@ -31,16 +34,18 @@ const InfoBar: React.FC<InfoBarProps> = ({
         display="grid"
         p={3}
         mt={2}
-        gridTemplateColumns="repeat(4, 1fr)"
+        gridTemplateColumns={`repeat(${matchesXSmall ? "3" : "4"}, 1fr)`}
         gridTemplateRows="1fr"
         alignItems="baseline"
         borderRadius={theme.shape.borderRadius}
         style={{ cursor: "pointer", userSelect: "none" }}
         onClick={() => setToEdit(true)}
       >
-        <Typography>{"#" + id.slice(0, 7).toUpperCase()}</Typography>
+        {matchesXSmall ? null : (
+          <Typography>{"#" + id.slice(0, 7).toUpperCase()}</Typography>
+        )}
         <Typography align="center" style={{ color: "#A8A8A8" }}>
-          {new Date(date.seconds * 1000).toDateString()}
+          {matchesSmall ? DATE.toLocaleDateString() : DATE.toDateString()}
         </Typography>
         <Typography align="center">
           {category[0].toUpperCase() + category.slice(1)}
