@@ -1,4 +1,11 @@
-import { Avatar, Box, IconButton, SvgIcon, useTheme } from "@material-ui/core";
+import {
+  Avatar,
+  Box,
+  IconButton,
+  SvgIcon,
+  useMediaQuery,
+  useTheme,
+} from "@material-ui/core";
 import { AccountBalance, Settings as SettingsIcon } from "@material-ui/icons";
 import Settings from "./Settings/Settings.component";
 import { useState, useEffect } from "react";
@@ -9,6 +16,7 @@ import { useAuth } from "../../context/AuthContext";
 const Menu: React.FC = () => {
   // Hooks
   const theme = useTheme();
+  const matchesXSmall = useMediaQuery(theme.breakpoints.down("xs"));
   const { currentUser } = useAuth();
   const { setBackdropOpen, backdropOpen } = useBackdrop();
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -29,6 +37,7 @@ const Menu: React.FC = () => {
     <>
       <Box
         minHeight="650px"
+        display={matchesXSmall && "none"}
         width={theme.sizes.menuWidth + "px"}
         bgcolor={theme.palette.background.paper}
         height="100vh"
