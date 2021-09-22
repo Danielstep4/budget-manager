@@ -65,7 +65,7 @@ export const validateInputIsNumber = (formField: FormField): true | Field => {
 };
 export const validateInputFlowNum = (formField: FormField): true | Field => {
   const validation = validateInputIsNumber(formField);
-  if (validation == true) {
+  if (validation === true) {
     const { id, val } = formField;
     if (+val > 1000000)
       return {

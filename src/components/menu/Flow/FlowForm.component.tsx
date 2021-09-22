@@ -66,8 +66,8 @@ const FlowForm: React.FC<FlowFormProps> = ({
   };
   const handleNewFlow = () => {
     const newFlow = createFlowObject();
-    if (!newFlow) return;
-    addFlow(newFlow, currentUser!.uid, isExpense)
+    if (!newFlow || !currentUser) return;
+    addFlow(newFlow, currentUser.uid, isExpense)
       .then(() => {
         handleFlowUpdated();
         setBackdropOpen(false);
@@ -75,12 +75,10 @@ const FlowForm: React.FC<FlowFormProps> = ({
       .catch(createSnackError);
   };
   const handleEditFlow = () => {
-    console.log("hi");
-    console.log(id);
     if (!id) return;
     const editedFlow = createFlowObject();
-    if (!editedFlow) return;
-    updateFlow(editedFlow, currentUser!.uid, id, isExpense)
+    if (!editedFlow || !currentUser) return;
+    updateFlow(editedFlow, currentUser.uid, id, isExpense)
       .then(() => {
         handleFlowUpdated();
         setBackdropOpen(false);

@@ -1,23 +1,25 @@
-import { Box, useTheme } from "@material-ui/core";
+import { Box, useMediaQuery, useTheme } from "@material-ui/core";
 import React from "react";
 import ReactDOM from "react-dom";
 
 const MenuExtended: React.FC = ({ children }) => {
   const theme = useTheme();
-
+  const matchesXSmall = useMediaQuery(theme.breakpoints.down("xs"));
   return (
     <Box
       zIndex="2"
-      borderRadius="0 50px 50px 0"
+      borderRadius={matchesXSmall ? "0" : "0 50px 50px 0"}
       bgcolor={theme.palette.background.paper}
-      borderLeft={"1px solid " + theme.palette.grey[500]}
+      borderLeft={
+        matchesXSmall ? "none" : "1px solid " + theme.palette.grey[500]
+      }
       p={3}
       position="fixed"
       width="100%"
-      maxWidth="660px"
+      maxWidth={matchesXSmall ? "none" : "660px"}
       minHeight="650px"
       top="0"
-      left={theme.sizes.menuWidth + "px"}
+      left={matchesXSmall ? "0" : theme.sizes.menuWidth + "px"}
       height="100%"
       style={{ userSelect: "none", overflowY: "auto" }}
     >
