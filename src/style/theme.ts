@@ -36,6 +36,7 @@ const theme = createTheme({
   },
   sizes: {
     menuWidth: 80,
+    menuExtendedWidth: 660,
   },
 });
 

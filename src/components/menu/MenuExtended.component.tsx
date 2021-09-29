@@ -16,7 +16,7 @@ const MenuExtended: React.FC = ({ children }) => {
       p={3}
       position="fixed"
       width="100%"
-      maxWidth={matchesXSmall ? "none" : "660px"}
+      maxWidth={matchesXSmall ? "none" : theme.sizes.menuExtendedWidth}
       minHeight="650px"
       top="0"
       left={matchesXSmall ? "0" : theme.sizes.menuWidth + "px"}

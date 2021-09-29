@@ -3,10 +3,12 @@ import React from "react";
 import { ResponsiveContainer, Pie, PieChart, Cell } from "recharts";
 import { useFlow } from "../../../context/FlowContext";
 import { getSymbol } from "../../../utils/getSymbol";
+import LoadingIndicator from "../../global/LoadingIndicator.component";
 
 const PieComp: React.FC = () => {
   const theme = useTheme();
-  const { userMonthlyTotalExpenses, userMonthlyTotalIncomes } = useFlow();
+  const { userMonthlyTotalExpenses, userMonthlyTotalIncomes, isLoading } =
+    useFlow();
   const DATA = [
     {
       name: "Expenses",
@@ -17,6 +19,7 @@ const PieComp: React.FC = () => {
       value: userMonthlyTotalIncomes,
     },
   ];
+  if (isLoading) return <LoadingIndicator />;
   return (
     <Box
       height="100%"
@@ -25,7 +28,7 @@ const PieComp: React.FC = () => {
       justifyContent="center"
       alignItems="center"
     >
-      <ResponsiveContainer width={600} height="100%">
+      <ResponsiveContainer width={600} height={window.innerHeight - 5}>
         <PieChart width={730} height={250}>
           <Pie
             data={DATA}

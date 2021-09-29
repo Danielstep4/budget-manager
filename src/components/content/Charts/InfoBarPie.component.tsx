@@ -4,23 +4,25 @@ import { ResponsiveContainer, Pie, PieChart, Cell } from "recharts";
 import { useFlow } from "../../../context/FlowContext";
 import { getSymbol } from "../../../utils/getSymbol";
 
-const InfoBarPie: React.FC = () => {
+const InfoBarPie: React.FC<InfoBarPieProps> = ({ isExpense, amount }) => {
   const theme = useTheme();
-  // eslint-disable-next-line
   const { userMonthlyTotalExpenses, userMonthlyTotalIncomes } = useFlow();
   const DATA = [
     {
-      name: "Total Monthly Expenses",
-      value: userMonthlyTotalExpenses,
+      name: `Total Monthly ${isExpense ? "Expenses" : "Income"}`,
+      value: isExpense ? userMonthlyTotalExpenses : userMonthlyTotalIncomes,
     },
     {
-      name: "Current Expense",
-      value: 10,
+      name: `Current ${isExpense ? "Expenses" : "Income"}`,
+      value: amount,
     },
   ];
   return (
-    <Box height="100%" position="absolute" left="0" right="0" mx="auto">
-      <ResponsiveContainer width={700} height="80%">
+    <Box>
+      <ResponsiveContainer
+        width={theme.sizes.menuExtendedWidth - 200}
+        height={250}
+      >
         <PieChart width={400} height={250}>
           <Pie
             data={DATA}
@@ -37,9 +39,9 @@ const InfoBarPie: React.FC = () => {
               <Cell
                 key={`cell-${i}`}
                 fill={
-                  obj.name === "Incomes"
-                    ? theme.palette.success.main
-                    : theme.palette.error.main
+                  isExpense
+                    ? theme.palette.error.main
+                    : theme.palette.success.main
                 }
               />
             ))}
@@ -51,3 +53,8 @@ const InfoBarPie: React.FC = () => {
 };
 
 export default InfoBarPie;
+
+interface InfoBarPieProps {
+  isExpense?: boolean;
+  amount: number;
+}

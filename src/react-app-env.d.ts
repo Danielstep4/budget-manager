@@ -6,11 +6,13 @@ declare module "@material-ui/core/styles" {
   interface ThemeOptions {
     sizes: {
       menuWidth: number;
+      menuExtendedWidth: number;
     };
   }
   interface Theme {
     sizes: {
       menuWidth: number;
+      menuExtendedWidth: number;
     };
   }
 }

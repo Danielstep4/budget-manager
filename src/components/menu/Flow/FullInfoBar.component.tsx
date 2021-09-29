@@ -85,9 +85,8 @@ const FullInfoBar: React.FC<FullInfoBarProps> = ({
                 </Typography>
               </Box>
             ))}
-            {/* TODO: Add Graphs & Charts */}
           </Box>
-          <InfoBarPie />
+          <InfoBarPie isExpense={isExpense} amount={amount} />
         </Box>
       )}
     </Box>
