@@ -9,16 +9,7 @@ import {
   removeFlow,
   updateFlow,
 } from "../utils/db/flow";
-import { getCurrentMonth, getCurrentYear } from "../utils/getDates";
 import { useAuth } from "./AuthContext";
-
-// Currently unused
-/* eslint-disable */
-const CURRENT_DATE = {
-  month: getCurrentMonth(),
-  year: getCurrentYear(),
-};
-/* eslint-enable */
 
 const FlowContext = createContext<FlowContextValue | {}>({});
 
@@ -31,6 +22,7 @@ const FlowProvider: React.FC = ({ children }) => {
   const { currentUser } = useAuth();
   // State
   const [isUpdated, setIsUpdated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [currency, setCurrency] = useState<string>("ILS");
   const [monthlyIncomesData, setMonthlyIncomesData] = useState<
     FlowDocument[] | undefined
@@ -62,11 +54,12 @@ const FlowProvider: React.FC = ({ children }) => {
         setMonthlyExpensesData(monthlyFlow.expenses);
         setCurrency(monthlyFlow.currency);
       }
-      const totalMonthlyFlow = await getTotalMonthlyFlow(currentUser!.uid);
+      const totalMonthlyFlow = await getTotalMonthlyFlow(currentUser.uid);
       if (totalMonthlyFlow) {
         setUserMonthlyTotalExpenses(totalMonthlyFlow.totalExpenses);
         setUserMonthlyTotalIncomes(totalMonthlyFlow.totalIncomes);
       }
+      setIsLoading(false);
     } catch (e) {
       console.log(e);
     }
@@ -74,6 +67,7 @@ const FlowProvider: React.FC = ({ children }) => {
   const handleFlowUpdated = () => setIsUpdated(true);
   // Value
   const value: FlowContextValue = {
+    isLoading,
     currency,
     monthlyExpensesData,
     monthlyIncomesData,
@@ -91,6 +85,7 @@ const FlowProvider: React.FC = ({ children }) => {
 export default FlowProvider;
 
 export interface FlowContextValue {
+  isLoading: boolean;
   currency: string;
   monthlyExpensesData: FlowDocument[] | undefined;
   monthlyIncomesData: FlowDocument[] | undefined;

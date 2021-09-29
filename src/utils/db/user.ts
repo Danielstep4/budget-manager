@@ -83,6 +83,9 @@ export const updateUserCategories = async (uid: string, category: string) => {
     console.log(e);
   }
 };
+export const clearUserInfoLocalStorage = () => {
+  localStorage.removeItem("userInfo");
+};
 
 interface UserSchema {
   currency: "ILS";

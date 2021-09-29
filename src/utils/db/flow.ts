@@ -149,6 +149,10 @@ export const getTotalMonthlyFlow = async (uid: string) => {
     };
   }
 };
+
+export const clearFlowLocalStorage = () => {
+  localStorage.removeItem("flow");
+};
 export interface FlowSchema {
   title: string;
   date: Date;

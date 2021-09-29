@@ -4,19 +4,17 @@
 
 ### #TODOs:
 
-1. FullInfoBar Component:
+1. Fix Caching
+
+2. FullInfoBar Component:
 
 - Fix Chart.
-
-2. Global:
-
-- Replace all loading text with loading indicator.
 
 3. HowItWorks Component:
 
 - Add Text.
 
-5. MoneyFlow Component:
+4. MoneyFlow Component:
 
 - Fix Chart
 

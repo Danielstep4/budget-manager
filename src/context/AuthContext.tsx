@@ -3,7 +3,8 @@ import { createContext } from "react";
 import firebase from "firebase";
 import { auth } from "../firebase";
 import { useEffect } from "react";
-import { setUserInfo } from "../utils/db/user";
+import { clearUserInfoLocalStorage, setUserInfo } from "../utils/db/user";
+import { clearFlowLocalStorage } from "../utils/db/flow";
 
 const AuthContext = createContext<AuthContextValue | {}>({});
 
@@ -48,6 +49,8 @@ const AuthProvider: React.FC = ({ children }) => {
   };
 
   const signOut = async () => {
+    clearFlowLocalStorage();
+    clearUserInfoLocalStorage();
     await auth.signOut();
     window.location.reload();
   };

@@ -6,11 +6,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@material-ui/core";
-import {
-  AccountBalance,
-  BorderLeft,
-  Settings as SettingsIcon,
-} from "@material-ui/icons";
+import { AccountBalance, Settings as SettingsIcon } from "@material-ui/icons";
 import Settings from "./Settings/Settings.component";
 import { useState, useEffect } from "react";
 import { useBackdrop } from "../../context/BackdropContext";
