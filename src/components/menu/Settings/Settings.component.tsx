@@ -4,6 +4,7 @@ import { useAuth, UserPersonalInfo } from "../../../context/AuthContext";
 import { useBackdrop } from "../../../context/BackdropContext";
 import { getUserInfo, UserDocument } from "../../../utils/db/user";
 import Button from "../../global/Button.component";
+import LoadingIndicator from "../../global/LoadingIndicator.component";
 import ChangePassword from "./ChangePassword.component";
 import SettingsInfo from "./SettingsInfo.component";
 
@@ -48,7 +49,7 @@ const Settings: React.FC = () => {
           General
         </Typography>
         <Box
-          display="grid"
+          display={user ? "grid" : "block"}
           gridTemplateColumns="1fr 2fr"
           alignItems="center"
           p={1}
@@ -73,7 +74,7 @@ const Settings: React.FC = () => {
               />
             </>
           ) : (
-            "Loading..."
+            <LoadingIndicator />
           )}
         </Box>
       </Box>
@@ -82,25 +83,27 @@ const Settings: React.FC = () => {
           Personal Info
         </Typography>
         <Box
-          display="grid"
+          display={userPersonalInfo ? "grid" : "block"}
           gridTemplateColumns="1fr 2fr"
           alignItems="center"
           p={1}
         >
-          {userPersonalInfo
-            ? Object.keys(userPersonalInfo).map((key) => (
-                <SettingsInfo
-                  key={key}
-                  title={key.toLowerCase()}
-                  /// @ts-ignore
-                  content={userPersonalInfo[key]}
-                  query={key}
-                  inputType={key === "email" ? key : undefined}
-                  setIsUpdated={setIsUpdated}
-                  isUpdated={isUpdated}
-                />
-              ))
-            : "Loading..."}
+          {userPersonalInfo ? (
+            Object.keys(userPersonalInfo).map((key) => (
+              <SettingsInfo
+                key={key}
+                title={key.toLowerCase()}
+                /// @ts-ignore
+                content={userPersonalInfo[key]}
+                query={key}
+                inputType={key === "email" ? key : undefined}
+                setIsUpdated={setIsUpdated}
+                isUpdated={isUpdated}
+              />
+            ))
+          ) : (
+            <LoadingIndicator />
+          )}
         </Box>
       </Box>
       <Box p={1}>

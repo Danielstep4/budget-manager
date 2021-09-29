@@ -2,8 +2,6 @@
 
 ## IMPORTANT TODO: Check and Fix Caching. (Firebase functions to cache | Redis Service caching)
 
-## TODO: Add Responsivness to aplha version (Replace Box with Grid if needed or useStyles breakpoints.) !!!
-
 ### #TODOs:
 
 1. FullInfoBar Component:
